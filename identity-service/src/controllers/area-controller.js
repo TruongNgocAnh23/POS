@@ -1,12 +1,13 @@
-const Company = require("../models/Company");
+const Company = require("../models/Area");
 const logger = require("../utils/logger");
-const { validateCompany } = require("../utils/validation");
+const { validateArea } = require("../utils/validation");
 const redisClient = require("../utils/redisClient");
+const Area = require("../models/Area");
 
-//create new company
-const createCompany = async (req, res) => {
+//create new area
+const createArea = async (req, res) => {
   try {
-    const { error } = validateCompany(req.body);
+    const { error } = validateArea(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({
@@ -15,25 +16,18 @@ const createCompany = async (req, res) => {
       });
     }
 
-    const { name, code, phone, hotline, address, tax, fax, note } = req.body;
+    const { name, code, note } = req.body;
 
-    const company = new Company({
+    const area = new Area({
       name,
       code,
-      phone,
-      hotline,
-      address,
-      tax,
-      fax,
       note,
     });
-
-    await company.save();
-
-    logger.info("Company saved successfully ", company._id);
+    await area.save();
+    logger.info("Area saved successfully ", company._id);
     return res.status(201).json({
       success: true,
-      message: "Company created successfully",
+      message: "Area created successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -44,27 +38,29 @@ const createCompany = async (req, res) => {
   }
 };
 
-//edit company
-const editCompany = async (req, res) => {
+//edit area
+const editArea = async (req, res) => {
   try {
-    const companyId = req.params.company_id;
-    const company = await Company.findById(companyId);
-    if (!company) {
-      logger.info("Company not found", companyId);
-      return res.status(404).json({ message: "Company not found" });
+    const area_id = req.params.area_id;
+    const area = await Area.findById(area_id);
+    if (!area) {
+      logger.info("Area not found", area_id);
+      return res.status(404).json({ message: "Area not found" });
     }
-    Object.assign(company, req.body);
-    await company.save();
+    Object.assign(area, req.body);
+    await area.save();
 
-    const redisKey = `company:${companyId}`;
+    const redisKey = `are:${area_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(company));
+    const redisListArea = "area:all";
+    const deleteRedisListArea = await redisClient.del(redisListArea);
+    await redisClient.set(redisKey, JSON.stringify(area));
     await redisClient.expire(redisKey, 3600); // TTL 1 giờ
-    logger.info("Company edited successfully", company._id);
 
+    logger.info("Area edited successfully", company._id);
     return res.json({
       success: true,
-      message: "Company edited successfully",
+      message: "Area edited successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);

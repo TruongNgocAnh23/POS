@@ -2,6 +2,7 @@ const { date } = require("joi");
 const Branch = require("../models/Branch");
 const logger = require("../utils/logger");
 const { validateBranch } = require("../utils/validation");
+const redisClient = require("../utils/redisClient");
 
 //create new branch
 const createBranch = async (req, res) => {
@@ -31,8 +32,14 @@ const createBranch = async (req, res) => {
     });
 
     await branch.save();
+    const redisListBranch = "branch:all";
+    const deleteRedisListBranch = await redisClient.del(redisListBranch);
+    const redisKey = `branch:${branch._id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    await redisClient.set(redisKey, JSON.stringify(branch));
+    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
 
-    logger.info("Branch saved successfully", company._id);
+    logger.info("Branch saved successfully", branch._id);
     return res.status(201).json({
       success: true,
       message: "Branch created successfully",
@@ -52,11 +59,18 @@ const editBranch = async (req, res) => {
     const branch_id = req.params.branch_id;
     const branch = await Branch.findById(branch_id);
     if (!branch) {
-      logger.info("Branch not found", branch._id);
+      logger.info("Branch not found", branch_id);
       return res.status(404).json({ message: "Branch not found" });
     }
     Object.assign(branch, req.body);
     await branch.save();
+    //delete old branch in redis
+    const redisKey = `branch:${branch_id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    //add new branch in redis
+    await redisClient.set(redisKey, JSON.stringify(branch));
+    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
+
     logger.info("Branch edited successfully ", branch._id);
     return res.json({
       success: true,
@@ -96,14 +110,27 @@ const deleteBranch = async (req, res) => {
 //get all
 const getAllBranch = async (req, res) => {
   try {
+    const redisKey = "branch:all";
+    const cachedData = await redisClient.get(redisKey);
+    if (cachedData) {
+      const parsed = JSON.parse(cachedData);
+      return res.status(200).json({
+        success: true,
+        data: parsed,
+        source: "cache",
+      });
+    }
     const branch = await Branch.find({}, "_id name code ").populate(
       "company",
       "name code"
     );
     if (branch.length > 0) {
+      await redisClient.set(redisKey, JSON.stringify(branch));
+      await redisClient.expire(redisKey, 3600); // TTL 1 giờ
       return res.status(200).json({
         success: true,
         data: branch,
+        source: "db",
       });
     }
   } catch (err) {
@@ -118,6 +145,16 @@ const getAllBranch = async (req, res) => {
 const getBranchById = async (req, res) => {
   try {
     const branch_id = req.params.branch_id;
+    const redisKey = `branch:${branch_id}`;
+    const cachedData = await redisClient.get(redisKey);
+    if (cachedData) {
+      const parsed = JSON.parse(cachedData);
+      return res.status(200).json({
+        success: true,
+        data: parsed,
+        source: "cache",
+      });
+    }
     const branch = await Branch.findById({ _id: branch_id }).populate(
       "company",
       "name code"
@@ -128,9 +165,12 @@ const getBranchById = async (req, res) => {
         message: "Branch not found",
       });
     }
+    await redisClient.set(redisKey, JSON.stringify(branch));
+    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
     return res.status(200).json({
       success: true,
       date: branch,
+      source: "db",
     });
   } catch (err) {
     logger.error("Error occured", err);
