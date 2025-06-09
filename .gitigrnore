@@ -1,0 +1,91 @@
+# Thư mục hệ điều hành
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# Visual Studio / C#
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.psess
+*.vsp
+*.pdb
+*.cache
+*.dll
+*.exe
+*.log
+*.obj
+*.tmp
+*.vs/
+*.csproj.user
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+
+# Build directories
+build/
+dist/
+out/
+tmp/
+temp/
+
+# Git
+*.orig
+*.rej
+*.patch
+*.bak
+*.swp
+*.swo
+*.tmp
+*.log
+
+# Compressed files
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# Thư mục môi trường ảo
+env/
+venv/
+
+# Tệp cấu hình riêng tư
+.env
+.env.local
+.env.*.local
+credentials.json
+secrets.json
+config.js
+
+# IDEs
+.idea/
+*.code-workspace
+
+# Mac/Linux
+*.DS_Store
+.cache/
