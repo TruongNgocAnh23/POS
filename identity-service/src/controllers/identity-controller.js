@@ -209,11 +209,33 @@ const getUserProfile = async (req, res) => {
     });
   }
 };
-
+//get all user
+const getAllUser = async (req, res) => {
+  logger.info("Get all user endpoint hit...");
+  try {
+    const listUser = await User.find({})
+      .populate("role.company", "_id name code")
+      .populate("role.branch", "_id name code")
+      .populate("role.department", "_id name code");
+    return res.status(200).json({
+      success: true,
+      data: listUser,
+    });
+  } catch (err) {
+    logger.error("Error occurred while getting user profile", {
+      error: err.message,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 module.exports = {
   registerUser,
   loginUser,
   // refreshTokenUser,
   logoutUser,
   getUserProfile,
+  getAllUser,
 };

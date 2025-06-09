@@ -101,6 +101,10 @@ const companyGetAll = async (req, res) => {
         data: company,
       });
     }
+    return res.status(200).json({
+      success: true,
+      message: "[]",
+    });
   } catch (err) {
     logger.error("Error occured", err);
     return res.status(500).json({
@@ -113,17 +117,20 @@ const companyGetAll = async (req, res) => {
 const companyGetById = async (req, res) => {
   try {
     const company_id = req.params.company_id;
-    const company = await Company.find({ company_id }, "_id name code ");
+    const company = await Company.findById(
+      { _id: company_id },
+      "_id name code "
+    );
 
-    if (company.length > 0) {
-      return res.status(200).json({
-        success: true,
-        data: company,
+    if (!company) {
+      return res.json({
+        success: false,
+        message: "Company not found",
       });
     }
-    return res.json({
+    return res.status(200).json({
       success: true,
-      d: "Branch deleted successfully",
+      data: company,
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -137,4 +144,6 @@ module.exports = {
   createCompany,
   editCompany,
   deleteCompany,
+  companyGetAll,
+  companyGetById,
 };

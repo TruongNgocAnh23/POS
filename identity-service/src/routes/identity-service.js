@@ -8,6 +8,7 @@ const {
   // refreshTokenUser,
   logoutUser,
   getUserProfile,
+  getAllUser,
 } = require("../controllers/identity-controller");
 
 router.post("/register", registerUser);
@@ -15,4 +16,5 @@ router.post("/login", loginUser);
 // router.post("/refreshtoken", refreshTokenUser);
 router.post("/logout", checkAuth, logoutUser);
 router.get("/profile/:user_id", checkAuth, getUserProfile);
+router.get("/users", checkAuth, getAllUser);
 module.exports = router;

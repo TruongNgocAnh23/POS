@@ -87,9 +87,62 @@ const deleteDepartment = async (req, res) => {
     });
   }
 };
+//get all
+const departmentGetAll = async (req, res) => {
+  try {
+    const department = await Department.find({}, "_id name code ").populate(
+      "branch",
+      "_id name code"
+    );
+    if (department.length > 0) {
+      return res.status(200).json({
+        success: true,
+        data: department,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "[]",
+    });
+  } catch (err) {
+    logger.error("Error occured", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+//get by id
+const departmentGetById = async (req, res) => {
+  try {
+    const department_id = req.params.department_id;
+    const department = await Department.findById(
+      { _id: department_id },
+      "_id name code "
+    ).populate("branch", "_id name code");
 
+    if (!department) {
+      return res.json({
+        success: false,
+        message: "Department not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      data: department,
+    });
+  } catch (err) {
+    logger.error("Error occured", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 module.exports = {
   createDepartment,
   editDepartment,
   deleteDepartment,
+  departmentGetAll,
+  departmentGetById,
 };

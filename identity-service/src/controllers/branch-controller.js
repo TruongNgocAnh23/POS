@@ -1,3 +1,4 @@
+const { date } = require("joi");
 const Branch = require("../models/Branch");
 const logger = require("../utils/logger");
 const { validateBranch } = require("../utils/validation");
@@ -117,16 +118,20 @@ const getAllBranch = async (req, res) => {
 const getBranchById = async (req, res) => {
   try {
     const branch_id = req.params.branch_id;
-    const branch = await Branch.findById(
-      { branch_id },
-      "_id name code "
-    ).populate("company", "name code");
-    if (branch.length > 0) {
-      return res.status(200).json({
-        success: true,
-        data: branch,
+    const branch = await Branch.findById({ _id: branch_id }).populate(
+      "company",
+      "name code"
+    );
+    if (!branch) {
+      return res.status(404).json({
+        success: false,
+        message: "Branch not found",
       });
     }
+    return res.status(200).json({
+      success: true,
+      date: branch,
+    });
   } catch (err) {
     logger.error("Error occured", err);
     return res.status(500).json({
