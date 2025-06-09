@@ -63,7 +63,7 @@ const editDepartment = async (req, res) => {
     });
   }
 };
-//delete company
+//delete department
 const deleteDepartment = async (req, res) => {
   try {
     const department_id = req.params.department_id;

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const argon2 = require("argon2");
+const Department = require("./Department");
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,6 +22,25 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    role: [
+      {
+        company: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Company",
+          required: true,
+        },
+        branch: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Branch",
+          required: true,
+        },
+        department: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Department",
+          required: true,
+        },
+      },
+    ],
     created_date: {
       type: Date,
       default: Date.now,
@@ -54,5 +74,4 @@ userSchema.methods.comparePassword = async function (candidataPassword) {
 
 userSchema.index({ user_name: "text" });
 const User = mongoose.model("User", userSchema);
-
 module.exports = User;

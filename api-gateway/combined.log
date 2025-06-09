@@ -276,3 +276,164 @@
 {"level":"info","message":"Request: DELETE /api/v1/branch/6842bc34b5dfb23d7a01e0bb","service":"api-gateway","timestamp":"2025-06-06T10:23:33.568Z"}
 {"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-06T10:23:33.568Z"}
 {"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-06T10:23:33.783Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-09T02:54:37.127Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-09T02:54:37.129Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-09T02:54:37.129Z"}
+{"level":"info","message":"Request: POST /api/v1/department","service":"api-gateway","timestamp":"2025-06-09T02:57:26.194Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin\"}","service":"api-gateway","timestamp":"2025-06-09T02:57:26.195Z"}
+{"level":"info","message":"Response from identity-service: 401","service":"api-gateway","timestamp":"2025-06-09T02:57:26.214Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-09T02:57:33.828Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-09T02:57:33.828Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T02:57:34.279Z"}
+{"level":"info","message":"Request: POST /api/v1/department","service":"api-gateway","timestamp":"2025-06-09T02:58:08.034Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin\"}","service":"api-gateway","timestamp":"2025-06-09T02:58:08.035Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T02:58:08.041Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T03:00:10.442Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 1\"}","service":"api-gateway","timestamp":"2025-06-09T03:00:10.443Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T03:00:10.447Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T03:00:29.951Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 1\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T03:00:29.951Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T03:00:30.159Z"}
+{"level":"info","message":"Request: POST /api/v1/department","service":"api-gateway","timestamp":"2025-06-09T03:00:58.469Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin\",\"branch\":\"68464e4d8f8a5f0319021007\"}","service":"api-gateway","timestamp":"2025-06-09T03:00:58.469Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T03:00:58.666Z"}
+{"level":"error","message":"SyntaxError: Expected double-quoted property name in JSON at position 41 (line 3 column 1)\n    at JSON.parse (<anonymous>)\n    at parse (D:\\HMC5768_POS\\api-gateway\\node_modules\\body-parser\\lib\\types\\json.js:77:19)\n    at D:\\HMC5768_POS\\api-gateway\\node_modules\\body-parser\\lib\\read.js:123:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:214:14)\n    at invokeCallback (D:\\HMC5768_POS\\api-gateway\\node_modules\\raw-body\\index.js:238:16)\n    at done (D:\\HMC5768_POS\\api-gateway\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (D:\\HMC5768_POS\\api-gateway\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)","service":"api-gateway","timestamp":"2025-06-09T03:02:10.316Z"}
+{"level":"info","message":"Request: PATCH /api/v1/department/68464e6a8f8a5f0319021009","service":"api-gateway","timestamp":"2025-06-09T03:02:16.226Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin đã edit\"}","service":"api-gateway","timestamp":"2025-06-09T03:02:16.227Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-09T03:02:16.619Z"}
+{"level":"info","message":"Request: POST /api/v1/department","service":"api-gateway","timestamp":"2025-06-09T03:02:34.825Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin\",\"branch\":\"68464e4d8f8a5f0319021007\"}","service":"api-gateway","timestamp":"2025-06-09T03:02:34.826Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T03:02:35.028Z"}
+{"level":"info","message":"Request: DELETE /api/v1/department/68464e6a8f8a5f0319021009","service":"api-gateway","timestamp":"2025-06-09T03:03:43.508Z"}
+{"level":"info","message":"Body: {\"name\":\"bộ phận admin đã edit\"}","service":"api-gateway","timestamp":"2025-06-09T03:03:43.508Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-09T03:03:43.707Z"}
+{"level":"info","message":"Request: GET /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T03:57:34.552Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T03:57:34.552Z"}
+{"level":"info","message":"Response from identity-service: 401","service":"api-gateway","timestamp":"2025-06-09T03:57:34.568Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-09T03:57:39.405Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-09T03:57:39.405Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T03:57:39.855Z"}
+{"level":"info","message":"Request: GET /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T03:57:59.656Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T03:57:59.656Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T03:57:59.858Z"}
+{"level":"info","message":"Request: GET /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T03:59:27.688Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T03:59:27.689Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-09T03:59:28.088Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:02:54.960Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 2\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:02:54.961Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:02:55.189Z"}
+{"level":"info","message":"Request: GET /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:03:02.003Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T04:03:02.004Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-09T04:03:02.408Z"}
+{"level":"info","message":"Request: GET /api/v1/branch/68464e4d8f8a5f0319021007","service":"api-gateway","timestamp":"2025-06-09T04:03:47.479Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T04:03:47.479Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-09T04:03:47.678Z"}
+{"level":"info","message":"Request: GET /api/v1/branch/68464e4d8f8a5f0319021007","service":"api-gateway","timestamp":"2025-06-09T04:04:01.567Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-09T04:04:01.567Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-09T04:04:01.765Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:13:06.254Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\"}","service":"api-gateway","timestamp":"2025-06-09T04:13:06.254Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T04:13:06.274Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:15:15.062Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:15:15.062Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T04:15:15.066Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:16:37.067Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:16:37.067Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:16:37.506Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:17:23.453Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:17:23.453Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:17:23.873Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:19:03.431Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:19:03.431Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:19:03.875Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:20:43.330Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:20:43.330Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T04:20:43.335Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:20:51.959Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:20:51.959Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:20:52.380Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:22:30.630Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:22:30.630Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:22:31.073Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:24:04.776Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:24:04.776Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:24:05.229Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:25:21.645Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:25:21.645Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:25:22.101Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:25:26.840Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:25:26.840Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T04:25:27.036Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:25:34.658Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien03\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:25:34.659Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:25:35.095Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:32:09.892Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien03\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:32:09.892Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:32:10.355Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:32:38.284Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien03\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:32:38.284Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:32:38.713Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:32:40.748Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien03\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:32:40.748Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-09T04:32:40.945Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:32:47.906Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:32:47.906Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:32:48.326Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:34:39.566Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:34:39.567Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:34:40.258Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:36:11.886Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:36:11.886Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:36:12.321Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:36:58.676Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:36:58.676Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:36:59.099Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:39:26.293Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:39:26.293Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-09T04:39:26.743Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:44:49.007Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien01\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:44:49.007Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:44:49.482Z"}
+{"level":"info","message":"Request: POST /api/v1/register","service":"api-gateway","timestamp":"2025-06-09T04:44:56.682Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\",\"first_name\":\"Văn Tuấn\",\"last_name\":\"Nguyễn\",\"role\":[{\"company\":\"6842afb712d1c72596a444e4\",\"branch\":\"68464e4d8f8a5f0319021007\",\"department\":\"68464eca8f8a5f031902100d\"}]}","service":"api-gateway","timestamp":"2025-06-09T04:44:56.682Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:44:57.113Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-09T04:45:23.760Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-09T04:45:23.760Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:45:24.194Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T04:45:46.380Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty C\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T04:45:46.380Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:45:46.584Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T04:45:51.713Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty C\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T04:45:51.713Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:45:51.915Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T04:46:58.485Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty C\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T04:46:58.486Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:46:58.692Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:51:37.440Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 2\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:51:37.440Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:51:37.642Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:51:39.449Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 2\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:51:39.449Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:51:39.651Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:54:13.091Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 2\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:54:13.091Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:54:13.314Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:54:26.417Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 2\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:54:26.417Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:54:26.622Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-09T04:57:00.688Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 1\",\"company\":\"6842afb712d1c72596a444e4\"}","service":"api-gateway","timestamp":"2025-06-09T04:57:00.688Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:57:00.913Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T04:58:01.322Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty A\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T04:58:01.323Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:58:01.542Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T04:58:02.993Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty A\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T04:58:02.993Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-09T04:58:03.196Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T05:23:13.530Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty A\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T05:23:13.530Z"}
+{"level":"info","message":"Request: POST /api/v1/company/","service":"api-gateway","timestamp":"2025-06-09T05:23:28.771Z"}
+{"level":"info","message":"Body: {\"name\":\"Công ty A\",\"phone\":\"0900111111\"}","service":"api-gateway","timestamp":"2025-06-09T05:23:28.772Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-09T05:23:43.517Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-09T05:23:43.519Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-09T05:23:43.519Z"}

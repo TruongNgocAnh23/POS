@@ -20,7 +20,7 @@ const registerUser = async (req, res) => {
         message: error.details[0].message,
       });
     }
-    const { user_name, password, first_name, last_name } = req.body;
+    const { user_name, password, first_name, last_name, role } = req.body;
     let user = await User.findOne({ user_name });
     if (user) {
       logger.warn("User already exists");
@@ -29,7 +29,7 @@ const registerUser = async (req, res) => {
         message: "User already exists",
       });
     }
-    user = new User({ user_name, password });
+    user = new User({ user_name, password, first_name, last_name, role });
     await user.save();
     logger.info("User saved successfully", user._id);
     return res.status(201).json({
@@ -58,7 +58,10 @@ const loginUser = async (req, res) => {
       });
     }
     const { user_name, password } = req.body;
-    let user = await User.findOne({ user_name });
+    let user = await User.findOne({ user_name })
+      .populate("role.company", "_id name code")
+      .populate("role.branch", "_id name code")
+      .populate("role.department", "_id name code");
     if (!user) {
       logger.warn("Invalid user");
       return res.status(400).json({
@@ -80,6 +83,7 @@ const loginUser = async (req, res) => {
       accesstoken: accessToken,
       refreshtoken: refreshToken,
       user_id: user._id,
+      role: user.role,
     });
   } catch (err) {
     logger.error("Login error occured", err);

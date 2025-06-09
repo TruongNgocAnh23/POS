@@ -91,7 +91,48 @@ const deleteCompany = async (req, res) => {
     });
   }
 };
+//get all
+const companyGetAll = async (req, res) => {
+  try {
+    const company = await Company.find({}, "_id name code ");
+    if (company.length > 0) {
+      return res.status(200).json({
+        success: true,
+        data: company,
+      });
+    }
+  } catch (err) {
+    logger.error("Error occured", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+//get by id
+const companyGetById = async (req, res) => {
+  try {
+    const company_id = req.params.company_id;
+    const company = await Company.find({ company_id }, "_id name code ");
 
+    if (company.length > 0) {
+      return res.status(200).json({
+        success: true,
+        data: company,
+      });
+    }
+    return res.json({
+      success: true,
+      d: "Branch deleted successfully",
+    });
+  } catch (err) {
+    logger.error("Error occured", err);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 module.exports = {
   createCompany,
   editCompany,
