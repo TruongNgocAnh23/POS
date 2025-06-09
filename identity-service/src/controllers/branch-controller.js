@@ -1,11 +1,11 @@
 const Branch = require("../models/Branch");
 const logger = require("../utils/logger");
-const { validateCreateBranch } = require("../utils/validation");
+const { validateBranch } = require("../utils/validation");
 
 //create new branch
 const createBranch = async (req, res) => {
   try {
-    const { error } = validateCreateBranch(req.body);
+    const { error } = validateBranch(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({

@@ -26,7 +26,7 @@ const validateLogout = (data) => {
   return schema.validate(data);
 };
 //company
-const validateCreateCompany = (data) => {
+const validateCompany = (data) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     phone: Joi.string().optional(),
@@ -40,7 +40,7 @@ const validateCreateCompany = (data) => {
   return schema.validate(data);
 };
 //branch
-const validateCreateBranch = (data) => {
+const validateBranch = (data) => {
   const schema = Joi.object({
     name: Joi.string().required(),
     company: Joi.string().required(),
@@ -54,11 +54,22 @@ const validateCreateBranch = (data) => {
   });
   return schema.validate(data);
 };
+//department
+const validateDepartment = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    branch: Joi.string().required(),
+    note: Joi.string().optional(),
+    code: Joi.string().optional(),
+  });
+  return schema.validate(data);
+};
 
 module.exports = {
   validateRegistration,
   validateLogin,
   validateLogout,
-  validateCreateCompany,
-  validateCreateBranch,
+  validateCompany,
+  validateBranch,
+  validateDepartment,
 };

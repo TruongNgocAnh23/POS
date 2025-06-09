@@ -12,6 +12,7 @@ const errorHandler = require("./middleware/errorHandler");
 const IdentityRoutes = require("./routes/identity-service");
 const CompanyRoutes = require("./routes/company-service");
 const BranchRoutes = require("./routes/branch-service");
+const DepartmentRoutes = require("./routes/department-service");
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -79,7 +80,7 @@ app.use("/api/auth/login", sensitiveEndpointsLimiter);
 app.use("/api/auth", IdentityRoutes);
 app.use("/api/auth", CompanyRoutes);
 app.use("/api/auth", BranchRoutes);
-
+app.use("/api/auth", DepartmentRoutes);
 //error handler
 app.use(errorHandler);
 

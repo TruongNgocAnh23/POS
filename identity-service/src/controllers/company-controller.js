@@ -1,11 +1,11 @@
 const Company = require("../models/Company");
 const logger = require("../utils/logger");
-const { validateCreateCompany } = require("../utils/validation");
+const { validateCompany } = require("../utils/validation");
 
 //create new company
 const createCompany = async (req, res) => {
   try {
-    const { error } = validateCreateCompany(req.body);
+    const { error } = validateCompany(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({
