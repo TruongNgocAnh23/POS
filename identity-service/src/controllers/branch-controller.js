@@ -117,20 +117,16 @@ const getAllBranch = async (req, res) => {
 const getBranchById = async (req, res) => {
   try {
     const branch_id = req.params.branch_id;
-    const branch = await Branch.find({ branch_id }, "_id name code ").populate(
-      "company",
-      "name code"
-    );
+    const branch = await Branch.findById(
+      { branch_id },
+      "_id name code "
+    ).populate("company", "name code");
     if (branch.length > 0) {
       return res.status(200).json({
         success: true,
         data: branch,
       });
     }
-    return res.json({
-      success: true,
-      d: "Branch deleted successfully",
-    });
   } catch (err) {
     logger.error("Error occured", err);
     return res.status(500).json({

@@ -170,10 +170,50 @@ const logoutUser = async (req, res) => {
     });
   }
 };
+//get profile
+const getUserProfile = async (req, res) => {
+  logger.info("Get profile endpoint hit...");
+  try {
+    const user_id = req.params.user_id;
+    if (!user_id) {
+      logger.warn("Missing user_id in request parameters");
+      return res.status(400).json({
+        success: false,
+        message: "user_id is required",
+      });
+    }
+    const userProfile = await User.findById({ _id: user_id })
+      .populate("role.company", "_id name code")
+      .populate("role.branch", "_id name code")
+      .populate("role.department", "_id name code");
+
+    if (!userProfile) {
+      logger.warn(`Invalid user with user_id: ${user_id}`);
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: userProfile,
+    });
+  } catch (err) {
+    logger.error("Error occurred while getting user profile", {
+      error: err.message,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 module.exports = {
   registerUser,
   loginUser,
   // refreshTokenUser,
   logoutUser,
+  getUserProfile,
 };
