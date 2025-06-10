@@ -28,7 +28,7 @@ const createCategory = async (req, res) => {
       code,
       name,
       notes,
-      created_by: "test",
+      created_by: req.userData.username,
     });
 
     await newCategory.save();
