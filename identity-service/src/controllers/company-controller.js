@@ -34,8 +34,6 @@ const createCompany = async (req, res) => {
     const deleteRedisListCompany = await redisClient.del(redisListCompany);
     const redisKey = `company:${company._id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(company));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     logger.info("Company saved successfully ", company._id);
     return res.status(201).json({
       success: true,
@@ -62,12 +60,10 @@ const editCompany = async (req, res) => {
     Object.assign(company, req.body);
     await company.save();
 
-    const redisKey = `company:${companyId}`;
-    const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(company));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     const redisListCompany = "company:all";
     const deleteRedisListCompany = await redisClient.del(redisListCompany);
+    const redisCompany = `company:${companyId}`;
+    const deleteRedis = await redisClient.del(redisCompany);
     logger.info("Company edited successfully", companyId);
     return res.json({
       success: true,

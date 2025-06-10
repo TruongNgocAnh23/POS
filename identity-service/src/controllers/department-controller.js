@@ -29,8 +29,6 @@ const createDepartment = async (req, res) => {
     const deleteRedisListCompany = await redisClient.del(redisListDepartment);
     const redisKey = `department:${department._id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(department));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     logger.info("Department saved successfully ", department._id);
     return res.status(201).json({
       success: true,
@@ -61,9 +59,6 @@ const editDepartment = async (req, res) => {
     const deleteRedisListCompany = await redisClient.del(redisListDepartment);
     const redisKey = `department:${department_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(department));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
-
     logger.info("Department edited successfully", department_id);
     return res.json({
       success: true,
@@ -81,6 +76,7 @@ const editDepartment = async (req, res) => {
 const deleteDepartment = async (req, res) => {
   try {
     const department_id = req.params.department_id;
+
     const deletedDepartment = await Department.findByIdAndDelete(department_id);
     if (!deletedDepartment) {
       return res.status(404).json({
@@ -88,6 +84,12 @@ const deleteDepartment = async (req, res) => {
         message: "Department not found",
       });
     }
+    const redisKey = `department:${department_id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    const redisListDepartment = "department:all";
+    const deleteRedisListDepartment = await redisClient.del(
+      redisListDepartment
+    );
     logger.info("Department deleted successfully", department_id);
     return res.json({
       success: true,

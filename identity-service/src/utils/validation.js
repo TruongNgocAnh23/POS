@@ -92,6 +92,7 @@ const validateCustomer = (data) => {
     address: Joi.string().optional(),
     note: Joi.string().optional(),
     code: Joi.string().optional(),
+    created_by: Joi.string().required(),
   });
   return schema.validate(data);
 };

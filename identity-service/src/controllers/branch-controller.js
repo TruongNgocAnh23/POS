@@ -37,9 +37,6 @@ const createBranch = async (req, res) => {
     const deleteRedisListBranch = await redisClient.del(redisListBranch);
     const redisKey = `branch:${branch._id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(branch));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
-
     logger.info("Branch saved successfully", branch._id);
     return res.status(201).json({
       success: true,
@@ -69,8 +66,6 @@ const editBranch = async (req, res) => {
     const redisKey = `branch:${branch_id}`;
     const deleteRedis = await redisClient.del(redisKey);
     //add new branch in redis
-    await redisClient.set(redisKey, JSON.stringify(branch));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
 
     logger.info("Branch edited successfully ", branch_id);
     return res.json({

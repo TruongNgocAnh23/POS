@@ -30,11 +30,6 @@ const createTable = async (req, res) => {
 
     const redisListTable = "table:all";
     const deleteRedisListTable = await redisClient.del(redisListTable);
-    const redisKey = `table:${table._id}`;
-    const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(table));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
-
     logger.info("Table saved successfully", table._id);
     return res.status(201).json({
       success: true,
@@ -63,10 +58,6 @@ const editTable = async (req, res) => {
     //delete old table in redis
     const redisKey = `table:${table_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-
-    //add new table in redis
-    await redisClient.set(redisKey, JSON.stringify(table));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     const redisListTable = "table:all";
     await redisClient.del(redisListTable);
     logger.info("Table edited successfully ", table_id);
@@ -123,8 +114,10 @@ const tableGetAll = async (req, res) => {
         source: "cache",
       });
     }
-    const table = await Table.find({}, "_id name code status ");
-
+    const table = await Table.find({}, "_id name code status ").populate(
+      "area",
+      "_id name code"
+    );
     if (table.length > 0) {
       await redisClient.set(redisKey, JSON.stringify(table));
       await redisClient.expire(redisKey, process.env.REDIS_TTL);
@@ -156,7 +149,10 @@ const tableGetById = async (req, res) => {
         source: "cache",
       });
     }
-    const table = await Table.findById({ _id: table_id });
+    const table = await Table.findById({ _id: table_id }).populate(
+      "area",
+      "_id name code"
+    );
     if (!table) {
       return res.status(404).json({
         success: false,

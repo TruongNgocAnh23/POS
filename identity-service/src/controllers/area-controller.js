@@ -29,8 +29,6 @@ const createArea = async (req, res) => {
     const deleteRedisListArea = await redisClient.del(redisListArea);
     const redisKey = `area:${area._id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(area));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     logger.info("Area saved successfully ", area._id);
     return res.status(201).json({
       success: true,

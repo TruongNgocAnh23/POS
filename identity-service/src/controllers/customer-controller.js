@@ -17,7 +17,7 @@ const createCustomer = async (req, res) => {
       });
     }
 
-    const { name, code, phone, address, note, create_by, loyalty_point } =
+    const { name, code, phone, address, note, created_by, loyalty_point } =
       req.body;
 
     const customer = new Customer({
@@ -27,7 +27,7 @@ const createCustomer = async (req, res) => {
       address,
       note,
       loyalty_point,
-      create_by,
+      created_by,
     });
 
     await customer.save();
@@ -68,9 +68,8 @@ const editCustomer = async (req, res) => {
     const redisKey = `customer:${customer_id}`;
     const deleteRedis = await redisClient.del(redisKey);
     //add new customer in redis
-    await redisClient.set(redisKey, JSON.stringify(customer));
-    await redisClient.expire(redisKey, process.env.REDIS_TTL);
-
+    const redisListCustomer = "customer:all";
+    const deleteRedisListCustomer = await redisClient.del(redisListCustomer);
     logger.info("Customer edited successfully ", customer_id);
     return res.json({
       success: true,
@@ -126,8 +125,8 @@ const getAllCustomer = async (req, res) => {
       });
     }
     const customer = await Customer.find({})
-      .populate("created_by", "_id name code")
-      .populate("updated_by", "_id name code");
+      .populate("created_by", "_id first_name last_name")
+      .populate("updated_by", "_id first_name last_name");
     if (customer.length > 0) {
       await redisClient.set(redisKey, JSON.stringify(customer));
       await redisClient.expire(redisKey, process.env.REDIS_TTL);
@@ -160,8 +159,8 @@ const getCustomerById = async (req, res) => {
       });
     }
     const customer = await Customer.findById({ _id: customer_id })
-      .populate("created_by", "_id name code")
-      .populate("updated_by", "_id name code");
+      .populate("created_by", "_id first_name last_name")
+      .populate("updated_by", "_id first_name last_name");
     if (!customer) {
       return res.status(404).json({
         success: false,

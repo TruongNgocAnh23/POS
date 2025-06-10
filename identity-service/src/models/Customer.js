@@ -59,6 +59,6 @@ const customerSchema = new mongoose.Schema(
 );
 
 customerSchema.index({ name: "text" });
-const Customer = mongoose.model("Branch", customerSchema);
+const Customer = mongoose.model("Customer", customerSchema);
 
 module.exports = Customer;

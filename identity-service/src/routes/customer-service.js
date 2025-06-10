@@ -10,9 +10,9 @@ const {
   getCustomerById,
 } = require("../controllers/customer-controller");
 
-router.post("/company", checkAuth, createCompany);
-router.patch("/company/:company_id", checkAuth, editCompany);
-router.delete("/company/:company_id", checkAuth, deleteCompany);
-router.get("/companies", checkAuth, companyGetAll);
-router.get("/company/:company_id", checkAuth, companyGetById);
+router.post("/customer", checkAuth, createCustomer);
+router.patch("/customer/:customer_id", checkAuth, editCustomer);
+router.delete("/customer/:customer_id", checkAuth, deleteCustomer);
+router.get("/customers", checkAuth, getAllCustomer);
+router.get("/customer/:customer_id", checkAuth, getCustomerById);
 module.exports = router;
