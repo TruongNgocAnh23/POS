@@ -15,6 +15,18 @@ const customerSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    gender: {
+      type: Number,
+      trim: true,
+    },
+    birthday: {
+      type: Date,
+      trim: true,
+    },
+    avatar: {
+      type: String,
+      trim: true,
+    },
     address: {
       type: String,
       trim: true,

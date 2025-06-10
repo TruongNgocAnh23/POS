@@ -1178,3 +1178,174 @@
 {"level":"info","message":"Request: POST /api/v1/table","service":"api-gateway","timestamp":"2025-06-10T04:12:40.701Z"}
 {"level":"info","message":"Body: {\"name\":\"Bàn 4\",\"code\":\"B1PM\",\"area\":\"6847905d9e4a9d4709136334\",\"status\":2}","service":"api-gateway","timestamp":"2025-06-10T04:12:40.701Z"}
 {"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T04:12:40.927Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:23:44.699Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 1\",\"code\":\"KH1\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"create_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:23:44.699Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-10T04:23:44.719Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:25:07.867Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 1\",\"code\":\"KH1\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"create_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:25:07.868Z"}
+{"level":"info","message":"Response from identity-service: 500","service":"api-gateway","timestamp":"2025-06-10T04:25:07.889Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:26:40.798Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 1\",\"code\":\"KH1\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:26:40.798Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-10T04:26:40.815Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:26:43.554Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 1\",\"code\":\"KH1\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:26:43.554Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-10T04:26:43.559Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:27:12.334Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 1\",\"code\":\"KH1\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:27:12.335Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T04:27:12.559Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:27:46.648Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 2\",\"code\":\"KH2\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:27:46.648Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T04:27:46.854Z"}
+{"level":"info","message":"Request: POST /api/v1/customer","service":"api-gateway","timestamp":"2025-06-10T04:27:51.664Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:27:51.664Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T04:27:51.865Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:28:19.787Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:28:19.788Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:28:20.186Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:29:24.424Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:29:24.424Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:29:24.439Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:30:29.146Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:30:29.146Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:30:29.162Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:32:16.529Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:32:16.529Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:32:16.534Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:32:36.577Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:32:36.577Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:32:36.592Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:33:22.535Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:33:22.535Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:33:22.540Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:37:11.827Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:37:11.827Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:37:12.224Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:37:55.361Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:37:55.361Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T04:37:55.556Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:38:13.315Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:38:13.315Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:38:13.319Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:39:08.007Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:39:08.007Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:39:08.398Z"}
+{"level":"info","message":"Request: DELETE /api/v1/table/68479dab8af42beb36bf7003","service":"api-gateway","timestamp":"2025-06-10T04:41:14.983Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:41:14.983Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T04:41:15.193Z"}
+{"level":"info","message":"Request: DELETE /api/v1/customer/68479dab8af42beb36bf7003","service":"api-gateway","timestamp":"2025-06-10T04:41:34.685Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:41:34.685Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T04:41:34.879Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:41:40.862Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:41:40.863Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:41:40.867Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:41:58.767Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:41:58.767Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:41:59.165Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:42:06.311Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:42:06.311Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:42:06.315Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:42:37.094Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:42:37.094Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:42:37.484Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:42:39.990Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:42:39.990Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:42:39.993Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:42:57.461Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:42:57.462Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:42:57.466Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:43:00.648Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:43:00.648Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:43:01.034Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:43:04.218Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:43:04.218Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:43:04.223Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:45:14.427Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:45:14.427Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:45:14.442Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:45:35.974Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:45:35.974Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:45:36.374Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:45:39.489Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:45:39.490Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:45:39.493Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:46:54.445Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:46:54.445Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:46:55.282Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T04:47:37.438Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T04:47:37.438Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:47:37.829Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:47:52.918Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:47:52.918Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:47:52.922Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:48:00.383Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:48:00.383Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:48:00.772Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:48:04.068Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:48:04.068Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:48:04.071Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:49:51.255Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:49:51.256Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:49:51.670Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:49:56.775Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:49:56.775Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:49:56.779Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:49:58.109Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:49:58.109Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:49:58.114Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:50:29.808Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:50:29.808Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:50:30.205Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T04:50:35.418Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T04:50:35.419Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:50:35.423Z"}
+{"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T04:55:00.605Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T04:55:00.605Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:55:00.804Z"}
+{"level":"info","message":"Request: GET /api/v1/areas","service":"api-gateway","timestamp":"2025-06-10T04:59:39.093Z"}
+{"level":"info","message":"Body: {\"name\":\"Phòng lạnh\",\"code\":\"ML\"}","service":"api-gateway","timestamp":"2025-06-10T04:59:39.094Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T04:59:39.486Z"}
+{"level":"info","message":"Request: GET /api/v1/areas","service":"api-gateway","timestamp":"2025-06-10T05:00:13.491Z"}
+{"level":"info","message":"Body: {\"name\":\"Phòng lạnh\",\"code\":\"ML\"}","service":"api-gateway","timestamp":"2025-06-10T05:00:13.491Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T05:00:13.494Z"}
+{"level":"info","message":"Request: GET /api/v1/areas","service":"api-gateway","timestamp":"2025-06-10T05:00:28.358Z"}
+{"level":"info","message":"Body: {\"name\":\"Phòng lạnh\",\"code\":\"ML\"}","service":"api-gateway","timestamp":"2025-06-10T05:00:28.358Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T05:00:28.374Z"}
+{"level":"info","message":"Request: GET /api/v1/areas","service":"api-gateway","timestamp":"2025-06-10T05:01:00.514Z"}
+{"level":"info","message":"Body: {\"name\":\"Phòng lạnh\",\"code\":\"ML\"}","service":"api-gateway","timestamp":"2025-06-10T05:01:00.514Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T05:01:01.390Z"}
+{"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T05:01:26.005Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T05:01:26.005Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T05:01:26.401Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-10T06:36:09.361Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T06:36:09.362Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T06:36:12.030Z"}
+{"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T06:36:27.299Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T06:36:27.299Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:36:27.690Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T06:38:10.143Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T06:38:10.144Z"}
+{"level":"error","message":"Proxy error (identity-service): ","service":"api-gateway","timestamp":"2025-06-10T06:38:10.145Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T06:38:29.988Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T06:38:29.990Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T06:38:29.991Z"}
+{"level":"info","message":"Request: PATCH /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T06:38:31.969Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3 edit\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T06:38:31.970Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:38:32.386Z"}
+{"level":"info","message":"Request: DELETE /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T06:39:32.064Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"updated_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T06:39:32.065Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:39:32.269Z"}
+{"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T06:39:37.249Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T06:39:37.249Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:39:37.253Z"}
+{"level":"info","message":"Request: GET /api/v1/customers","service":"api-gateway","timestamp":"2025-06-10T06:39:42.394Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T06:39:42.394Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:39:42.786Z"}
+{"level":"info","message":"Request: GET /api/v1/customer/6847b4201a39c85d36373499","service":"api-gateway","timestamp":"2025-06-10T06:39:59.038Z"}
+{"level":"info","message":"Body: {\"name\":\"khách hàng số 3\",\"code\":\"KH3\",\"phone\":\"0911000222\",\"address\":\"04 đường hồng lĩnh- nha trang\",\"created_by\":\"684666c890f9ef96e074e544\"}","service":"api-gateway","timestamp":"2025-06-10T06:39:59.039Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T06:39:59.235Z"}
+{"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T06:58:15.637Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T06:58:15.637Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T06:58:15.641Z"}
+{"level":"info","message":"Request: GET /api/v1/users","service":"api-gateway","timestamp":"2025-06-10T07:20:29.440Z"}
+{"level":"info","message":"Body: {\"name\":\"nhà hàng sô 001\"}","service":"api-gateway","timestamp":"2025-06-10T07:20:29.440Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T07:20:29.836Z"}

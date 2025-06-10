@@ -16,6 +16,7 @@ const DepartmentRoutes = require("./routes/department-service");
 const AreaRoutes = require("./routes/area-service");
 const TableRoutes = require("./routes/table-service");
 const CustomerRoutes = require("./routes/customer-service");
+const AuthorizationRoutes = require("./routes/authorization-service");
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -87,6 +88,7 @@ app.use("/api/auth", DepartmentRoutes);
 app.use("/api/auth", AreaRoutes);
 app.use("/api/auth", TableRoutes);
 app.use("/api/auth", CustomerRoutes);
+app.use("/api/auth", AuthorizationRoutes);
 //error handler
 app.use(errorHandler);
 

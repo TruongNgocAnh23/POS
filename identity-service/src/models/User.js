@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const argon2 = require("argon2");
-const Department = require("./Department");
-
 const userSchema = new mongoose.Schema(
   {
     first_name: {
@@ -21,6 +19,18 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    gender: {
+      type: Number,
+      trim: true,
+    },
+    birthday: {
+      type: Date,
+      trim: true,
+    },
+    avatar: {
+      type: String,
+      trim: true,
     },
     role: [
       {

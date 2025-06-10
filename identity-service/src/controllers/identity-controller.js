@@ -5,6 +5,7 @@ const {
   validateLogout,
 } = require("../utils/validation");
 const User = require("../models/User");
+const Authorization = require("../models/Authorization");
 const RefreshToken = require("../models/RefreshToken");
 const generateTokens = require("../utils/generateToken");
 
@@ -20,7 +21,16 @@ const registerUser = async (req, res) => {
         message: error.details[0].message,
       });
     }
-    const { user_name, password, first_name, last_name, role } = req.body;
+    const {
+      user_name,
+      password,
+      first_name,
+      last_name,
+      role,
+      gender,
+      birthday,
+      avatar,
+    } = req.body;
     let user = await User.findOne({ user_name });
     if (user) {
       logger.warn("User already exists");
@@ -29,7 +39,16 @@ const registerUser = async (req, res) => {
         message: "User already exists",
       });
     }
-    user = new User({ user_name, password, first_name, last_name, role });
+    user = new User({
+      user_name,
+      password,
+      first_name,
+      last_name,
+      role,
+      gender,
+      birthday,
+      avatar,
+    });
     await user.save();
     logger.info("User saved successfully", user._id);
     return res.status(201).json({
@@ -69,6 +88,7 @@ const loginUser = async (req, res) => {
         message: "Invalid credentials",
       });
     }
+
     const isValidPassword = await user.comparePassword(password);
     if (!isValidPassword) {
       logger.warn("Invalid password");
@@ -78,12 +98,50 @@ const loginUser = async (req, res) => {
       });
     }
     const { accessToken, refreshToken } = await generateTokens(user);
+
+    const authorizationRaw = await Authorization.find({
+      "permissions.users.user": user._id,
+    }).lean();
+    if (authorizationRaw.length > 0) {
+      const filteredAuthorization = authorizationRaw
+        .map((auth) => {
+          const filteredPermissions = auth.permissions
+            .map((permission) => {
+              const filteredUsers = permission.users.filter(
+                (u) => u.user.toString() === user._id.toString()
+              );
+              return filteredUsers.length > 0
+                ? {
+                    ...permission,
+                    users: filteredUsers,
+                  }
+                : null;
+            })
+            .filter(Boolean);
+
+          return {
+            ...auth,
+            permissions: filteredPermissions,
+          };
+        })
+        .filter((auth) => auth.permissions.length > 0);
+
+      return res.status(201).json({
+        success: true,
+        accesstoken: accessToken,
+        refreshtoken: refreshToken,
+        user_id: user._id,
+        role: user.role,
+        authorization: filteredAuthorization,
+      });
+    }
     return res.status(201).json({
       success: true,
       accesstoken: accessToken,
       refreshtoken: refreshToken,
       user_id: user._id,
       role: user.role,
+      authorization: [],
     });
   } catch (err) {
     logger.error("Login error occured", err);
@@ -215,8 +273,8 @@ const getAllUser = async (req, res) => {
   try {
     const listUser = await User.find({})
       .populate("role.company", "_id name code")
-      .populate("role.branch", "_id name code")
-      .populate("role.department", "_id name code");
+      .populate("role.branch", "_id name code");
+    // .populate("role.department", "_id name code");
     return res.status(200).json({
       success: true,
       data: listUser,
@@ -231,6 +289,29 @@ const getAllUser = async (req, res) => {
     });
   }
 };
+
+const setAuthorization = async (req, res) => {
+  logger.info("Set authorization endpoint hit...");
+  try {
+    const listUser = await User.find({})
+      .populate("role.company", "_id name code")
+      .populate("role.branch", "_id name code");
+    // .populate("role.department", "_id name code");
+    return res.status(200).json({
+      success: true,
+      data: listUser,
+    });
+  } catch (err) {
+    logger.error("Error occurred while getting user profile", {
+      error: err.message,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,

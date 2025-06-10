@@ -9,6 +9,9 @@ const validateRegistration = (data) => {
     first_name: Joi.string().required(),
     last_name: Joi.string().optional(),
     role: Joi.array().required(),
+    gender: Joi.number().optional(),
+    birthday: Joi.date().optional(),
+    avatar: Joi.string().optional(),
   });
   return schema.validate(data);
 };
@@ -93,10 +96,38 @@ const validateCustomer = (data) => {
     note: Joi.string().optional(),
     code: Joi.string().optional(),
     created_by: Joi.string().required(),
+    gender: Joi.number().optional(),
+    birthday: Joi.date().optional(),
+    avatar: Joi.string().optional(),
   });
   return schema.validate(data);
 };
 
+const validatePaymentMethod = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    note: Joi.string().optional(),
+    code: Joi.string().optional(),
+    branch: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
+const validateAuthorization = (data) => {
+  const schema = Joi.object({
+    form_name: Joi.string().required(),
+    permissions: Joi.array()
+      .items(
+        Joi.object({
+          action: Joi.string().required(),
+          isActive: Joi.boolean().optional(),
+        })
+      )
+      .optional(),
+  });
+
+  return schema.validate(data);
+};
 module.exports = {
   validateRegistration,
   validateLogin,
@@ -107,4 +138,6 @@ module.exports = {
   validateArea,
   validateTable,
   validateCustomer,
+  validatePaymentMethod,
+  validateAuthorization,
 };

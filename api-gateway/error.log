@@ -5,3 +5,6 @@
 {"level":"error","message":"Proxy error (identity-service): read ECONNRESET","service":"api-gateway","timestamp":"2025-06-09T07:35:55.004Z"}
 {"level":"error","message":"Proxy error (identity-service): read ECONNRESET","service":"api-gateway","timestamp":"2025-06-09T07:37:52.569Z"}
 {"level":"error","message":"Proxy error (identity-service): read ECONNRESET","service":"api-gateway","timestamp":"2025-06-09T07:37:52.570Z"}
+{"level":"error","message":"Proxy error (identity-service): ","service":"api-gateway","timestamp":"2025-06-10T02:38:29.545Z"}
+{"level":"error","message":"Proxy error (identity-service): ","service":"api-gateway","timestamp":"2025-06-10T02:38:32.675Z"}
+{"level":"error","message":"Proxy error (identity-service): ","service":"api-gateway","timestamp":"2025-06-10T06:38:10.145Z"}

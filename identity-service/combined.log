@@ -1402,3 +1402,210 @@
 {"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T06:36:09.365Z"}
 {"level":"info","message":"Received GET request to /api/auth/tables","service":"identity-service","timestamp":"2025-06-10T06:36:27.300Z"}
 {"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:36:27.300Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T06:38:21.379Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T06:38:21.384Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T06:38:23.540Z"}
+{"level":"info","message":"Received PATCH request to /api/auth/customer/6847b4201a39c85d36373499","service":"identity-service","timestamp":"2025-06-10T06:38:31.981Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:38:31.981Z"}
+{"0":"6","1":"8","10":"3","11":"9","12":"c","13":"8","14":"5","15":"d","16":"3","17":"6","18":"3","19":"7","2":"4","20":"3","21":"4","22":"9","23":"9","3":"7","4":"b","5":"4","6":"2","7":"0","8":"1","9":"a","level":"info","message":"Customer edited successfully ","service":"identity-service","timestamp":"2025-06-10T06:38:32.383Z"}
+{"level":"info","message":"Received DELETE request to /api/auth/customer/6847b4201a39c85d36373499","service":"identity-service","timestamp":"2025-06-10T06:39:32.068Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:39:32.068Z"}
+{"0":"6","1":"8","10":"3","11":"9","12":"c","13":"8","14":"5","15":"d","16":"3","17":"6","18":"3","19":"7","2":"4","20":"3","21":"4","22":"9","23":"9","3":"7","4":"b","5":"4","6":"2","7":"0","8":"1","9":"a","level":"info","message":"Customer deleted successfully","service":"identity-service","timestamp":"2025-06-10T06:39:32.268Z"}
+{"level":"info","message":"Received GET request to /api/auth/tables","service":"identity-service","timestamp":"2025-06-10T06:39:37.252Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:39:37.252Z"}
+{"level":"info","message":"Received GET request to /api/auth/customers","service":"identity-service","timestamp":"2025-06-10T06:39:42.397Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:39:42.397Z"}
+{"level":"info","message":"Received GET request to /api/auth/customer/6847b4201a39c85d36373499","service":"identity-service","timestamp":"2025-06-10T06:39:59.042Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:39:59.042Z"}
+{"level":"info","message":"Received GET request to /api/auth/tables","service":"identity-service","timestamp":"2025-06-10T06:58:15.639Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T06:58:15.640Z"}
+{"level":"info","message":"Received GET request to /api/auth/users","service":"identity-service","timestamp":"2025-06-10T07:20:29.442Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T07:20:29.443Z"}
+{"level":"info","message":"Get all user endpoint hit...","service":"identity-service","timestamp":"2025-06-10T07:20:29.444Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T07:59:18.454Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T07:59:18.460Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T07:59:20.413Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:01:21.558Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:01:21.558Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:01:21.561Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:03:49.014Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:03:49.020Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:03:50.912Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:05:27.210Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:05:27.216Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:05:29.116Z"}
+{"level":"info","message":"Received POST request to /api/auth/authorization","service":"identity-service","timestamp":"2025-06-10T08:06:03.391Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:06:03.392Z"}
+{"0":"\"","1":"p","10":"n","11":"s","12":"[","13":"0","14":"]","15":".","16":"b","17":"u","18":"t","19":"t","2":"e","20":"o","21":"n","22":"\"","23":" ","24":"i","25":"s","26":" ","27":"r","28":"e","29":"q","3":"r","30":"u","31":"i","32":"r","33":"e","34":"d","4":"m","5":"i","6":"s","7":"s","8":"i","9":"o","level":"warn","message":"Validation error","service":"identity-service","timestamp":"2025-06-10T08:06:03.399Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:06:22.819Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:06:22.824Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:06:24.716Z"}
+{"level":"info","message":"Received POST request to /api/auth/authorization","service":"identity-service","timestamp":"2025-06-10T08:06:25.252Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:06:25.253Z"}
+{"0":"\"","1":"p","10":"n","11":"s","12":"[","13":"0","14":"]","15":".","16":"i","17":"s","18":"A","19":"c","2":"e","20":"t","21":"i","22":"v","23":"e","24":"\"","25":" ","26":"i","27":"s","28":" ","29":"r","3":"r","30":"e","31":"q","32":"u","33":"i","34":"r","35":"e","36":"d","4":"m","5":"i","6":"s","7":"s","8":"i","9":"o","level":"warn","message":"Validation error","service":"identity-service","timestamp":"2025-06-10T08:06:25.259Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:06:36.640Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:06:36.645Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:06:38.483Z"}
+{"level":"info","message":"Received POST request to /api/auth/authorization","service":"identity-service","timestamp":"2025-06-10T08:06:40.401Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:06:40.401Z"}
+{"buffer":{"data":[104,71,231,144,20,33,196,237,20,85,187,13],"type":"Buffer"},"level":"info","message":"Authorization saved successfully ","service":"identity-service","timestamp":"2025-06-10T08:06:40.617Z"}
+{"level":"info","message":"Received POST request to /api/auth/authorization","service":"identity-service","timestamp":"2025-06-10T08:06:56.329Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:06:56.329Z"}
+{"buffer":{"data":[104,71,231,160,20,33,196,237,20,85,187,19],"type":"Buffer"},"level":"info","message":"Authorization saved successfully ","service":"identity-service","timestamp":"2025-06-10T08:06:56.539Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:08:22.828Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:08:22.835Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:08:24.726Z"}
+{"level":"info","message":"Received POST request to /api/auth/authorization","service":"identity-service","timestamp":"2025-06-10T08:08:35.817Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:08:35.818Z"}
+{"buffer":{"data":[104,71,232,3,251,197,120,2,160,65,78,239],"type":"Buffer"},"level":"info","message":"Authorization saved successfully ","service":"identity-service","timestamp":"2025-06-10T08:08:36.035Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:10:15.203Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:10:15.209Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:10:17.113Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:10:33.766Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:10:33.766Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:10:39.705Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:10:39.705Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorization/6847e7901421c4ed1455bb0d","service":"identity-service","timestamp":"2025-06-10T08:12:20.941Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:12:20.941Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorization/6847e7901421c4ed1455bb0d","service":"identity-service","timestamp":"2025-06-10T08:12:24.204Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:12:24.204Z"}
+{"level":"info","message":"Received PATCH request to /api/auth/authorization/6847e7901421c4ed1455bb0d","service":"identity-service","timestamp":"2025-06-10T08:13:21.882Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:13:21.882Z"}
+{"0":"6","1":"8","10":"2","11":"1","12":"c","13":"4","14":"e","15":"d","16":"1","17":"4","18":"5","19":"5","2":"4","20":"b","21":"b","22":"0","23":"d","3":"7","4":"e","5":"7","6":"9","7":"0","8":"1","9":"4","level":"info","message":"Authorization edited successfully","service":"identity-service","timestamp":"2025-06-10T08:13:22.285Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:13:29.299Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:13:29.299Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:13:35.350Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:13:35.350Z"}
+{"level":"info","message":"Received DELETE request to /api/auth/authorization/6847e803fbc57802a0414eef","service":"identity-service","timestamp":"2025-06-10T08:14:10.864Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:10.864Z"}
+{"0":"6","1":"8","10":"c","11":"5","12":"7","13":"8","14":"0","15":"2","16":"a","17":"0","18":"4","19":"1","2":"4","20":"4","21":"e","22":"e","23":"f","3":"7","4":"e","5":"8","6":"0","7":"3","8":"f","9":"b","level":"info","message":"Authorization deleted successfully","service":"identity-service","timestamp":"2025-06-10T08:14:11.059Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:14:15.987Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:15.987Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:14:18.743Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:18.744Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:14:20.728Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:20.729Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:14:21.352Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:21.353Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:14:21.970Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:14:21.970Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:18:56.888Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:18:56.888Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:18:56.889Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:22:48.511Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:22:48.517Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:22:50.415Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:23:00.025Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:23:00.026Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:23:00.029Z"}
+{"level":"error","message":"Login error occured Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:23:00.230Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:24:47.623Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:24:47.623Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:24:47.625Z"}
+{"level":"error","message":"Login error occured Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:24:47.821Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:31:27.981Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:31:27.986Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:31:29.887Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:31:33.313Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:31:33.313Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:31:33.316Z"}
+{"level":"error","message":"Login error occured Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:31:33.520Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:32:07.861Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:32:07.867Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:32:09.452Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:32:09.452Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:32:09.455Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:32:09.717Z"}
+{"level":"error","message":"Login error occured Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:32:09.920Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:32:27.650Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:32:27.656Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:32:29.531Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:32:30.244Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:32:30.244Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:32:30.247Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:32:49.075Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:32:49.076Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:10.756Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:10.756Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:11.739Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:11.740Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:14.839Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:14.839Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:29.548Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:29.548Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:30.457Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:30.457Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:31.154Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:31.154Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:33:36.053Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:33:36.053Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:34:13.098Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:34:13.099Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:36:22.485Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:36:22.491Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:36:24.487Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T08:36:26.003Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:36:26.003Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:36:28.667Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:36:28.667Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:36:28.668Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:37:20.943Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:37:20.949Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:37:22.819Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:37:24.277Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:37:24.277Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:37:24.280Z"}
+{"level":"error","message":"Login error occured Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:37:24.485Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:38:24.183Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:38:24.188Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:38:26.154Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:38:28.087Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:38:28.088Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:38:28.091Z"}
+{"level":"error","message":"Login error occured Cannot populate path `role.permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.","path":"role.permissions.authorization","service":"identity-service","stack":"StrictPopulateError: Cannot populate path `role.permissions.authorization` because it is not in your schema. Set the `strictPopulate` option to false to override.\n    at getModelsMapForPopulate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\helpers\\populate\\getModelsMapForPopulate.js:50:12)\n    at _populatePath (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4439:21)\n    at Function.populate (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\model.js:4406:21)\n    at D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2631:11\n    at _init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3307:5)\n    at Document.init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:654:5)\n    at Document.$init (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\document.js:667:42)\n    at Object.createModelAndInit (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\queryHelpers.js:119:12)\n    at completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:3285:11)\n    at Query._completeOne (D:\\HMC5768_POS\\identity-service\\node_modules\\mongoose\\lib\\query.js:2627:3)","timestamp":"2025-06-10T08:38:28.297Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:41:38.593Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:41:38.599Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:41:40.559Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:41:42.537Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:41:42.538Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:41:42.541Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:49:41.685Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:49:41.685Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T08:50:14.985Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:50:14.985Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T08:50:14.986Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:50:30.904Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:50:30.905Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T08:54:43.351Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T08:54:43.357Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T08:54:45.269Z"}
+{"level":"info","message":"Received PATCH request to /api/auth/authorization/6847e7901421c4ed1455bb0d","service":"identity-service","timestamp":"2025-06-10T08:56:46.264Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:56:46.265Z"}
+{"0":"6","1":"8","10":"2","11":"1","12":"c","13":"4","14":"e","15":"d","16":"1","17":"4","18":"5","19":"5","2":"4","20":"b","21":"b","22":"0","23":"d","3":"7","4":"e","5":"7","6":"9","7":"0","8":"1","9":"4","level":"info","message":"Authorization edited successfully","service":"identity-service","timestamp":"2025-06-10T08:56:46.678Z"}
+{"level":"info","message":"Received GET request to /api/auth/authorizations","service":"identity-service","timestamp":"2025-06-10T08:56:54.278Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T08:56:54.278Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T09:02:32.391Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T09:02:32.396Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T09:02:34.273Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T09:02:42.759Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T09:02:42.760Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T09:02:42.763Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T09:07:29.775Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T09:07:29.781Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T09:07:31.721Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T09:07:54.977Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T09:07:54.977Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T09:07:54.980Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T09:12:43.121Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T09:12:43.126Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T09:12:45.082Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T09:12:47.790Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T09:12:47.791Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T09:12:47.794Z"}
+{"level":"error","message":"Login error occured authorizationRaw is not defined","service":"identity-service","stack":"ReferenceError: authorizationRaw is not defined\n    at loginUser (D:\\HMC5768_POS\\identity-service\\src\\controllers\\identity-controller.js:101:35)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2025-06-10T09:12:48.431Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T09:14:49.145Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T09:14:49.150Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T09:14:51.028Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T09:14:52.524Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T09:14:52.524Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T09:14:52.527Z"}

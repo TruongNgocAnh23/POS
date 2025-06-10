@@ -17,8 +17,18 @@ const createCustomer = async (req, res) => {
       });
     }
 
-    const { name, code, phone, address, note, created_by, loyalty_point } =
-      req.body;
+    const {
+      name,
+      code,
+      phone,
+      address,
+      note,
+      created_by,
+      loyalty_point,
+      gender,
+      birthday,
+      avatar,
+    } = req.body;
 
     const customer = new Customer({
       name,
@@ -28,6 +38,9 @@ const createCustomer = async (req, res) => {
       note,
       loyalty_point,
       created_by,
+      gender,
+      birthday,
+      avatar,
     });
 
     await customer.save();
