@@ -80,8 +80,18 @@ const validateTable = (data) => {
     name: Joi.string().required(),
     note: Joi.string().optional(),
     code: Joi.string().optional(),
-    status: Joi.string().optional(),
+    status: Joi.number().optional(),
     area: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+const validateCustomer = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    phone: Joi.string().optional(),
+    address: Joi.string().optional(),
+    note: Joi.string().optional(),
+    code: Joi.string().optional(),
   });
   return schema.validate(data);
 };
@@ -95,4 +105,5 @@ module.exports = {
   validateDepartment,
   validateArea,
   validateTable,
+  validateCustomer,
 };

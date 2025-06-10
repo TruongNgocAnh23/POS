@@ -16,12 +16,13 @@ const createArea = async (req, res) => {
       });
     }
 
-    const { name, code, note } = req.body;
+    const { name, code, note, branch } = req.body;
 
     const area = new Area({
       name,
       code,
       note,
+      branch,
     });
     await area.save();
     const redisListArea = "area:all";
@@ -118,7 +119,10 @@ const areaGetAll = async (req, res) => {
       });
     }
 
-    const area = await Area.find({}, "_id name code ");
+    const area = await Area.find({}, "_id name code ").populate(
+      "branch",
+      "_id name code"
+    );
     if (area.length > 0) {
       await redisClient.set(redisKey, JSON.stringify(area));
       await redisClient.expire(redisKey, process.env.REDIS_TTL);
@@ -154,7 +158,10 @@ const areaGetById = async (req, res) => {
         source: "cache",
       });
     }
-    const area = await Area.findById({ _id: area_id }, "_id name code ");
+    const area = await Area.findById(
+      { _id: area_id },
+      "_id name code "
+    ).populate("branch", "_id name code");
 
     if (!area) {
       return res.json({

@@ -1103,3 +1103,6 @@
 {"level":"info","message":"Request: GET /api/v1/tables","service":"api-gateway","timestamp":"2025-06-10T02:54:13.279Z"}
 {"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T02:54:13.279Z"}
 {"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T02:54:13.284Z"}
+{"level":"info","message":"Request: POST /api/v1/area","service":"api-gateway","timestamp":"2025-06-10T03:09:12.087Z"}
+{"level":"info","message":"Body: {\"name\":\"Phòng lạnh\",\"code\":\"ML\"}","service":"api-gateway","timestamp":"2025-06-10T03:09:12.088Z"}
+{"level":"info","message":"Response from identity-service: 400","service":"api-gateway","timestamp":"2025-06-10T03:09:12.106Z"}

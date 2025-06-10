@@ -16,8 +16,8 @@ const tableSchema = new mongoose.Schema(
       trim: true,
     },
     status: {
-      type: String,
-      default: "Available",
+      type: Number,
+      default: 1,
       trim: true,
     },
     customer: {
@@ -36,7 +36,6 @@ const tableSchema = new mongoose.Schema(
     },
     updated_date: {
       type: Date,
-      default: Date.now,
     },
   },
   {

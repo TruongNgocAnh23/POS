@@ -98,8 +98,8 @@ const deleteBranch = async (req, res) => {
     }
     const redisKey = `branch:${branch_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    const redisListArea = "branch:all";
-    const deleteRedisListArea = await redisClient.del(redisListArea);
+    const redisListBranch = "branch:all";
+    const deleteRedisListBranch = await redisClient.del(redisListBranch);
     logger.info("Branch deleted successfully", branch_id);
     return res.json({
       success: true,
@@ -175,7 +175,7 @@ const getBranchById = async (req, res) => {
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
     return res.status(200).json({
       success: true,
-      date: branch,
+      data: branch,
       source: "db",
     });
   } catch (err) {

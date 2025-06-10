@@ -41,7 +41,6 @@ const companySchema = new mongoose.Schema(
     },
     updated_date: {
       type: Date,
-      default: Date.now,
     },
   },
   {
