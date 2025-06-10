@@ -183,8 +183,8 @@ const getUserProfile = async (req, res) => {
       });
     }
     const userProfile = await User.findById({ _id: user_id })
-      .populate("role.company", "_id name code")
-      .populate("role.branch", "_id name code")
+      .populate("role.company", "_id name code address")
+      .populate("role.branch", "_id name code address")
       .populate("role.department", "_id name code");
 
     if (!userProfile) {

@@ -14,6 +14,7 @@ const CompanyRoutes = require("./routes/company-service");
 const BranchRoutes = require("./routes/branch-service");
 const DepartmentRoutes = require("./routes/department-service");
 const AreaRoutes = require("./routes/area-service");
+const TableRoutes = require("./routes/table-service");
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -83,6 +84,7 @@ app.use("/api/auth", CompanyRoutes);
 app.use("/api/auth", BranchRoutes);
 app.use("/api/auth", DepartmentRoutes);
 app.use("/api/auth", AreaRoutes);
+app.use("/api/auth", TableRoutes);
 //error handler
 app.use(errorHandler);
 

@@ -1,4 +1,3 @@
-const { date } = require("joi");
 const Table = require("../models/Table");
 const logger = require("../utils/logger");
 const { validateTable } = require("../utils/validation");
@@ -17,13 +16,14 @@ const createTable = async (req, res) => {
       });
     }
 
-    const { name, code, note, status } = req.body;
+    const { name, code, note, status, area } = req.body;
 
     const table = new Table({
       name,
       code,
       note,
       status,
+      area,
     });
 
     await table.save();
@@ -63,10 +63,12 @@ const editTable = async (req, res) => {
     //delete old table in redis
     const redisKey = `table:${table_id}`;
     const deleteRedis = await redisClient.del(redisKey);
+
     //add new table in redis
     await redisClient.set(redisKey, JSON.stringify(table));
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
-
+    const redisListTable = "table:all";
+    await redisClient.del(redisListTable);
     logger.info("Table edited successfully ", table_id);
     return res.json({
       success: true,
@@ -109,7 +111,7 @@ const deleteTable = async (req, res) => {
   }
 };
 //get all
-const getAllTable = async (req, res) => {
+const tableGetAll = async (req, res) => {
   try {
     const redisKey = "table:all";
     const cachedData = await redisClient.get(redisKey);
@@ -141,7 +143,7 @@ const getAllTable = async (req, res) => {
   }
 };
 //get by id
-const getTableById = async (req, res) => {
+const tableGetById = async (req, res) => {
   try {
     const table_id = req.params.table_id;
     const redisKey = `table:${table_id}`;
@@ -165,7 +167,7 @@ const getTableById = async (req, res) => {
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
     return res.status(200).json({
       success: true,
-      date: table,
+      data: table,
       source: "db",
     });
   } catch (err) {
@@ -180,6 +182,6 @@ module.exports = {
   createTable,
   editTable,
   deleteTable,
-  getAllTable,
-  getTableById,
+  tableGetAll,
+  tableGetById,
 };

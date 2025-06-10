@@ -80,6 +80,7 @@ const validateTable = (data) => {
     note: Joi.string().optional(),
     code: Joi.string().optional(),
     status: Joi.string().optional(),
+    area: Joi.string().required(),
   });
   return schema.validate(data);
 };

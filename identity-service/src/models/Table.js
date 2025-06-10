@@ -24,6 +24,11 @@ const tableSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
     },
+    area: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Area",
+      required: true,
+    },
 
     created_date: {
       type: Date,
