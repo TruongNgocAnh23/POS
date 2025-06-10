@@ -1,14 +1,14 @@
 const { date } = require("joi");
-const Branch = require("../models/Branch");
+const Table = require("../models/Table");
 const logger = require("../utils/logger");
-const { validateBranch } = require("../utils/validation");
+const { validateTable } = require("../utils/validation");
 const redisClient = require("../utils/redisClient");
 require("dotenv").config();
 
-//create new branch
-const createBranch = async (req, res) => {
+//create new table
+const createTable = async (req, res) => {
   try {
-    const { error } = validateBranch(req.body);
+    const { error } = validateTable(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({
@@ -17,34 +17,28 @@ const createBranch = async (req, res) => {
       });
     }
 
-    const { name, code, phone, hotline, address, tax, fax, note, company } =
-      req.body;
+    const { name, code, note, status } = req.body;
 
-    const branch = new Branch({
+    const table = new Table({
       name,
       code,
-      phone,
-      hotline,
-      address,
-      tax,
-      fax,
       note,
-      company,
+      status,
     });
 
-    await branch.save();
+    await table.save();
 
-    const redisListBranch = "branch:all";
-    const deleteRedisListBranch = await redisClient.del(redisListBranch);
-    const redisKey = `branch:${branch._id}`;
+    const redisListTable = "table:all";
+    const deleteRedisListTable = await redisClient.del(redisListTable);
+    const redisKey = `table:${table._id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    await redisClient.set(redisKey, JSON.stringify(branch));
+    await redisClient.set(redisKey, JSON.stringify(table));
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
 
-    logger.info("Branch saved successfully", branch._id);
+    logger.info("Table saved successfully", table._id);
     return res.status(201).json({
       success: true,
-      message: "Branch created successfully",
+      message: "Table created successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -55,28 +49,28 @@ const createBranch = async (req, res) => {
   }
 };
 
-//edit branch
-const editBranch = async (req, res) => {
+//edit table
+const editTable = async (req, res) => {
   try {
-    const branch_id = req.params.branch_id;
-    const branch = await Branch.findById(branch_id);
-    if (!branch) {
-      logger.info("Branch not found", branch_id);
-      return res.status(404).json({ message: "Branch not found" });
+    const table_id = req.params.table_id;
+    const table = await Table.findById(table_id);
+    if (!table) {
+      logger.info("Table not found", table_id);
+      return res.status(404).json({ message: "Table not found" });
     }
-    Object.assign(branch, req.body);
-    await branch.save();
-    //delete old branch in redis
-    const redisKey = `branch:${branch_id}`;
+    Object.assign(table, req.body);
+    await table.save();
+    //delete old table in redis
+    const redisKey = `table:${table_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    //add new branch in redis
-    await redisClient.set(redisKey, JSON.stringify(branch));
+    //add new table in redis
+    await redisClient.set(redisKey, JSON.stringify(table));
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
 
-    logger.info("Branch edited successfully ", branch_id);
+    logger.info("Table edited successfully ", table_id);
     return res.json({
       success: true,
-      message: "Branch edited successfully",
+      message: "Table edited successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -86,25 +80,25 @@ const editBranch = async (req, res) => {
     });
   }
 };
-//delete branch
-const deleteBranch = async (req, res) => {
+//delete table
+const deleteTable = async (req, res) => {
   try {
-    const branch_id = req.params.branch_id;
-    const deletedBranch = await Branch.findByIdAndDelete(branch_id);
-    if (!deletedBranch) {
+    const table_id = req.params.table_id;
+    const deletedTable = await Table.findByIdAndDelete(table_id);
+    if (!deletedTable) {
       return res.status(404).json({
         success: false,
-        message: "Branch not found",
+        message: "Table not found",
       });
     }
-    const redisKey = `branch:${branch_id}`;
+    const redisKey = `table:${table_id}`;
     const deleteRedis = await redisClient.del(redisKey);
-    const redisListArea = "branch:all";
-    const deleteRedisListArea = await redisClient.del(redisListArea);
-    logger.info("Branch deleted successfully", branch_id);
+    const redisListTable = "table:all";
+    const deleteRedisListTable = await redisClient.del(redisListTable);
+    logger.info("Table deleted successfully", table_id);
     return res.json({
       success: true,
-      message: "Branch deleted successfully",
+      message: "Table deleted successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -115,9 +109,9 @@ const deleteBranch = async (req, res) => {
   }
 };
 //get all
-const getAllBranch = async (req, res) => {
+const getAllTable = async (req, res) => {
   try {
-    const redisKey = "branch:all";
+    const redisKey = "table:all";
     const cachedData = await redisClient.get(redisKey);
     if (cachedData) {
       const parsed = JSON.parse(cachedData);
@@ -127,16 +121,14 @@ const getAllBranch = async (req, res) => {
         source: "cache",
       });
     }
-    const branch = await Branch.find({}, "_id name code ").populate(
-      "company",
-      "name code"
-    );
-    if (branch.length > 0) {
-      await redisClient.set(redisKey, JSON.stringify(branch));
+    const table = await Table.find({}, "_id name code status ");
+
+    if (table.length > 0) {
+      await redisClient.set(redisKey, JSON.stringify(table));
       await redisClient.expire(redisKey, process.env.REDIS_TTL);
       return res.status(200).json({
         success: true,
-        data: branch,
+        data: table,
         source: "db",
       });
     }
@@ -149,10 +141,10 @@ const getAllBranch = async (req, res) => {
   }
 };
 //get by id
-const getBranchById = async (req, res) => {
+const getTableById = async (req, res) => {
   try {
-    const branch_id = req.params.branch_id;
-    const redisKey = `branch:${branch_id}`;
+    const table_id = req.params.table_id;
+    const redisKey = `table:${table_id}`;
     const cachedData = await redisClient.get(redisKey);
     if (cachedData) {
       const parsed = JSON.parse(cachedData);
@@ -162,21 +154,18 @@ const getBranchById = async (req, res) => {
         source: "cache",
       });
     }
-    const branch = await Branch.findById({ _id: branch_id }).populate(
-      "company",
-      "name code"
-    );
-    if (!branch) {
+    const table = await Table.findById({ _id: table_id });
+    if (!table) {
       return res.status(404).json({
         success: false,
-        message: "Branch not found",
+        message: "Table not found",
       });
     }
-    await redisClient.set(redisKey, JSON.stringify(branch));
+    await redisClient.set(redisKey, JSON.stringify(table));
     await redisClient.expire(redisKey, process.env.REDIS_TTL);
     return res.status(200).json({
       success: true,
-      date: branch,
+      date: table,
       source: "db",
     });
   } catch (err) {
@@ -188,9 +177,9 @@ const getBranchById = async (req, res) => {
   }
 };
 module.exports = {
-  createBranch,
-  editBranch,
-  deleteBranch,
-  getAllBranch,
-  getBranchById,
+  createTable,
+  editTable,
+  deleteTable,
+  getAllTable,
+  getTableById,
 };

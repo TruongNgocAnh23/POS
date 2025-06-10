@@ -59,8 +59,8 @@ const loginUser = async (req, res) => {
     }
     const { user_name, password } = req.body;
     let user = await User.findOne({ user_name })
-      .populate("role.company", "_id name code")
-      .populate("role.branch", "_id name code")
+      .populate("role.company", "_id name code address")
+      .populate("role.branch", "_id name code address")
       .populate("role.department", "_id name code");
     if (!user) {
       logger.warn("Invalid user");

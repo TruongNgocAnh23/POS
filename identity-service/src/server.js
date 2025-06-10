@@ -13,6 +13,7 @@ const IdentityRoutes = require("./routes/identity-service");
 const CompanyRoutes = require("./routes/company-service");
 const BranchRoutes = require("./routes/branch-service");
 const DepartmentRoutes = require("./routes/department-service");
+const AreaRoutes = require("./routes/area-service");
 
 const app = express();
 const PORT = process.env.PORT || 4001;
@@ -81,6 +82,7 @@ app.use("/api/auth", IdentityRoutes);
 app.use("/api/auth", CompanyRoutes);
 app.use("/api/auth", BranchRoutes);
 app.use("/api/auth", DepartmentRoutes);
+app.use("/api/auth", AreaRoutes);
 //error handler
 app.use(errorHandler);
 

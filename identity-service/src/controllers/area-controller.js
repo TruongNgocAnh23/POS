@@ -1,8 +1,8 @@
-const Company = require("../models/Area");
+const Area = require("../models/Area");
 const logger = require("../utils/logger");
 const { validateArea } = require("../utils/validation");
 const redisClient = require("../utils/redisClient");
-const Area = require("../models/Area");
+require("dotenv").config();
 
 //create new area
 const createArea = async (req, res) => {
@@ -24,7 +24,13 @@ const createArea = async (req, res) => {
       note,
     });
     await area.save();
-    logger.info("Area saved successfully ", company._id);
+    const redisListArea = "area:all";
+    const deleteRedisListArea = await redisClient.del(redisListArea);
+    const redisKey = `area:${area._id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    await redisClient.set(redisKey, JSON.stringify(area));
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
+    logger.info("Area saved successfully ", area._id);
     return res.status(201).json({
       success: true,
       message: "Area created successfully",
@@ -55,9 +61,9 @@ const editArea = async (req, res) => {
     const redisListArea = "area:all";
     const deleteRedisListArea = await redisClient.del(redisListArea);
     await redisClient.set(redisKey, JSON.stringify(area));
-    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
 
-    logger.info("Area edited successfully", company._id);
+    logger.info("Area edited successfully", area_id);
     return res.json({
       success: true,
       message: "Area edited successfully",
@@ -70,21 +76,25 @@ const editArea = async (req, res) => {
     });
   }
 };
-//delete company
-const deleteCompany = async (req, res) => {
+//delete area
+const deleteArea = async (req, res) => {
   try {
-    const companyId = req.params.company_id;
-    const deletedCompany = await Company.findByIdAndDelete(companyId);
-    if (!deletedCompany) {
+    const areaId = req.params.area_id;
+    const deletedArea = await Area.findByIdAndDelete(areaId);
+    if (!deletedArea) {
       return res.status(404).json({
         success: false,
-        message: "Company not found",
+        message: "Area not found",
       });
     }
-
+    const redisKey = `area:${areaId}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    const redisListArea = "area:all";
+    const deleteRedisListArea = await redisClient.del(redisListArea);
+    logger.info("Area deleted successfully", areaId);
     return res.json({
       success: true,
-      message: "Company deleted successfully",
+      message: "Area deleted successfully",
     });
   } catch (err) {
     logger.error("Error occured", err);
@@ -95,9 +105,9 @@ const deleteCompany = async (req, res) => {
   }
 };
 //get all
-const companyGetAll = async (req, res) => {
+const areaGetAll = async (req, res) => {
   try {
-    const redisKey = "company:all";
+    const redisKey = "area:all";
     const cachedData = await redisClient.get(redisKey);
     if (cachedData) {
       const parsed = JSON.parse(cachedData);
@@ -108,13 +118,13 @@ const companyGetAll = async (req, res) => {
       });
     }
 
-    const company = await Company.find({}, "_id name code ");
-    if (company.length > 0) {
-      await redisClient.set(redisKey, JSON.stringify(company));
-      await redisClient.expire(redisKey, 3600); // TTL 1 giờ
+    const area = await Area.find({}, "_id name code ");
+    if (area.length > 0) {
+      await redisClient.set(redisKey, JSON.stringify(area));
+      await redisClient.expire(redisKey, process.env.REDIS_TTL);
       return res.status(200).json({
         success: true,
-        data: company,
+        data: area,
         source: "db",
       });
     }
@@ -131,10 +141,10 @@ const companyGetAll = async (req, res) => {
   }
 };
 //get by id
-const companyGetById = async (req, res) => {
+const areaGetById = async (req, res) => {
   try {
-    const company_id = req.params.company_id;
-    const redisKey = `company:${company_id}`;
+    const area_id = req.params.area_id;
+    const redisKey = `area:${area_id}`;
     const cachedData = await redisClient.get(redisKey);
     if (cachedData) {
       const parsed = JSON.parse(cachedData);
@@ -144,22 +154,19 @@ const companyGetById = async (req, res) => {
         source: "cache",
       });
     }
-    const company = await Company.findById(
-      { _id: company_id },
-      "_id name code "
-    );
+    const area = await Area.findById({ _id: area_id }, "_id name code ");
 
-    if (!company) {
+    if (!area) {
       return res.json({
         success: false,
-        message: "Company not found",
+        message: "Area not found",
       });
     }
-    await redisClient.set(redisKey, JSON.stringify(company));
-    await redisClient.expire(redisKey, 3600); // TTL 1 giờ  await redisClient.set(redisKey, JSON.stringify(department));
+    await redisClient.set(redisKey, JSON.stringify(area));
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     return res.status(200).json({
       success: true,
-      data: company,
+      data: area,
       souce: "db",
     });
   } catch (err) {
@@ -171,9 +178,9 @@ const companyGetById = async (req, res) => {
   }
 };
 module.exports = {
-  createCompany,
-  editCompany,
-  deleteCompany,
-  companyGetAll,
-  companyGetById,
+  createArea,
+  editArea,
+  deleteArea,
+  areaGetAll,
+  areaGetById,
 };

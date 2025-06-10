@@ -1,34 +1,45 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-// const companySchema = new mongoose.Schema(
-//   {
-//     code: {
-//       type: String,
-//       trim: true,
-//     },
-//     fax: {
-//       type: String,
-//       trim: true,
-//     },
-//     note: {
-//       type: String,
-//       trim: true,
-//     },
-//     created_date: {
-//       type: Date,
-//       default: Date.now,
-//     },
-//     updated_date: {
-//       type: Date,
-//       default: Date.now,
-//     },
-//   },
-//   {
-//     timestamps: true,
-//   }
-// );
+const tableSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    code: {
+      type: String,
+      trim: true,
+    },
+    note: {
+      type: String,
+      trim: true,
+    },
+    status: {
+      type: String,
+      default: "Available",
+      trim: true,
+    },
+    customer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Customer",
+    },
 
-// companySchema.index({ name: "text" });
-// const Company = mongoose.model("Company", companySchema);
+    created_date: {
+      type: Date,
+      default: Date.now,
+    },
+    updated_date: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-// module.exports = Company;
+tableSchema.index({ name: "text" });
+const Table = mongoose.model("Table", tableSchema);
+
+module.exports = Table;

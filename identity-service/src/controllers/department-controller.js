@@ -2,7 +2,7 @@ const Department = require("../models/Department");
 const logger = require("../utils/logger");
 const { validateDepartment } = require("../utils/validation");
 const redisClient = require("../utils/redisClient");
-
+require("dotenv").config();
 //create new department
 const createDepartment = async (req, res) => {
   try {
@@ -25,7 +25,12 @@ const createDepartment = async (req, res) => {
     });
 
     await department.save();
-
+    const redisListDepartment = "department:all";
+    const deleteRedisListCompany = await redisClient.del(redisListDepartment);
+    const redisKey = `department:${department._id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    await redisClient.set(redisKey, JSON.stringify(department));
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     logger.info("Department saved successfully ", department._id);
     return res.status(201).json({
       success: true,
@@ -52,12 +57,14 @@ const editDepartment = async (req, res) => {
     Object.assign(department, req.body);
     await department.save();
     //edit redis
+    const redisListDepartment = "department:all";
+    const deleteRedisListCompany = await redisClient.del(redisListDepartment);
     const redisKey = `department:${department_id}`;
     const deleteRedis = await redisClient.del(redisKey);
     await redisClient.set(redisKey, JSON.stringify(department));
-    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
 
-    logger.info("Department edited successfully", department._id);
+    logger.info("Department edited successfully", department_id);
     return res.json({
       success: true,
       message: "Department edited successfully",
@@ -81,7 +88,7 @@ const deleteDepartment = async (req, res) => {
         message: "Department not found",
       });
     }
-
+    logger.info("Department deleted successfully", department_id);
     return res.json({
       success: true,
       message: "Department deleted successfully",

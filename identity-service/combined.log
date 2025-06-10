@@ -1060,3 +1060,70 @@
 {"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-09T10:25:38.344Z"}
 {"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-09T10:25:38.350Z"}
 {"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-09T10:25:40.224Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T01:21:24.048Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T01:21:24.053Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T01:21:25.953Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T01:21:38.091Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:21:38.091Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T01:21:38.095Z"}
+{"level":"info","message":"Received GET request to /api/auth/branch/6846b249f7ddceae24f3fa7f","service":"identity-service","timestamp":"2025-06-10T01:22:08.260Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:22:08.261Z"}
+{"level":"info","message":"Received GET request to /api/auth/branch/6846b249f7ddceae24f3fa7f","service":"identity-service","timestamp":"2025-06-10T01:22:16.903Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:22:16.904Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T01:48:10.170Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:48:10.170Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T01:48:10.171Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T01:53:03.528Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T01:53:03.534Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T01:53:05.472Z"}
+{"level":"info","message":"Received POST request to /api/auth/area","service":"identity-service","timestamp":"2025-06-10T01:54:37.464Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:54:37.465Z"}
+{"buffer":{"data":[104,71,144,93,158,74,157,71,9,19,99,52],"type":"Buffer"},"level":"info","message":"Area saved successfully ","service":"identity-service","timestamp":"2025-06-10T01:54:37.680Z"}
+{"level":"info","message":"Received POST request to /api/auth/area","service":"identity-service","timestamp":"2025-06-10T01:54:41.562Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:54:41.562Z"}
+{"buffer":{"data":[104,71,144,97,158,74,157,71,9,19,99,54],"type":"Buffer"},"level":"info","message":"Area saved successfully ","service":"identity-service","timestamp":"2025-06-10T01:54:41.766Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:55:16.612Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:55:16.612Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:55:19.646Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:55:19.646Z"}
+{"level":"info","message":"Received GET request to /api/auth/area/6847905d9e4a9d4709136334","service":"identity-service","timestamp":"2025-06-10T01:56:18.638Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:56:18.639Z"}
+{"level":"info","message":"Received GET request to /api/auth/area/6847905d9e4a9d4709136334","service":"identity-service","timestamp":"2025-06-10T01:56:23.191Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:56:23.191Z"}
+{"level":"info","message":"Received GET request to /api/auth/area/6847905d9e4a9d4709136334","service":"identity-service","timestamp":"2025-06-10T01:56:23.864Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:56:23.864Z"}
+{"level":"info","message":"Received GET request to /api/auth/area/6847905d9e4a9d4709136334","service":"identity-service","timestamp":"2025-06-10T01:56:24.513Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:56:24.514Z"}
+{"level":"info","message":"Received PATCH request to /api/auth/area/6847905d9e4a9d4709136334","service":"identity-service","timestamp":"2025-06-10T01:57:22.723Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:57:22.723Z"}
+{"0":"6","1":"8","10":"4","11":"a","12":"9","13":"d","14":"4","15":"7","16":"0","17":"9","18":"1","19":"3","2":"4","20":"6","21":"3","22":"3","23":"4","3":"7","4":"9","5":"0","6":"5","7":"d","8":"9","9":"e","level":"info","message":"Area edited successfully","service":"identity-service","timestamp":"2025-06-10T01:57:23.124Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:57:29.121Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:57:29.122Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:57:50.792Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:57:50.792Z"}
+{"level":"info","message":"Received DELETE request to /api/auth/area/684790619e4a9d4709136336","service":"identity-service","timestamp":"2025-06-10T01:58:29.339Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:58:29.339Z"}
+{"0":"6","1":"8","10":"4","11":"a","12":"9","13":"d","14":"4","15":"7","16":"0","17":"9","18":"1","19":"3","2":"4","20":"6","21":"3","22":"3","23":"6","3":"7","4":"9","5":"0","6":"6","7":"1","8":"9","9":"e","level":"info","message":"Area deleted successfully","service":"identity-service","timestamp":"2025-06-10T01:58:29.546Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:58:32.480Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:58:32.480Z"}
+{"level":"info","message":"Received GET request to /api/auth/areas","service":"identity-service","timestamp":"2025-06-10T01:58:33.465Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T01:58:33.465Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T02:27:45.522Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T02:27:45.528Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T02:27:47.451Z"}
+{"level":"info","message":"Identity service running on port: 4001","service":"identity-service","timestamp":"2025-06-10T02:28:23.601Z"}
+{"level":"info","message":"Redis connected","service":"identity-service","timestamp":"2025-06-10T02:28:23.606Z"}
+{"level":"info","message":"Connect to mongodb","service":"identity-service","timestamp":"2025-06-10T02:28:25.436Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T02:28:30.743Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T02:28:30.744Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T02:28:30.746Z"}
+{"level":"info","message":"Received GET request to /api/auth/branch","service":"identity-service","timestamp":"2025-06-10T02:29:51.347Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T02:29:51.347Z"}
+{"level":"info","message":"Received GET request to /api/auth/branch","service":"identity-service","timestamp":"2025-06-10T02:29:54.632Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T02:29:54.632Z"}
+{"level":"info","message":"Received PATCH request to /api/auth/branch/68464e4d8f8a5f0319021007","service":"identity-service","timestamp":"2025-06-10T02:30:49.972Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T02:30:49.973Z"}
+{"0":"6","1":"8","10":"8","11":"a","12":"5","13":"f","14":"0","15":"3","16":"1","17":"9","18":"0","19":"2","2":"4","20":"1","21":"0","22":"0","23":"7","3":"6","4":"4","5":"e","6":"4","7":"d","8":"8","9":"f","level":"info","message":"Branch edited successfully ","service":"identity-service","timestamp":"2025-06-10T02:30:50.372Z"}
+{"level":"info","message":"Received POST request to /api/auth/login","service":"identity-service","timestamp":"2025-06-10T02:31:12.367Z"}
+{"level":"info","message":"Request body, [object Object]","service":"identity-service","timestamp":"2025-06-10T02:31:12.367Z"}
+{"level":"info","message":"Login end point hit...","service":"identity-service","timestamp":"2025-06-10T02:31:12.368Z"}

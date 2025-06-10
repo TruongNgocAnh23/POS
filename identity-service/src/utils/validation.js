@@ -74,6 +74,15 @@ const validateArea = (data) => {
   });
   return schema.validate(data);
 };
+const validateTable = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    note: Joi.string().optional(),
+    code: Joi.string().optional(),
+    status: Joi.string().optional(),
+  });
+  return schema.validate(data);
+};
 
 module.exports = {
   validateRegistration,
@@ -83,4 +92,5 @@ module.exports = {
   validateBranch,
   validateDepartment,
   validateArea,
+  validateTable,
 };

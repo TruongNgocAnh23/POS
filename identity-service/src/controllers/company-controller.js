@@ -2,6 +2,7 @@ const Company = require("../models/Company");
 const logger = require("../utils/logger");
 const { validateCompany } = require("../utils/validation");
 const redisClient = require("../utils/redisClient");
+require("dotenv").config();
 
 //create new company
 const createCompany = async (req, res) => {
@@ -29,7 +30,12 @@ const createCompany = async (req, res) => {
     });
 
     await company.save();
-
+    const redisListCompany = "company:all";
+    const deleteRedisListCompany = await redisClient.del(redisListCompany);
+    const redisKey = `company:${company._id}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    await redisClient.set(redisKey, JSON.stringify(company));
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     logger.info("Company saved successfully ", company._id);
     return res.status(201).json({
       success: true,
@@ -59,9 +65,10 @@ const editCompany = async (req, res) => {
     const redisKey = `company:${companyId}`;
     const deleteRedis = await redisClient.del(redisKey);
     await redisClient.set(redisKey, JSON.stringify(company));
-    await redisClient.expire(redisKey, 3600); // TTL 1 giờ
-    logger.info("Company edited successfully", company._id);
-
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
+    const redisListCompany = "company:all";
+    const deleteRedisListCompany = await redisClient.del(redisListCompany);
+    logger.info("Company edited successfully", companyId);
     return res.json({
       success: true,
       message: "Company edited successfully",
@@ -85,7 +92,11 @@ const deleteCompany = async (req, res) => {
         message: "Company not found",
       });
     }
-
+    const redisKey = `company:${companyId}`;
+    const deleteRedis = await redisClient.del(redisKey);
+    const redisListCompany = "company:all";
+    const deleteRedisListCompany = await redisClient.del(redisListCompany);
+    logger.info("Company deleted successfully", department_id);
     return res.json({
       success: true,
       message: "Company deleted successfully",
@@ -115,7 +126,7 @@ const companyGetAll = async (req, res) => {
     const company = await Company.find({}, "_id name code ");
     if (company.length > 0) {
       await redisClient.set(redisKey, JSON.stringify(company));
-      await redisClient.expire(redisKey, 3600); // TTL 1 giờ
+      await redisClient.expire(redisKey, process.env.REDIS_TTL);
       return res.status(200).json({
         success: true,
         data: company,
@@ -160,7 +171,7 @@ const companyGetById = async (req, res) => {
       });
     }
     await redisClient.set(redisKey, JSON.stringify(company));
-    await redisClient.expire(redisKey, 3600); // TTL 1 giờ  await redisClient.set(redisKey, JSON.stringify(department));
+    await redisClient.expire(redisKey, process.env.REDIS_TTL);
     return res.status(200).json({
       success: true,
       data: company,
