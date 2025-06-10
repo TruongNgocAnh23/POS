@@ -68,11 +68,19 @@ const createProxyOptions = (serviceName) => ({
 
 // Proxy: Identity Service
 app.use(
-  "/api/v1",
+  "/api/v1/identity-service",
   proxy("http://localhost:4001", {
     ...createProxyOptions("identity-service"),
     proxyReqPathResolver: (req) =>
-      req.originalUrl.replace(/^\/api\/v1/, "/api/auth"),
+      req.originalUrl.replace(/^\/api\/v1\/identity-service/, "/api/auth"),
+  })
+);
+app.use(
+  "/api/v1/product-service",
+  proxy("http://localhost:5000", {
+    ...createProxyOptions("product-service"),
+    proxyReqPathResolver: (req) =>
+      req.originalUrl.replace(/^\/api\/v1\/product-service/, "/api/v1"),
   })
 );
 // Error handler

@@ -1178,3 +1178,143 @@
 {"level":"info","message":"Request: POST /api/v1/table","service":"api-gateway","timestamp":"2025-06-10T04:12:40.701Z"}
 {"level":"info","message":"Body: {\"name\":\"Bàn 4\",\"code\":\"B1PM\",\"area\":\"6847905d9e4a9d4709136334\",\"status\":2}","service":"api-gateway","timestamp":"2025-06-10T04:12:40.701Z"}
 {"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T04:12:40.927Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T07:47:37.885Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T07:47:37.887Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T07:47:37.887Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-10T07:48:25.148Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T07:48:25.148Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T07:48:25.864Z"}
+{"level":"info","message":"Request: GET /api/v1/vendors","service":"api-gateway","timestamp":"2025-06-10T07:55:08.176Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T07:55:08.176Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T07:55:08.181Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T07:55:26.870Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T07:55:26.871Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T07:55:26.872Z"}
+{"level":"info","message":"Request: GET /api/v1/vendors","service":"api-gateway","timestamp":"2025-06-10T07:55:37.317Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T07:55:37.317Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T07:55:37.324Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T07:56:18.269Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T07:56:18.271Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T07:56:18.271Z"}
+{"level":"info","message":"Request: GET /api/v1/vendors","service":"api-gateway","timestamp":"2025-06-10T07:56:23.725Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T07:56:23.726Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T07:56:23.732Z"}
+{"level":"info","message":"Request: GET /api/v1/item-categories","service":"api-gateway","timestamp":"2025-06-10T07:58:54.812Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T07:58:54.812Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T07:58:54.816Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:00:09.506Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:00:09.508Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:00:09.508Z"}
+{"level":"info","message":"Request: GET /api/v1/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:00:25.789Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:00:25.789Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:00:25.795Z"}
+{"level":"info","message":"Request: GET /api/v1/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:01:56.596Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:01:56.596Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:01:56.599Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:04:59.603Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:04:59.604Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:04:59.607Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:05:06.402Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:05:06.404Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:05:06.404Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:05:10.269Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:05:10.270Z"}
+{"level":"info","message":"Response from identity-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:05:10.276Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:06:54.692Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:06:54.694Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:06:54.694Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:06:56.468Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:06:56.468Z"}
+{"level":"info","message":"Response from product-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:06:56.479Z"}
+{"level":"info","message":"Request: GET /api/v1/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:07:20.416Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:07:20.416Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:07:46.391Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:07:46.391Z"}
+{"level":"info","message":"Response from product-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:07:46.394Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:08:06.926Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:08:06.926Z"}
+{"level":"info","message":"Response from product-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:08:06.928Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:08:10.384Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:08:10.385Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:08:10.386Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:08:12.486Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:08:12.486Z"}
+{"level":"info","message":"Response from product-service: 404","service":"api-gateway","timestamp":"2025-06-10T08:08:12.491Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:08:29.735Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:08:29.737Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:08:29.737Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:08:31.976Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:08:31.976Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:08:32.173Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:12:07.160Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:12:07.160Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:12:07.352Z"}
+{"level":"info","message":"API Gateway is running on port: 4000","service":"api-gateway","timestamp":"2025-06-10T08:12:33.272Z"}
+{"level":"info","message":"Identity service URL: http://localhost:4001","service":"api-gateway","timestamp":"2025-06-10T08:12:33.274Z"}
+{"level":"info","message":"Redis URL: redis://localhost:6379","service":"api-gateway","timestamp":"2025-06-10T08:12:33.274Z"}
+{"level":"info","message":"Request: POST /api/v1/login","service":"api-gateway","timestamp":"2025-06-10T08:12:47.195Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T08:12:47.195Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/login","service":"api-gateway","timestamp":"2025-06-10T08:13:00.704Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T08:13:00.704Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T08:13:01.349Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:13:05.094Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:13:05.095Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:13:05.289Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:13:51.394Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:13:51.394Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:13:51.586Z"}
+{"level":"info","message":"Request: POST /api/v1/logout","service":"api-gateway","timestamp":"2025-06-10T08:14:02.209Z"}
+{"level":"info","message":"Body: {\"refreshtoken\":\"873ff4cd1e282ba4cb059439c00326c5a7f28a9c564f4b91be6751f87359dac78d5c365b8f8294c5\"}","service":"api-gateway","timestamp":"2025-06-10T08:14:02.209Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/logout","service":"api-gateway","timestamp":"2025-06-10T08:14:13.949Z"}
+{"level":"info","message":"Body: {\"refreshtoken\":\"873ff4cd1e282ba4cb059439c00326c5a7f28a9c564f4b91be6751f87359dac78d5c365b8f8294c5\"}","service":"api-gateway","timestamp":"2025-06-10T08:14:13.949Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:14:14.148Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:14:32.550Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:14:32.550Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:14:32.742Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:19:03.231Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:19:03.231Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:19:03.423Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/logout","service":"api-gateway","timestamp":"2025-06-10T08:20:19.228Z"}
+{"level":"info","message":"Body: {\"refreshtoken\":\"873ff4cd1e282ba4cb059439c00326c5a7f28a9c564f4b91be6751f87359dac78d5c365b8f8294c5\"}","service":"api-gateway","timestamp":"2025-06-10T08:20:19.229Z"}
+{"level":"info","message":"Response from identity-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:20:19.427Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/login","service":"api-gateway","timestamp":"2025-06-10T08:20:23.030Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T08:20:23.030Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T08:20:23.663Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/login","service":"api-gateway","timestamp":"2025-06-10T08:20:25.650Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T08:20:25.650Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T08:20:26.280Z"}
+{"level":"info","message":"Request: POST /api/v1/identity-service/login","service":"api-gateway","timestamp":"2025-06-10T08:25:30.038Z"}
+{"level":"info","message":"Body: {\"user_name\":\"nhanvien02\",\"password\":\"123456\"}","service":"api-gateway","timestamp":"2025-06-10T08:25:30.038Z"}
+{"level":"info","message":"Response from identity-service: 201","service":"api-gateway","timestamp":"2025-06-10T08:25:30.677Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:27:23.884Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:27:23.884Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:27:24.075Z"}
+{"level":"info","message":"Request: POST /api/v1/branch","service":"api-gateway","timestamp":"2025-06-10T08:34:43.423Z"}
+{"level":"info","message":"Body: {\"name\":\"cửa hàng số 4\",\"company\":\"684669d91b0a762f0849f20b\"}","service":"api-gateway","timestamp":"2025-06-10T08:34:43.423Z"}
+{"level":"info","message":"Request: GET /api/v1/identity-service/companies","service":"api-gateway","timestamp":"2025-06-10T08:35:10.615Z"}
+{"level":"info","message":"Body: {\"name\":\"công ty c\"}","service":"api-gateway","timestamp":"2025-06-10T08:35:10.615Z"}
+{"level":"info","message":"Response from identity-service: 401","service":"api-gateway","timestamp":"2025-06-10T08:35:10.618Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:35:15.129Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:35:15.129Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:35:15.321Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:35:17.627Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:35:17.628Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:35:17.819Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:37:16.659Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:37:16.659Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:37:16.859Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:37:20.193Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:37:20.193Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:37:20.384Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:37:21.251Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:37:21.252Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:37:21.443Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:37:23.289Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:37:23.290Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:37:23.480Z"}
+{"level":"info","message":"Request: GET /api/v1/product-service/item-categories","service":"api-gateway","timestamp":"2025-06-10T08:37:41.064Z"}
+{"level":"info","message":"Body: undefined","service":"api-gateway","timestamp":"2025-06-10T08:37:41.064Z"}
+{"level":"info","message":"Response from product-service: 200","service":"api-gateway","timestamp":"2025-06-10T08:37:41.261Z"}
+{"level":"info","message":"Request: GET /api/v1/identity-service/companies","service":"api-gateway","timestamp":"2025-06-10T08:40:08.037Z"}
+{"level":"info","message":"Body: {\"name\":\"công ty c\"}","service":"api-gateway","timestamp":"2025-06-10T08:40:08.037Z"}
+{"level":"info","message":"Response from identity-service: 401","service":"api-gateway","timestamp":"2025-06-10T08:40:08.040Z"}
