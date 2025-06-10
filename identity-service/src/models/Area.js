@@ -15,6 +15,11 @@ const areaSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    branch: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Branch",
+      required: true,
+    },
     created_date: {
       type: Date,
       default: Date.now,

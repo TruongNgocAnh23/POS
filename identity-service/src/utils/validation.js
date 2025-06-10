@@ -71,6 +71,7 @@ const validateArea = (data) => {
     name: Joi.string().required(),
     note: Joi.string().optional(),
     code: Joi.string().optional(),
+    branch: Joi.string().required(),
   });
   return schema.validate(data);
 };
