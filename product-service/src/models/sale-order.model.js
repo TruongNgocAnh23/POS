@@ -8,7 +8,16 @@ const SaleOrderSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    name: {
+    customer: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    table: {
+      type: String,
+      trim: true,
+    },
+    user: {
       type: String,
       required: true,
       trim: true,
@@ -23,16 +32,61 @@ const SaleOrderSchema = new mongoose.Schema(
           },
           quantity: {
             type: Number,
-            required: true,
+            default: 1,
+          },
+          notes: {
+            type: String,
+            trim: true,
+          },
+          price: {
+            type: Number,
+            default: 0,
           },
         },
       ],
       default: [],
+      required: true,
     },
-    is_active: {
-      type: Boolean,
-      default: true,
+    total: {
+      type: Number,
+      default: 0,
     },
+    vat: {
+      type: Number,
+      default: 0,
+    },
+    discountPercent: {
+      type: Number,
+      default: 0,
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
+    final: {
+      type: Number,
+      default: 0,
+    },
+    customerPayment: {
+      type: Number,
+      default: 0,
+    },
+    change: {
+      type: Number,
+      default: 0,
+    },
+    payment: [
+      {
+        method: {
+          type: String,
+          trim: true,
+        },
+        amount: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
     notes: {
       type: String,
       trim: true,
