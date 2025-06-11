@@ -99,9 +99,13 @@ const loginUser = async (req, res) => {
     }
     const { accessToken, refreshToken } = await generateTokens(user);
 
-    const authorizationRaw = await Authorization.find({
-      "permissions.users.user": user._id,
-    }).lean();
+    const authorizationRaw = await Authorization.find(
+      {
+        "permissions.users.user": user._id,
+        "permissions.isActive": true,
+      },
+      "form_name permissions.action permissions.users.user"
+    ).lean();
     if (authorizationRaw.length > 0) {
       const filteredAuthorization = authorizationRaw
         .map((auth) => {
@@ -131,8 +135,8 @@ const loginUser = async (req, res) => {
         accesstoken: accessToken,
         refreshtoken: refreshToken,
         user_id: user._id,
-        role: user.role,
-        authorization: filteredAuthorization,
+        role: [user.role, filteredAuthorization],
+        // authorization: filteredAuthorization,
       });
     }
     return res.status(201).json({
