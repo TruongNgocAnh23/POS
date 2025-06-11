@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 import Item from "../models/item.model.js";
 import Inventory from "../models/inventory.model.js";
 import axiosInstance from "../utils/axiosInstance.js";
+import ItemCategory from "../models/item-category.model.js";
 
 // Tạo item mới
 const createItem = async (req, res, next) => {
   try {
-    const { category_id, code, name, image, notes } = req.body;
+    const { category_id, inventories, unit_id, code, name, image, notes } =
+      req.body;
 
     const existingItem = await Item.findOne({ code });
     if (existingItem) {
@@ -16,7 +18,7 @@ const createItem = async (req, res, next) => {
     }
 
     if (category_id) {
-      const categoryExists = await Item.findById(category_id);
+      const categoryExists = await ItemCategory.findById(category_id);
       if (!categoryExists) {
         return res
           .status(404)
@@ -26,6 +28,8 @@ const createItem = async (req, res, next) => {
 
     const newItem = new Item({
       category_id,
+      inventories,
+      unit_id,
       code,
       name,
       image,
@@ -51,9 +55,12 @@ const getAllItems = async (req, res, next) => {
     const items = await Item.find({ is_active: true })
       .populate({
         path: "category_id",
-        select: "name",
+        select: "code name",
       })
-      .select("-inventories -created_at -created_by -updated_at -updated_by")
+      .populate({
+        path: "unit_id",
+        select: "code name symbol",
+      })
       .lean();
     res.status(200).json({ error: false, data: items });
   } catch (error) {
@@ -87,7 +94,8 @@ const getItemById = async (req, res, next) => {
 const updateItem = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { category_id, code, name, image, notes } = req.body;
+    const { category_id, inventories, unit_id, code, name, image, notes } =
+      req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res
@@ -102,6 +110,12 @@ const updateItem = async (req, res, next) => {
 
     if (category_id !== undefined) {
       item.category_id = category_id;
+    }
+    if (inventories !== undefined) {
+      item.inventories = inventories;
+    }
+    if (unit_id !== undefined) {
+      item.unit_id = unit_id;
     }
     if (code !== undefined) {
       item.code = code;
