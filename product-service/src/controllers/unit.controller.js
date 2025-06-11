@@ -17,7 +17,7 @@ const createUnit = async (req, res) => {
       name,
       symbol,
       notes,
-      created_by: "test",
+      created_by: req.userData.userId,
     });
 
     await newUnit.save();
@@ -99,7 +99,7 @@ const updateUnit = async (req, res) => {
     if (notes !== undefined) {
       unit.notes = notes;
     }
-    unit.updated_by = "test";
+    unit.updated_by = req.userData.userId;
 
     await unit.save();
 
@@ -133,6 +133,7 @@ const deleteUnit = async (req, res) => {
     }
 
     unit.is_active = false;
+    unit.updated_by = req.userData.userId;
     await unit.save();
 
     return res

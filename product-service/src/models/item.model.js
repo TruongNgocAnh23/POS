@@ -36,6 +36,10 @@ const ItemSchema = new mongoose.Schema(
             type: Number,
             required: true,
           },
+          updated_at: {
+            type: Date,
+            default: Date.now,
+          },
         },
       ],
       default: [],
@@ -43,12 +47,6 @@ const ItemSchema = new mongoose.Schema(
     unit_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Unit",
-      default: null,
-      trim: true,
-    },
-    tax_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tax",
       default: null,
       trim: true,
     },

@@ -19,7 +19,7 @@ const createInventory = async (req, res) => {
       phone,
       address,
       notes,
-      created_by: "test",
+      created_by: req.userData.userId,
     });
 
     await newInventory.save();
@@ -98,7 +98,7 @@ const updateInventory = async (req, res) => {
     if (notes !== undefined) {
       inventory.notes = notes;
     }
-    inventory.updated_by = "test";
+    inventory.updated_by = req.userData.userId;
 
     await inventory.save();
     res.status(200).json({
@@ -129,6 +129,7 @@ const deleteInventory = async (req, res) => {
     }
 
     inventory.is_active = false;
+    inventory.updated_by = req.userData.userId;
     await inventory.save();
 
     res.status(200).json({

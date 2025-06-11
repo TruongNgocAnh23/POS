@@ -17,7 +17,7 @@ const createTax = async (req, res, next) => {
       name,
       rate,
       notes,
-      created_by: "test",
+      created_by: req.userData.userId,
     });
 
     await newTax.save();
@@ -94,7 +94,7 @@ const updateTax = async (req, res, next) => {
     if (notes !== undefined) {
       tax.notes = notes;
     }
-    tax.updated_by = "test";
+    tax.updated_by = req.userData.userId;
 
     await tax.save();
 
@@ -123,6 +123,7 @@ const deleteTax = async (req, res, next) => {
     }
 
     tax.is_active = false;
+    tax.updated_by = req.userData.userId;
     await tax.save();
 
     res

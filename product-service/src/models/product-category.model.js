@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const ItemCategorySchema = new mongoose.Schema(
+const ProductCategorySchema = new mongoose.Schema(
   {
     parent_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ItemCategory",
+      ref: "ProductCategory",
       default: null,
       trim: true,
     },
@@ -50,6 +50,9 @@ const ItemCategorySchema = new mongoose.Schema(
   }
 );
 
-const ItemCategory = mongoose.model("ItemCategory", ItemCategorySchema);
+const ProductCategory = mongoose.model(
+  "ProductCategory",
+  ProductCategorySchema
+);
 
-export default ItemCategory;
+export default ProductCategory;

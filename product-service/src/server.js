@@ -13,6 +13,7 @@ import itemCategoryRoutes from "./routes/item-category.routes.js";
 import itemRoutes from "./routes/item.routes.js";
 import unitRoutes from "./routes/unit.routes.js";
 import taxRoutes from "./routes/tax.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use("/api/v1/item-categories", itemCategoryRoutes);
 app.use("/api/v1/items", itemRoutes);
 app.use("/api/v1/units", unitRoutes);
 app.use("/api/v1/taxes", taxRoutes);
+app.use("/api/v1/products", productRoutes);
 
 app.use(errorHandler);
 
