@@ -6,7 +6,16 @@ import Tax from "../models/tax.model.js";
 
 const createProduct = async (req, res, next) => {
   try {
-    const { category_id, receipt, code, name, image, notes } = req.body;
+    const {
+      category_id,
+      receipt,
+      code,
+      name,
+      image,
+      price,
+      priceAfterVAT,
+      notes,
+    } = req.body;
 
     const existingProduct = await Product.findOne({ code });
     if (existingProduct) {
@@ -21,6 +30,8 @@ const createProduct = async (req, res, next) => {
       code,
       name,
       image,
+      price,
+      priceAfterVAT,
       notes,
       created_by: req.userData.userId,
     });
@@ -47,76 +58,88 @@ const getAllProducts = async (req, res, next) => {
       })
       .lean();
 
-    // const products = await Product.find().lean();
-
-    const enrichedProducts = await Promise.all(
-      products.map(async (product) => {
-        const prices = await calculateProductPrices(product);
-        return { ...product, prices };
-      })
-    );
-
-    res.status(200).json({ error: false, data: enrichedProducts });
+    res.status(200).json({ error: false, data: products });
   } catch (error) {
-    error.methodName = getAllProductes.name;
+    error.methodName = getAllProducts.name;
     next(error);
   }
 };
 
-const getAllProductsFromCategories = async (req, res, next) => {
+const getAllProductsByCategories = async (req, res, next) => {
   try {
-    const categories = await ProductCategory.find({ is_active: true })
-      .select("_id parent_id code name")
-      .populate({ path: "tax_id", select: "name rate" })
-      .lean();
+    const { category_id } = req.params;
 
-    const products = await Product.find({ is_active: true });
-
-    const productMap = {};
-    for (const product of products) {
-      const catId = String(product.category_id);
-      if (!productMap[catId]) productMap[catId] = [];
-      productMap[catId].push(product);
+    if (!category_id) {
+      return res
+        .status(400)
+        .json({ error: true, message: "category_id is required." });
     }
 
-    const parentCategories = categories.filter((cat) => !cat.parent_id);
+    if (!mongoose.Types.ObjectId.isValid(category_id)) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Invalid ID format." });
+    }
 
-    const result = parentCategories.map((parent) => {
-      const childCategories = categories
-        .filter((cat) => String(cat.parent_id) === String(parent._id))
-        .map((child) => {
-          return {
-            _id: child._id,
-            code: child.code,
-            name: child.name,
-            products: productMap[String(child._id)] || [],
-          };
-        });
+    const products = await Product.find({
+      is_active: true,
+      category_id,
+    }).lean();
 
-      return {
-        _id: parent._id,
-        tax_rate: parent.tax_id?.rate || null,
-        code: parent.code,
-        name: parent.name,
-        childCategories,
-      };
-    });
-
-    // const products = await Product.find({ is_active: true })
-    //   .populate({
-    //     path: "category_id",
-    //     select: "name",
-    //   })
-    //   .lean();
-
-    // const products = await Product.find().lean();
-
-    res.status(200).json({ error: false, data: result });
+    res.status(200).json({ error: false, data: products });
   } catch (error) {
-    error.methodName = getAllProductes.name;
+    error.methodName = getAllProductsByCategories.name;
     next(error);
   }
 };
+
+// const getAllProductsFromCategories = async (req, res, next) => {
+//   try {
+//     const categories = await ProductCategory.find({ is_active: true })
+//       .select("_id parent_id code name")
+//       .populate({ path: "tax_id", select: "name rate" })
+//       .lean();
+
+//     const products = await Product.find({ is_active: true });
+
+//     const productMap = {};
+//     for (const product of products) {
+//       const catId = String(product.category_id);
+//       if (!productMap[catId]) productMap[catId] = [];
+//       productMap[catId].push(product);
+//     }
+
+//     const parentCategories = categories.filter((cat) => !cat.parent_id);
+
+//     const result = parentCategories.map((parent) => {
+//       const childCategories = categories
+//         .filter((cat) => String(cat.parent_id) === String(parent._id))
+//         .map((child) => {
+//           return {
+//             _id: child._id,
+//             code: child.code,
+//             name: child.name,
+//             products: productMap[String(child._id)] || [],
+//           };
+//         });
+
+//       return {
+//         _id: parent._id,
+//         tax_rate: parent.tax_id?.rate || null,
+//         code: parent.code,
+//         name: parent.name,
+//         childCategories,
+//       };
+//     });
+
+//     // const products = await Product.find().lean();
+
+//     res.status(200).json({ error: false, data: result });
+//   } catch (error) {
+//     error.methodName = getAllProductes.name;
+//     next(error);
+//   }
+// };
 
 const getProductById = async (req, res, next) => {
   try {
@@ -147,7 +170,16 @@ const getProductById = async (req, res, next) => {
 const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { category_id, receipt, code, name, image, notes } = req.body;
+    const {
+      category_id,
+      receipt,
+      code,
+      name,
+      image,
+      price,
+      priceAfterVAT,
+      notes,
+    } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res
@@ -176,6 +208,12 @@ const updateProduct = async (req, res, next) => {
     }
     if (image !== undefined) {
       product.image = image;
+    }
+    if (price !== undefined) {
+      product.price = price;
+    }
+    if (priceAfterVAT !== undefined) {
+      product.priceAfterVAT = priceAfterVAT;
     }
     if (notes !== undefined) {
       product.notes = notes;
@@ -228,7 +266,8 @@ const deleteProduct = async (req, res, next) => {
 export {
   createProduct,
   getAllProducts,
-  getAllProductsFromCategories,
+  // getAllProductsFromCategories,
+  getAllProductsByCategories,
   getProductById,
   updateProduct,
   deleteProduct,
