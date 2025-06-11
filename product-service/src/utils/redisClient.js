@@ -1,6 +1,5 @@
-// src/utils/redisClient.js
-const Redis = require("ioredis");
-const logger = require("../utils/logger");
+import Redis from "ioredis";
+import { logger } from "../utils/logger.js"; // chú ý thêm .js nếu dùng ESM
 
 // Redis mặc định chạy ở redis://127.0.0.1:6379 nếu không có biến môi trường
 const redisClient = new Redis(
@@ -10,4 +9,4 @@ const redisClient = new Redis(
 redisClient.on("error", (err) => logger.error("Redis error:", err));
 redisClient.on("connect", () => logger.info("Redis connected"));
 
-module.exports = redisClient;
+export default redisClient;

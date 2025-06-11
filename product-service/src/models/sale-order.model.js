@@ -19,34 +19,29 @@ const SaleOrderSchema = new mongoose.Schema(
     },
     user: {
       type: String,
-      required: true,
       trim: true,
     },
-    products: {
-      type: [
-        {
-          product_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Item",
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            default: 1,
-          },
-          notes: {
-            type: String,
-            trim: true,
-          },
-          price: {
-            type: Number,
-            default: 0,
-          },
+    details: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
         },
-      ],
-      default: [],
-      required: true,
-    },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        notes: {
+          type: String,
+          trim: true,
+        },
+        price: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
     total: {
       type: Number,
       default: 0,
