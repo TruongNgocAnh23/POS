@@ -8,31 +8,80 @@ const SaleOrderSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    name: {
+    customer: {
       type: String,
       required: true,
       trim: true,
     },
-    products: {
-      type: [
-        {
-          product_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Item",
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            required: true,
-          },
+    table: {
+      type: String,
+      trim: true,
+    },
+    user: {
+      type: String,
+      trim: true,
+    },
+    details: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
         },
-      ],
-      default: [],
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+        notes: {
+          type: String,
+          trim: true,
+        },
+        price: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
+    total: {
+      type: Number,
+      default: 0,
     },
-    is_active: {
-      type: Boolean,
-      default: true,
+    vat: {
+      type: Number,
+      default: 0,
     },
+    discountPercent: {
+      type: Number,
+      default: 0,
+    },
+    discount: {
+      type: Number,
+      default: 0,
+    },
+    final: {
+      type: Number,
+      default: 0,
+    },
+    customerPayment: {
+      type: Number,
+      default: 0,
+    },
+    change: {
+      type: Number,
+      default: 0,
+    },
+    payment: [
+      {
+        method: {
+          type: String,
+          trim: true,
+        },
+        amount: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
     notes: {
       type: String,
       trim: true,
