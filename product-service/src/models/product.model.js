@@ -43,7 +43,15 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    priceAfterVAT: {
+    tax_rate: {
+      type: Number,
+      required: true,
+    },
+    vat: {
+      type: Number,
+      required: true,
+    },
+    price_after_vat: {
       type: Number,
       required: true,
     },
