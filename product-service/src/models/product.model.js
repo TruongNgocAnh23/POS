@@ -2,15 +2,10 @@ import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema(
   {
-    code: {
-      type: String,
-      unique: true,
-      required: true,
-      trim: true,
-    },
-    name: {
-      type: String,
-      required: true,
+    category_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "ProductCategory",
+      default: null,
       trim: true,
     },
     receipt: {
@@ -28,6 +23,21 @@ const ProductSchema = new mongoose.Schema(
         },
       ],
       default: [],
+    },
+    code: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    image: {
+      type: String,
+      trim: true,
     },
     is_active: {
       type: Boolean,

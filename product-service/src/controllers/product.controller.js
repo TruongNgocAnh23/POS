@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
 import { calculateProductPrices } from "../utils/calculateProductPrices.js";
+import ProductCategory from "../models/product-category.model.js";
+import Tax from "../models/tax.model.js";
 
 const createProduct = async (req, res, next) => {
   try {
-    const { receipt, code, name, notes } = req.body;
+    const { category_id, receipt, code, name, image, notes } = req.body;
 
     const existingProduct = await Product.findOne({ code });
     if (existingProduct) {
@@ -14,9 +16,11 @@ const createProduct = async (req, res, next) => {
     }
 
     const newProduct = new Product({
+      category_id,
       receipt,
       code,
       name,
+      image,
       notes,
       created_by: req.userData.userId,
     });
@@ -34,9 +38,14 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-const getAllProductes = async (req, res, next) => {
+const getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find({ is_active: true }).lean();
+    const products = await Product.find({ is_active: true })
+      .populate({
+        path: "category_id",
+        select: "name",
+      })
+      .lean();
 
     // const products = await Product.find().lean();
 
@@ -48,6 +57,61 @@ const getAllProductes = async (req, res, next) => {
     );
 
     res.status(200).json({ error: false, data: enrichedProducts });
+  } catch (error) {
+    error.methodName = getAllProductes.name;
+    next(error);
+  }
+};
+
+const getAllProductsFromCategories = async (req, res, next) => {
+  try {
+    const categories = await ProductCategory.find({ is_active: true })
+      .select("_id parent_id code name")
+      .populate({ path: "tax_id", select: "name rate" })
+      .lean();
+
+    const products = await Product.find({ is_active: true });
+
+    const productMap = {};
+    for (const product of products) {
+      const catId = String(product.category_id);
+      if (!productMap[catId]) productMap[catId] = [];
+      productMap[catId].push(product);
+    }
+
+    const parentCategories = categories.filter((cat) => !cat.parent_id);
+
+    const result = parentCategories.map((parent) => {
+      const childCategories = categories
+        .filter((cat) => String(cat.parent_id) === String(parent._id))
+        .map((child) => {
+          return {
+            _id: child._id,
+            code: child.code,
+            name: child.name,
+            products: productMap[String(child._id)] || [],
+          };
+        });
+
+      return {
+        _id: parent._id,
+        tax_rate: parent.tax_id?.rate || null,
+        code: parent.code,
+        name: parent.name,
+        childCategories,
+      };
+    });
+
+    // const products = await Product.find({ is_active: true })
+    //   .populate({
+    //     path: "category_id",
+    //     select: "name",
+    //   })
+    //   .lean();
+
+    // const products = await Product.find().lean();
+
+    res.status(200).json({ error: false, data: result });
   } catch (error) {
     error.methodName = getAllProductes.name;
     next(error);
@@ -71,9 +135,9 @@ const getProductById = async (req, res, next) => {
         .json({ error: true, message: "Product not found." });
     }
 
-    const prices = await calculateProductPrices(product);
+    // const prices = await calculateProductPrices(product);
 
-    res.status(200).json({ error: false, data: { ...product, prices } });
+    res.status(200).json({ error: false, data: product });
   } catch (error) {
     error.methodName = getProductById.name;
     next(error);
@@ -83,7 +147,7 @@ const getProductById = async (req, res, next) => {
 const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { receipt, code, name, notes } = req.body;
+    const { category_id, receipt, code, name, image, notes } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res
@@ -98,6 +162,9 @@ const updateProduct = async (req, res, next) => {
         .json({ error: true, message: "Product not found." });
     }
 
+    if (category_id !== undefined) {
+      product.category_id = category_id;
+    }
     if (receipt !== undefined) {
       product.receipt = receipt;
     }
@@ -106,6 +173,9 @@ const updateProduct = async (req, res, next) => {
     }
     if (name !== undefined) {
       product.name = name;
+    }
+    if (image !== undefined) {
+      product.image = image;
     }
     if (notes !== undefined) {
       product.notes = notes;
@@ -157,7 +227,8 @@ const deleteProduct = async (req, res, next) => {
 
 export {
   createProduct,
-  getAllProductes,
+  getAllProducts,
+  getAllProductsFromCategories,
   getProductById,
   updateProduct,
   deleteProduct,
