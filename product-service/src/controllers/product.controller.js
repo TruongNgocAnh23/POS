@@ -13,7 +13,9 @@ const createProduct = async (req, res, next) => {
       name,
       image,
       price,
-      priceAfterVAT,
+      tax_rate,
+      vat,
+      price_after_vat,
       notes,
     } = req.body;
 
@@ -31,7 +33,9 @@ const createProduct = async (req, res, next) => {
       name,
       image,
       price,
-      priceAfterVAT,
+      tax_rate,
+      vat,
+      price_after_vat,
       notes,
       created_by: req.userData.userId,
     });
@@ -177,7 +181,9 @@ const updateProduct = async (req, res, next) => {
       name,
       image,
       price,
-      priceAfterVAT,
+      tax_rate,
+      vat,
+      price_after_vat,
       notes,
     } = req.body;
 
@@ -212,8 +218,14 @@ const updateProduct = async (req, res, next) => {
     if (price !== undefined) {
       product.price = price;
     }
-    if (priceAfterVAT !== undefined) {
-      product.priceAfterVAT = priceAfterVAT;
+    if (tax_rate !== undefined) {
+      product.tax_rate = tax_rate;
+    }
+    if (vat !== undefined) {
+      product.vat = vat;
+    }
+    if (price_after_vat !== undefined) {
+      product.price_after_vat = price_after_vat;
     }
     if (notes !== undefined) {
       product.notes = notes;
