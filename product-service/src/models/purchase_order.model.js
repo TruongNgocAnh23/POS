@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PaymentMethodSchema = new mongoose.Schema(
+const PurchaseOrderSchema = new mongoose.Schema(
   {
     code: {
       type: String,
@@ -8,19 +8,21 @@ const PaymentMethodSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    name: {
-      type: String,
+    vendor_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Vendor",
       required: true,
-      trim: true,
     },
-    is_active: {
-      type: Boolean,
-      default: true,
+    inventory_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Inventory",
+      required: true,
     },
-    notes: {
-      type: String,
-      trim: true,
+    order_date: {
+      type: Date,
+      default: Date.now,
     },
+    items: [],
     created_by: {
       type: String,
       trim: true,
@@ -37,7 +39,3 @@ const PaymentMethodSchema = new mongoose.Schema(
     },
   }
 );
-
-const PaymentMethod = mongoose.model("PaymentMethod", PaymentMethodSchema);
-
-export default PaymentMethod;

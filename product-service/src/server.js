@@ -15,7 +15,9 @@ import unitRoutes from "./routes/unit.routes.js";
 import taxRoutes from "./routes/tax.routes.js";
 import productCategoryRoutes from "./routes/product-category.routes.js";
 import productRoutes from "./routes/product.routes.js";
+import paymentMethodRoutes from "./routes/payment-method.routes.js";
 import saleOrderRoutes from "./routes/sale-order.routes.js";
+
 
 dotenv.config();
 
@@ -49,6 +51,7 @@ app.use("/api/v1/units", unitRoutes);
 app.use("/api/v1/taxes", taxRoutes);
 app.use("/api/v1/product-categories", productCategoryRoutes);
 app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/payment-methods", paymentMethodRoutes); 
 app.use("/api/v1/sale-order", saleOrderRoutes);
 
 app.use(errorHandler);
