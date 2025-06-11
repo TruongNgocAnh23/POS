@@ -2,7 +2,8 @@ import express from "express";
 import {
   createProduct,
   deleteProduct,
-  getAllProductes,
+  getAllProducts,
+  getAllProductsFromCategories,
   getProductById,
   updateProduct,
 } from "../controllers/product.controller.js";
@@ -13,7 +14,8 @@ const router = express.Router();
 router.use(protectRoute);
 
 router.post("/", createProduct);
-router.get("/", getAllProductes);
+router.get("/", getAllProducts);
+router.get("/categories", getAllProductsFromCategories);
 router.get("/:id", getProductById);
 router.patch("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
