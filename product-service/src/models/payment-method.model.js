@@ -13,6 +13,10 @@ const PaymentMethodSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    is_active: {
+      type: Boolean,
+      default: true,
+    },
     notes: {
       type: String,
       trim: true,
