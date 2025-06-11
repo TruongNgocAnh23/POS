@@ -3,7 +3,8 @@ import {
   createProduct,
   deleteProduct,
   getAllProducts,
-  getAllProductsFromCategories,
+  // getAllProductsFromCategories,
+  getAllProductsByCategories,
   getProductById,
   updateProduct,
 } from "../controllers/product.controller.js";
@@ -15,7 +16,8 @@ router.use(protectRoute);
 
 router.post("/", createProduct);
 router.get("/", getAllProducts);
-router.get("/categories", getAllProductsFromCategories);
+// router.get("/categories", getAllProductsFromCategories);
+router.get("/categories/:category_id", getAllProductsByCategories);
 router.get("/:id", getProductById);
 router.patch("/:id", updateProduct);
 router.delete("/:id", deleteProduct);
