@@ -29,7 +29,7 @@ const createItem = async (req, res, next) => {
       name,
       image,
       notes,
-      created_by: "test",
+      created_by: req.userData.userId,
     });
 
     await newItem.save();
@@ -47,7 +47,13 @@ const createItem = async (req, res, next) => {
 // Lấy tất cả item
 const getAllItems = async (req, res, next) => {
   try {
-    const items = await Item.find({ is_active: true });
+    const items = await Item.find({ is_active: true })
+      .populate({
+        path: "category_id",
+        select: "name",
+      })
+      .select("-inventories -created_at -created_by -updated_at -updated_by")
+      .lean();
     res.status(200).json({ error: false, data: items });
   } catch (error) {
     error.methodName = getAllItems.name;
@@ -108,7 +114,7 @@ const updateItem = async (req, res, next) => {
     if (notes !== undefined) {
       item.notes = notes;
     }
-    item.updated_by = "test";
+    item.updated_by = req.userData.userId;
 
     await item.save();
     res.status(200).json({
@@ -145,6 +151,7 @@ const deleteItem = async (req, res, next) => {
     }
 
     item.is_active = false;
+    item.updated_by = req.userData.userId;
     await item.save();
 
     res
@@ -253,7 +260,7 @@ const updateItemToInventory = async (req, res, next) => {
         });
       }
     }
-    item.updated_by = "test";
+    item.updated_by = req.userData.userId;
     await item.save();
 
     res.status(200).json({
@@ -314,7 +321,7 @@ const deletedItemFromInventory = async (req, res, next) => {
     item.inventories = item.inventories.filter(
       (inv) => !inventoryIds.includes(inv.inventory_id.toString())
     );
-    item.updated_by = "test";
+    item.updated_by = req.userData.userId;
     await item.save();
 
     res.status(200).json({

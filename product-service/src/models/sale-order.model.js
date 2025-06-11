@@ -1,19 +1,7 @@
 import mongoose from "mongoose";
 
-const ItemCategorySchema = new mongoose.Schema(
+const SaleOrderSchema = new mongoose.Schema(
   {
-    parent_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "ItemCategory",
-      default: null,
-      trim: true,
-    },
-    tax_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Tax",
-      default: null,
-      trim: true,
-    },
     code: {
       type: String,
       unique: true,
@@ -24,6 +12,22 @@ const ItemCategorySchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+    },
+    products: {
+      type: [
+        {
+          product_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Item",
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+        },
+      ],
+      default: [],
     },
     is_active: {
       type: Boolean,
@@ -50,6 +54,6 @@ const ItemCategorySchema = new mongoose.Schema(
   }
 );
 
-const ItemCategory = mongoose.model("ItemCategory", ItemCategorySchema);
+const SaleOrder = mongoose.model("SaleOrder", SaleOrderSchema);
 
-export default ItemCategory;
+export default SaleOrder;

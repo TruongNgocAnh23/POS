@@ -3,7 +3,7 @@ import ItemCategory from "../models/item-category.model.js";
 
 const createCategory = async (req, res) => {
   try {
-    const { parent_id, code, name, notes } = req.body;
+    const { parent_id, tax_id, code, name, notes } = req.body;
 
     const categoryExists = await ItemCategory.findOne({ code });
 
@@ -25,10 +25,11 @@ const createCategory = async (req, res) => {
 
     const newCategory = new ItemCategory({
       parent_id,
+      tax_id,
       code,
       name,
       notes,
-      created_by: req.userData.username,
+      created_by: req.userData.userId,
     });
 
     await newCategory.save();
@@ -45,11 +46,7 @@ const createCategory = async (req, res) => {
 const getAllCategories = async (req, res) => {
   try {
     const categories = await ItemCategory.find({ is_active: true });
-    res.status(200).json({
-      error: false,
-      data: categories,
-      user: `test ${JSON.stringify(req.userData)}`,
-    });
+    res.status(200).json({ error: false, data: categories });
   } catch (error) {
     res.status(500).json({ error: true, message: error.message });
   }
@@ -83,7 +80,7 @@ const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     // const updateData = req.body;
-    const { parent_id, code, name, notes } = req.body;
+    const { parent_id, tax_id, code, name, notes } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res
@@ -103,6 +100,9 @@ const updateCategory = async (req, res) => {
     if (parent_id !== undefined) {
       category.parent_id = parent_id;
     }
+    if (tax_id !== undefined) {
+      category.tax_id = tax_id;
+    }
     if (code !== undefined) {
       category.code = code;
     }
@@ -112,7 +112,7 @@ const updateCategory = async (req, res) => {
     if (notes !== undefined) {
       category.notes = notes;
     }
-    category.updated_by = "test";
+    category.updated_by = req.userData.userId;
 
     await category.save();
     res.status(200).json({

@@ -19,7 +19,7 @@ const createVendor = async (req, res) => {
       phone,
       address,
       notes,
-      created_by: "test",
+      created_by: req.userData.userId,
     });
 
     await newVendor.save();
@@ -111,17 +111,15 @@ const updateVendor = async (req, res) => {
     if (notes !== undefined) {
       vendor.notes = notes;
     }
-    vendor.updated_by = "test";
+    vendor.updated_by = req.userData.userId;
 
     await vendor.save();
 
-    return res
-      .status(200)
-      .json({
-        error: false,
-        message: "Vendor updated successfully.",
-        data: vendor,
-      });
+    return res.status(200).json({
+      error: false,
+      message: "Vendor updated successfully.",
+      data: vendor,
+    });
   } catch (error) {
     return res.status(500).json({ error: true, message: error.message });
   }
@@ -147,6 +145,7 @@ const deleteVendor = async (req, res) => {
     }
 
     vendor.is_active = false;
+    vendor.updated_by = req.userData.userId;
     await vendor.save();
 
     return res
