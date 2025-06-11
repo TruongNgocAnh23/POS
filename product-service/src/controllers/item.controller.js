@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Item from "../models/item.model.js";
 import Inventory from "../models/inventory.model.js";
+import axiosInstance from "../utils/axiosInstance.js";
 
 // Tạo item mới
 const createItem = async (req, res, next) => {
@@ -334,6 +335,16 @@ const deletedItemFromInventory = async (req, res, next) => {
   }
 };
 
+const testAPI = async (req, res, next) => {
+  try {
+    console.log(`token: ${req.token}`);
+    const response = await axiosInstance(req.token).get("/tables");
+    res.status(200).json(response.data);
+  } catch (error) {
+    error.methodName = deletedItemFromInventory.name;
+    next(error);
+  }
+};
 export {
   createItem,
   getAllItems,
@@ -342,4 +353,5 @@ export {
   deleteItem,
   updateItemToInventory,
   deletedItemFromInventory,
+  testAPI,
 };

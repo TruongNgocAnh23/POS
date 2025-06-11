@@ -7,6 +7,7 @@ import {
   getAllItems,
   updateItemToInventory,
   deletedItemFromInventory,
+  testAPI,
 } from "../controllers/item.controller.js";
 import { protectRoute } from "../middlerware/auth.middleware.js";
 
@@ -16,6 +17,7 @@ router.use(protectRoute);
 
 router.post("/", createItem);
 router.get("/", getAllItems);
+router.get("/testapi", testAPI);
 router.get("/:id", getItemById);
 router.patch("/:id", updateItem);
 router.delete("/:id", deleteItem);
