@@ -39,6 +39,14 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    price: {
+      type: Number,
+      required: true,
+    },
+    priceAfterVAT: {
+      type: Number,
+      required: true,
+    },
     is_active: {
       type: Boolean,
       default: true,
