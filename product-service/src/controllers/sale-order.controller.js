@@ -199,10 +199,11 @@ const editSaleOrder = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
-
+    const redisKey = `sale-order:${orderId}`;
+    const deleteRedis = await redisClient.del(redisKey);
     return res.status(200).json({
       success: true,
-      message: "Đơn hàng đã được cập nhật và điều chỉnh tồn kho chính xác.",
+      message: "Edit succecssfully",
     });
   } catch (err) {
     await session.abortTransaction();
