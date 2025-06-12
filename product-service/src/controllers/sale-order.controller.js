@@ -199,7 +199,8 @@ const editSaleOrder = async (req, res) => {
 
     await session.commitTransaction();
     session.endSession();
-    const redisKey = `sale-order:${orderId}`;
+    const redisKey = `sale_order:${orderId}`;
+    console.log(redisKey);
     const deleteRedis = await redisClient.del(redisKey);
     return res.status(200).json({
       success: true,
