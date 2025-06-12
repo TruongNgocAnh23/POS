@@ -48,12 +48,6 @@ const getPaymentMethodById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const tax = await PaymentMethod.findById(id);
     if (!tax || !tax.is_active) {
       return res
@@ -72,12 +66,6 @@ const updatePaymentMethod = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { code, name, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const tax = await PaymentMethod.findById(id);
     if (!tax || !tax.is_active) {
@@ -113,12 +101,6 @@ const updatePaymentMethod = async (req, res, next) => {
 const deletePaymentMethod = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const tax = await PaymentMethod.findById(id);
     if (!tax || !tax.is_active) {

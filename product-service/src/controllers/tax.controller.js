@@ -48,12 +48,6 @@ const getTaxById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const tax = await Tax.findById(id);
     if (!tax || !tax.is_active) {
       return res.status(404).json({ error: true, message: "Tax not found." });
@@ -70,12 +64,6 @@ const updateTax = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { code, name, rate, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const tax = await Tax.findById(id);
     if (!tax || !tax.is_active) {
@@ -110,12 +98,6 @@ const updateTax = async (req, res, next) => {
 const deleteTax = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const tax = await Tax.findById(id);
     if (!tax || !tax.is_active) {

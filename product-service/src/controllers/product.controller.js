@@ -83,12 +83,6 @@ const getAllProductsByCategories = async (req, res, next) => {
         .json({ error: true, message: "category_id is required." });
     }
 
-    if (!mongoose.Types.ObjectId.isValid(category_id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const products = await Product.find({
       is_active: true,
       category_id,
@@ -162,12 +156,6 @@ const getProductById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const product = await Product.findById(id)
       .populate({
         path: "category_id",
@@ -196,8 +184,6 @@ const getProductById = async (req, res, next) => {
         .json({ error: true, message: "Product not found." });
     }
 
-    // const prices = await calculateProductPrices(product);
-
     res.status(200).json({ error: false, data: product });
   } catch (error) {
     error.methodName = getProductById.name;
@@ -220,12 +206,6 @@ const updateProduct = async (req, res, next) => {
       price_after_vat,
       notes,
     } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const product = await Product.findById(id);
     if (!product || !product.is_active) {
@@ -282,12 +262,6 @@ const updateProduct = async (req, res, next) => {
 const deleteProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const product = await Product.findById(id);
     if (!product || !product.is_active) {

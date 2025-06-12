@@ -56,12 +56,6 @@ const getCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const category = await ItemCategory.findById(id);
 
     if (!category || !category.is_active) {
@@ -81,12 +75,6 @@ const updateCategory = async (req, res) => {
     const { id } = req.params;
     // const updateData = req.body;
     const { parent_id, tax_id, code, name, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const category = await ItemCategory.findById(id);
 
@@ -128,12 +116,6 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const category = await ItemCategory.findById(id);
 

@@ -21,7 +21,7 @@ router.get("/testapi", testAPI);
 router.get("/:id", getItemById);
 router.patch("/:id", updateItem);
 router.delete("/:id", deleteItem);
-router.patch("/update-item-to-inventories/:id", updateItemToInventory);
-router.delete("/delete-item-from-inventories/:id", deletedItemFromInventory);
+router.patch("/update-item-to-inventory/:id", updateItemToInventory);
+router.delete("/delete-item-from-inventory/:id", deletedItemFromInventory);
 
 export default router;
