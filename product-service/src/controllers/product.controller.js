@@ -58,7 +58,11 @@ const getAllProducts = async (req, res, next) => {
     const products = await Product.find({ is_active: true })
       .populate({
         path: "category_id",
-        select: "name",
+        select: "tax_id code name",
+        populate: {
+          path: "tax_id",
+          select: "code name rate",
+        },
       })
       .lean();
 
@@ -88,7 +92,16 @@ const getAllProductsByCategories = async (req, res, next) => {
     const products = await Product.find({
       is_active: true,
       category_id,
-    }).lean();
+    })
+      .populate({
+        path: "category_id",
+        select: "tax_id code name",
+        populate: {
+          path: "tax_id",
+          select: "code name rate",
+        },
+      })
+      .lean();
 
     res.status(200).json({ error: false, data: products });
   } catch (error) {

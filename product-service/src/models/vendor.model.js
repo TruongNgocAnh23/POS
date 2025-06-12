@@ -28,7 +28,7 @@ const VendorSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    supplier_debt: {
+    total_debt: {
       type: Number,
       default: 0,
     },
