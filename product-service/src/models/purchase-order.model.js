@@ -13,6 +13,10 @@ const PurchaseOrderSchema = new mongoose.Schema(
       ref: "Vendor",
       required: true,
     },
+    customer_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
     inventory_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Inventory",

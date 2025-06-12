@@ -231,7 +231,7 @@ const getSaleOrderById = async (req, res, next) => {
     }
     const saleOrder = await SaleOrder.findById(saleOrderId).populate(
       "details.product",
-      "name code price"
+      "name code price tax_rate vat price_after_vat"
     );
     if (!saleOrder) {
       return res
@@ -247,10 +247,6 @@ const getSaleOrderById = async (req, res, next) => {
       axiosInstance(req.token).get(`/customer/${customerId}`),
       axiosInstance(req.token).get(`/profile/${userId}`),
     ]);
-    console.log(tableId);
-    console.log(customerId);
-    console.log(userId);
-    console.log(`token: ${req.token}`);
     const mappedOrder = {
       _id: saleOrder._id,
       code: saleOrder.code,
@@ -271,6 +267,9 @@ const getSaleOrderById = async (req, res, next) => {
         quantity: item.quantity,
         notes: item.notes,
         isServed: item.isServed,
+        vat_rate: item.product.tax_rate,
+        vat: item.product.vat,
+        price_after_vat: item.product.price_after_vat,
       })),
       customer: {
         name: responseCustomer.data.data.name,
