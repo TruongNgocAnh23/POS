@@ -3,6 +3,7 @@ import {
   createSaleOrder,
   getSaleOrderById,
   editSaleOrder,
+  getPaginatedSaleOrder,
 } from "../controllers/sale-order.controller.js";
 import { protectRoute } from "../middlerware/auth.middleware.js";
 
@@ -13,6 +14,7 @@ router.use(protectRoute);
 router.post("/", createSaleOrder);
 router.get("/:id", getSaleOrderById);
 router.patch("/:id", editSaleOrder);
+router.get("/", getPaginatedSaleOrder);
 // // router.get("/categories", getAllProductsFromCategories);
 // router.get("/categories/:category_id", getAllProductsByCategories);
 // router.get("/:id", getProductById);

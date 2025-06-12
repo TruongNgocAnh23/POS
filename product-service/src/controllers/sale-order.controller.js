@@ -89,6 +89,7 @@ const createSaleOrder = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Sale order created successfully",
+      id: saleOrder._id,
     });
   } catch (err) {
     await session.abortTransaction();
@@ -216,6 +217,7 @@ const editSaleOrder = async (req, res) => {
   }
 };
 
+//get sale order by id
 const getSaleOrderById = async (req, res, next) => {
   try {
     const saleOrderId = req.params.id;
@@ -298,15 +300,95 @@ const getSaleOrderById = async (req, res, next) => {
   }
 };
 
-// const test = async (req, res, next) => {
-//   try {
-//     const [responseTable] = await Promise.all([
-//       axiosInstance(req.token).get(`/table/6847b05bf69493ecbfc1fd37`),
-//     ]);
-//     return res.status(200).json({ error: false, data: responseTable.data });
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+//get all
+const getPaginatedSaleOrder = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
 
-export { createSaleOrder, editSaleOrder, getSaleOrderById };
+    const filter = {}; // nếu sau này bạn muốn lọc theo branch, date, v.v...
+
+    // Lấy danh sách đơn hàng theo page
+    const [orders, total] = await Promise.all([
+      SaleOrder.find(filter)
+        .skip(skip)
+        .limit(limit)
+        .sort({ created_at: -1 })
+        .select("code user created_at updated_at final customer table")
+        .lean(),
+      SaleOrder.countDocuments(filter),
+    ]);
+
+    // Lấy danh sách id để gọi qua các service khác
+    const customerIds = orders
+      .map((o) => o.customer?.toString())
+      .filter(Boolean);
+    const tableIds = orders.map((o) => o.table?.toString()).filter(Boolean);
+    const userIds = orders.map((o) => o.user?.toString()).filter(Boolean);
+
+    // Gọi API song song
+    const [customers, tables, users] = await Promise.all([
+      Promise.all(
+        customerIds.map((id) => axiosInstance(req.token).get(`/customer/${id}`))
+      ),
+      Promise.all(
+        tableIds.map((id) => axiosInstance(req.token).get(`/table/${id}`))
+      ),
+      Promise.all(
+        userIds.map((id) => axiosInstance(req.token).get(`/profile/${id}`))
+      ),
+    ]);
+
+    // Tạo map lookup
+    const customerMap = {};
+    customers.forEach((r) => {
+      customerMap[r.data.data._id] = r.data.data.name;
+    });
+
+    const tableMap = {};
+    tables.forEach((r) => {
+      tableMap[r.data.data._id] = r.data.data.name;
+    });
+
+    const userMap = {};
+    users.forEach((r) => {
+      userMap[r.data.data._id] = {
+        first_name: r.data.data.first_name,
+        last_name: r.data.data.last_name,
+      };
+    });
+
+    // Ánh xạ dữ liệu về format cần thiết
+    const mappedOrders = orders.map((o) => ({
+      _id: o._id,
+      code: o.code,
+      final: o.final,
+      created_at: o.created_at,
+      updated_at: o.updated_at,
+      customer_name: customerMap[o.customer?.toString()] || "",
+      table_name: tableMap[o.table?.toString()] || "",
+      user: userMap[o.user?.toString()] || {},
+    }));
+
+    res.json({
+      success: true,
+      data: mappedOrders,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (err) {
+    err.methodName = "getSaleOrdersShort";
+    next(err);
+  }
+};
+export {
+  createSaleOrder,
+  editSaleOrder,
+  getSaleOrderById,
+  getPaginatedSaleOrder,
+};
