@@ -9,17 +9,19 @@ const SaleOrderSchema = new mongoose.Schema(
       trim: true,
     },
     customer: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
-      trim: true,
     },
     table: {
-      type: String,
-      trim: true,
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     user: {
-      type: String,
-      trim: true,
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    branch: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
     },
     details: [
       {
@@ -39,6 +41,10 @@ const SaleOrderSchema = new mongoose.Schema(
         price: {
           type: Number,
           default: 0,
+        },
+        isServed: {
+          type: Boolean,
+          default: false,
         },
       },
     ],
@@ -86,13 +92,17 @@ const SaleOrderSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    created_by: {
-      type: String,
+    isCancel: {
+      type: Boolean,
       trim: true,
     },
+    created_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     updated_by: {
-      type: String,
-      trim: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   {
