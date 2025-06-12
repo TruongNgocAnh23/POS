@@ -8,7 +8,7 @@ const createProduct = async (req, res, next) => {
   try {
     const {
       category_id,
-      receipt,
+      recipe,
       code,
       name,
       image,
@@ -28,7 +28,7 @@ const createProduct = async (req, res, next) => {
 
     const newProduct = new Product({
       category_id,
-      receipt,
+      recipe,
       code,
       name,
       image,
@@ -178,7 +178,15 @@ const getProductById = async (req, res, next) => {
         },
       })
       .populate({
-        path: "receipt.item_id",
+        path: "recipe.category_id",
+        select: "code name",
+      })
+      .populate({
+        path: "recipe.item_id",
+        select: "code name",
+      })
+      .populate({
+        path: "recipe.unit_id",
         select: "code name",
       })
       .lean();
@@ -202,7 +210,7 @@ const updateProduct = async (req, res, next) => {
     const { id } = req.params;
     const {
       category_id,
-      receipt,
+      recipe,
       code,
       name,
       image,
@@ -229,8 +237,8 @@ const updateProduct = async (req, res, next) => {
     if (category_id !== undefined) {
       product.category_id = category_id;
     }
-    if (receipt !== undefined) {
-      product.receipt = receipt;
+    if (recipe !== undefined) {
+      product.recipe = recipe;
     }
     if (code !== undefined) {
       product.code = code;
@@ -304,7 +312,6 @@ const deleteProduct = async (req, res, next) => {
 export {
   createProduct,
   getAllProducts,
-  // getAllProductsFromCategories,
   getAllProductsByCategories,
   getProductById,
   updateProduct,
