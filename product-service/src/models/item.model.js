@@ -18,7 +18,6 @@ const ItemSchema = new mongoose.Schema(
           },
           branch_id: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
           },
           quantity: {
             type: Number,
@@ -30,11 +29,11 @@ const ItemSchema = new mongoose.Schema(
           },
           wholesale_price: {
             type: Number,
-            required: true,
+            default: 0,
           },
           retail_price: {
             type: Number,
-            required: true,
+            default: 0,
           },
           updated_at: {
             type: Date,

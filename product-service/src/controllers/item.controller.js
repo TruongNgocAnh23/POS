@@ -74,10 +74,6 @@ const getItemById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid ID format." });
-    }
-
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
       return res.status(404).json({ message: "Item not found." });
@@ -96,12 +92,6 @@ const updateItem = async (req, res, next) => {
     const { id } = req.params;
     const { category_id, inventories, unit_id, code, name, image, notes } =
       req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
@@ -148,12 +138,6 @@ const deleteItem = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
       return res.status(404).json({ error: true, message: "Item not found." });
@@ -183,42 +167,12 @@ const updateItemToInventory = async (req, res, next) => {
     const { id } = req.params;
     const inventories = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
       return res.status(404).json({ error: true, message: "Item not found." });
     }
 
     const inventoryIds = inventories.map((p) => p.inventory_id);
-    const branchIds = inventories.map((p) => p.branch_id);
-
-    // Kiểm ra format các inventory ID
-    const invalidInventoryIds = inventoryIds.filter(
-      (id) => !mongoose.Types.ObjectId.isValid(id)
-    );
-    if (invalidInventoryIds.length > 0) {
-      return res.status(400).json({
-        error: true,
-        message: `Invalid inventory IDs format: ${invalidInventoryIds.join(
-          ", "
-        )}`,
-      });
-    }
-
-    const invalidBranchIds = branchIds.filter(
-      (id) => !mongoose.Types.ObjectId.isValid(id)
-    );
-    if (invalidBranchIds.length > 0) {
-      return res.status(400).json({
-        error: true,
-        message: `Invalid branch IDs format: ${invalidBranchIds.join(", ")}`,
-      });
-    }
 
     // Tìm tất cả inventory tồn tại và còn hoạt động
     const existingInventories = await Inventory.find({
@@ -291,46 +245,30 @@ const updateItemToInventory = async (req, res, next) => {
 
 const deletedItemFromInventory = async (req, res, next) => {
   try {
-    const { id, inventoryIds } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
+    const { id } = req.params;
+    const { inventoryIds } = req.body;
 
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
       return res.status(404).json({ error: true, message: "Item not found." });
     }
 
-    // Kiểm ra format các inventory ID
-    const invalidInventoryIds = inventoryIds.filter(
-      (id) => !mongoose.Types.ObjectId.isValid(id)
+    // Kiểm tra nếu mỗi item.inventories có quantity > 0 thì không cho xóa
+    const blockedInventories = item.inventories.filter(
+      (inv) =>
+        inventoryIds.includes(inv.inventory_id.toString()) && inv.quantity > 0
     );
-    if (invalidInventoryIds.length > 0) {
+    if (blockedInventories.length > 0) {
+      const blockedInventoryIds = blockedInventories.map((inv) =>
+        inv.inventory_id.toString()
+      );
       return res.status(400).json({
         error: true,
-        message: `Invalid ID format: ${invalidInventoryIds.join(", ")}`,
+        message: `Inventories have quantity > 0: ${blockedInventoryIds.join(
+          ", "
+        )}`,
       });
     }
-
-    // Kiểm tra nếu mỗi item.inventories có quantity > 0 thì không cho xóa
-    // const blockedInventories = item.inventories.filter(
-    //   (inv) =>
-    //     inventoryIds.includes(inv.inventory_id.toString()) && inv.quantity > 0
-    // );
-    // if (blockedInventories.length > 0) {
-    //   const blockedInventoryIds = blockedInventories.map((inv) =>
-    //     inv.inventory_id.toString()
-    //   );
-    //   return res.status(400).json({
-    //     error: true,
-    //     message: `Inventories have quantity > 0: ${blockedInventoryIds.join(
-    //       ", "
-    //     )}`,
-    //   });
-    // }
 
     // Update lại item.inventories lấy các inventories không nằm trong array inventoryIds
     item.inventories = item.inventories.filter(

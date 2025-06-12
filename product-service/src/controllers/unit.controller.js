@@ -46,13 +46,6 @@ const getUnitById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
-
     const unit = await Unit.findById(id);
     if (!unit || !unit.is_active) {
       return res.status(404).json({
@@ -71,13 +64,6 @@ const updateUnit = async (req, res) => {
   try {
     const { id } = req.params;
     const { code, name, symbol, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
 
     const unit = await Unit.findById(id);
     if (!unit || !unit.is_active) {
@@ -116,13 +102,6 @@ const updateUnit = async (req, res) => {
 const deleteUnit = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
 
     const unit = await Unit.findById(id);
     if (!unit || !unit.is_active) {

@@ -48,13 +48,6 @@ const getVendorById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
-
     const vendor = await Vendor.findById(id);
     if (!vendor || !vendor.is_active) {
       return res.status(404).json({
@@ -77,13 +70,6 @@ const updateVendor = async (req, res) => {
   try {
     const { id } = req.params;
     const { code, name, email, phone, address, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
 
     const vendor = await Vendor.findById(id);
     if (!vendor || !vendor.is_active) {
@@ -128,13 +114,6 @@ const updateVendor = async (req, res) => {
 const deleteVendor = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
 
     const vendor = await Vendor.findById(id);
     if (!vendor || !vendor.is_active) {

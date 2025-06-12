@@ -45,12 +45,6 @@ const getInventoryById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const inventory = await Inventory.findById(id);
     if (!inventory || !inventory.is_active) {
       return res
@@ -68,12 +62,6 @@ const updateInventory = async (req, res) => {
   try {
     const { id } = req.params;
     const { code, name, phone, address, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const inventory = await Inventory.findById(id);
     if (!inventory || !inventory.is_active) {
@@ -113,12 +101,6 @@ const updateInventory = async (req, res) => {
 const deleteInventory = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const inventory = await Inventory.findById(id);
     if (!inventory || !inventory.is_active) {

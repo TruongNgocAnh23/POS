@@ -15,7 +15,6 @@ const PurchaseOrderSchema = new mongoose.Schema(
     },
     customer_id: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
     },
     inventory_id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -39,7 +38,7 @@ const PurchaseOrderSchema = new mongoose.Schema(
             type: Number,
             required: true,
           },
-          cost_per_unit: {
+          cost: {
             type: Number,
             required: true,
           },

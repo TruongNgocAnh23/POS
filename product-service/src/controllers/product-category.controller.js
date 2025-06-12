@@ -63,9 +63,7 @@ const getAllCategories = async (req, res) => {
 const getNestedCategories = async (req, res) => {
   try {
     // 1. Lấy tất cả category
-    const allCategories = await ProductCategory.find({ is_active: true })
-      .select("-created_at -created_by -updated_at -updated_by -notes")
-      .lean();
+    const allCategories = await ProductCategory.find({ is_active: true });
 
     // 2. Tách các category cha
     const parentCategories = allCategories.filter((cat) => !cat.parent_id);
@@ -99,12 +97,6 @@ const getCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
-
     const category = await ProductCategory.findById(id);
 
     if (!category || !category.is_active) {
@@ -124,12 +116,6 @@ const updateCategory = async (req, res) => {
     const { id } = req.params;
     // const updateData = req.body;
     const { parent_id, tax_id, code, name, notes } = req.body;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const category = await ProductCategory.findById(id);
 
@@ -171,12 +157,6 @@ const updateCategory = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Invalid ID format." });
-    }
 
     const category = await ProductCategory.findById(id);
 

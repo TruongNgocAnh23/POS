@@ -1,18 +1,34 @@
 import mongoose from "mongoose";
 import PurchaseOrder from "../models/purchase-order.model.js";
 import Vendor from "../models/vendor.model.js";
+import Inventory from "../models/inventory.model.js";
+import Item from "../models/item.model.js";
+import redisClient from "../utils/redisClient.js";
 
-const createPurchaseOrder = async (req, res) => {
+const createPurchaseOrder = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     const { code, vendor_id, inventory_id, items, notes } = req.body;
 
-    const existingPurchaseOrder = await PurchaseOrder.findOne({ code });
+    const [existingPurchaseOrder, vendor, inventory] = await Promise.all([
+      PurchaseOrder.findOne({ code }),
+      Vendor.findById(vendor_id),
+      Inventory.findById(inventory_id),
+    ]);
+
     if (existingPurchaseOrder) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Purchase order already exists." });
+      throw new Error("Purchase order already exists.");
+    }
+    if (!vendor || !vendor.is_active) {
+      throw new Error("Vendor not found.");
+    }
+    if (!inventory || !inventory.is_active) {
+      throw new Error("Inventory not found.");
     }
 
+    // Tạo phiếu nhập hàng
     const newPurchaseOrder = new PurchaseOrder({
       code,
       vendor_id,
@@ -21,13 +37,51 @@ const createPurchaseOrder = async (req, res) => {
       notes,
       created_by: req.userData.userId,
     });
+    await newPurchaseOrder.save({ session });
 
-    await newPurchaseOrder.save();
+    for (const item of newPurchaseOrder.items) {
+      const existingItem = await Item.findById(item.item_id);
 
-    const vendor = await Vendor.findById(newPurchaseOrder.vendor_id);
-    vendor.debt +=
-      newPurchaseOrder.total_amount - newPurchaseOrder.total_payment;
-    await vendor.save();
+      if (!existingItem || !existingItem.is_active) {
+        throw new Error(`Item ${existingItem.name} not found.`);
+      }
+
+      // Duyệt từng kho kiểm tra xem item đã tồn tại trong kho hay chưa
+      const inventoryIndex = existingItem.inventories.findIndex(
+        (inv) => inv.inventory_id.toString() === inventory._id.toString()
+      );
+
+      if (inventoryIndex === -1) {
+        // Nếu item không tồn tại trong kho
+        existingItem.inventories.push({
+          inventory_id: newPurchaseOrder.inventory_id,
+          branch_id: null,
+          quantity: item.quantity,
+          cost: item.cost,
+          wholesale_price: 0,
+          retail_price: 0,
+          updated_at: new Date(),
+        });
+      } else {
+        // Nếu item tồn tại trong kho thì cập nhật số lượng và nếu cost nhập > cost cũ thì lấy cost nhập
+        existingItem.inventories[inventoryIndex].quantity += item.quantity;
+        if (item.cost > existingItem.inventories[inventoryIndex].cost) {
+          existingItem.inventories[inventoryIndex].cost = item.cost;
+        }
+      }
+      existingItem.updated_by = req.userData.userId;
+      await existingItem.save({ session });
+    }
+
+    // Cập nhật công nợ cho nhà cung cấp
+    vendor.total_debt +=
+      (newPurchaseOrder.total_amount || 0) -
+      (newPurchaseOrder.total_payment || 0);
+    await vendor.save({ session });
+
+    await redisClient.del("purchase_orders");
+
+    await session.commitTransaction();
 
     return res.status(201).json({
       error: false,
@@ -35,14 +89,34 @@ const createPurchaseOrder = async (req, res) => {
       data: newPurchaseOrder,
     });
   } catch (error) {
+    await session.abortTransaction();
+
     error.methodName = createPurchaseOrder.name;
     next(error);
+  } finally {
+    session.endSession();
   }
 };
 
-const getAllPurchaseOrders = async (req, res) => {
+const getAllPurchaseOrders = async (req, res, next) => {
   try {
+    const cacheKey = "purchase_orders";
+    const cachedData = await redisClient.get(cacheKey);
+    if (cachedData) {
+      return res.status(200).json({
+        error: false,
+        message: "Data from Redis cache",
+        data: JSON.parse(cachedData),
+      });
+    }
+
     const purchaseOrders = await PurchaseOrder.find({ is_active: true });
+
+    await redisClient.setEx(
+      cacheKey,
+      process.env.REDIS_TTL,
+      JSON.stringify(purchaseOrders)
+    );
 
     return res.status(200).json({ error: false, data: purchaseOrders });
   } catch (error) {
@@ -51,14 +125,17 @@ const getAllPurchaseOrders = async (req, res) => {
   }
 };
 
-const getPurchaseOrderById = async (req, res) => {
+const getPurchaseOrderById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
+    const cacheKey = `purchase_order:${id}`;
+    const cachedData = await redisClient.get(cacheKey);
+    if (cachedData) {
+      return res.status(200).json({
+        error: false,
+        message: "Data from Redis cache",
+        data: JSON.parse(cachedData),
       });
     }
 
@@ -76,12 +153,19 @@ const getPurchaseOrderById = async (req, res) => {
         select: "code name",
       })
       .lean();
+
     if (!purchaseOrder || !purchaseOrder.is_active) {
       return res.status(404).json({
         error: true,
         message: "Purchase order not found.",
       });
     }
+
+    await redisClient.setEx(
+      cacheKey,
+      process.env.REDIS_TTL,
+      JSON.stringify(purchaseOrder)
+    );
 
     return res.status(200).json({ error: false, data: purchaseOrder });
   } catch (error) {
@@ -90,28 +174,52 @@ const getPurchaseOrderById = async (req, res) => {
   }
 };
 
-const updatePurchaseOrder = async (req, res) => {
+const updatePurchaseOrder = async (req, res, next) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
   try {
     const { id } = req.params;
     const { code, vendor_id, inventory_id, items, notes } = req.body;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
+    const [purchaseOrder, vendor, inventory] = await Promise.all([
+      PurchaseOrder.findById(id),
+      Vendor.findById(vendor_id),
+      Inventory.findById(inventory_id),
+    ]);
+
+    if (purchaseOrder) {
+      throw new Error("Purchase order already exists.");
+    }
+    if (!vendor || !vendor.is_active) {
+      throw new Error("Vendor not found.");
+    }
+    if (!inventory || !inventory.is_active) {
+      throw new Error("Inventory not found.");
     }
 
-    const purchaseOrder = await PurchaseOrder.findById(id);
-    if (!purchaseOrder || !purchaseOrder.is_active) {
-      return res.status(404).json({
-        error: true,
-        message: "Purchase order not found.",
-      });
-    }
-
-    const originalTotalAmount = purchaseOrder.total_amount || 0;
+    const oldItems = purchaseOrder.items;
     const originalVendorId = purchaseOrder.vendor_id.toString();
+    const originalTotalAmount = purchaseOrder.total_amount || 0;
+
+    // Rollback tồn kho từ danh sách item cũ
+    for (const oldItem of oldItems) {
+      const existingItem = await Item.findById(oldItem.item_id).session(
+        session
+      );
+      if (!existingItem || !existingItem.is_active) {
+        throw new Error(`Item ${existingItem.name} not found.`);
+      }
+
+      const invIndex = existingItem.inventories.findIndex(
+        (inv) => inv.inventory_id.toString() === inventory_id.toString()
+      );
+
+      if (invIndex !== -1) {
+        existingItem.inventories[invIndex].quantity -= oldItem.quantity;
+        await existingItem.save({ session });
+      }
+    }
 
     // Cập nhật phiếu nhập hàng
     if (code !== undefined) {
@@ -127,54 +235,76 @@ const updatePurchaseOrder = async (req, res) => {
       purchaseOrder.notes = notes;
     }
     if (Array.isArray(items)) {
-      items.forEach((item) => {
-        if (item.item_id) {
-          const existingItem = purchaseOrder.items.id(item.item_id);
-          if (existingItem) {
-            existingItem.set(item);
-          } else {
-            purchaseOrder.items.push(item);
-          }
-        }
-      });
+      purchaseOrder.items = items;
     }
     purchaseOrder.updated_by = req.userData.userId;
-    await purchaseOrder.save();
+    await purchaseOrder.save({ session });
+
+    // Cập nhật lại tồn kho theo danh sách item mới
+    for (const item of purchaseOrder.items) {
+      const existingItem = await Item.findById(item.item_id).session(session);
+      if (!existingItem || !existingItem.is_active) {
+        throw new Error(`Item ${existingItem.name} not found.`);
+      }
+
+      const invIndex = existingItem.inventories.findIndex(
+        (inv) => inv.inventory_id.toString() === inventory_id.toString()
+      );
+
+      if (invIndex === -1) {
+        existingItem.inventories.push({
+          inventory_id,
+          quantity: item.quantity,
+          cost: item.cost,
+          wholesale_price: 0,
+          retail_price: 0,
+          updated_at: new Date(),
+        });
+      } else {
+        existingItem.inventories[invIndex].quantity += item.quantity;
+
+        if (item.cost > existingItem.inventories[invIndex].cost) {
+          existingItem.inventories[invIndex].cost = item.cost;
+        }
+
+        existingItem.inventories[invIndex].updated_at = new Date();
+      }
+      existingItem.updated_by = req.userData.userId;
+      await existingItem.save({ session });
+    }
 
     // Cập nhật lại công nợ của nhà cung cấp
-    const updatedTotalAmount = purchaseOrder.total_amount - originalTotalAmount;
+    const updatedTotalAmount = purchaseOrder.total_amount || 0;
 
-    if (purchaseOrder.vendor_id.toString() !== originalVendorId) {
+    if (vendor_id.toString() !== originalVendorId) {
       // Cập nhật nếu đổi nhà cung cấp mới
-      const newVendor = await Vendor.findById(purchaseOrder.vendor_id);
-      const oldVendor = await Vendor.findById(originalVendorId);
+      const [newVendor, oldVendor] = await Promise.all([
+        Vendor.findById(vendor_id),
+        Vendor.findById(originalVendorId),
+      ]);
 
       if (!newVendor) {
-        return res
-          .status(404)
-          .json({ error: true, message: "New vendor not found." });
+        throw new Error("New vendor not found.");
       }
       if (!oldVendor) {
-        return res
-          .status(404)
-          .json({ error: true, message: "Old vendor not found." });
+        throw new Error("Old vendor not found.");
       }
 
-      newVendor.total_debt += purchaseOrder.total_amount;
-      await newVendor.save();
+      newVendor.total_debt += updatedTotalAmount;
+      await newVendor.save({ session });
       oldVendor.total_debt -= originalTotalAmount;
-      await oldVendor.save();
+      await oldVendor.save({ session });
     } else {
       // Cập nhật nếu không đổi nhà cung cấp
-      const vendor = await Vendor.findById(purchaseOrder.vendor_id);
-      if (!vendor) {
-        return res
-          .status(404)
-          .json({ error: true, message: "Vendor not found." });
-      }
-      vendor.total_debt += updatedTotalAmount;
-      await vendor.save();
+      const difference = updatedTotalAmount - originalTotalAmount;
+      vendor.total_debt += difference;
+      await vendor.save({ session });
     }
+
+    await redisClient.del(`purchase_order:${id}`);
+    await redisClient.del("purchase_orders");
+
+    await session.commitTransaction();
 
     return res.status(200).json({
       error: false,
@@ -182,21 +312,18 @@ const updatePurchaseOrder = async (req, res) => {
       data: purchaseOrder,
     });
   } catch (error) {
+    await session.abortTransaction();
+
     error.methodName = updatePurchaseOrder.name;
     next(error);
+  } finally {
+    session.endSession();
   }
 };
 
-const deletePurchaseOrder = async (req, res) => {
+const deletePurchaseOrder = async (req, res, next) => {
   try {
     const { id } = req.params;
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({
-        error: true,
-        message: "Invalid ID format.",
-      });
-    }
 
     const purchaseOrder = await PurchaseOrder.findById(id);
     if (!purchaseOrder || !purchaseOrder.is_active) {
@@ -206,9 +333,18 @@ const deletePurchaseOrder = async (req, res) => {
       });
     }
 
+    if (purchaseOrder.total_payment > 0) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Chưa trả nợ mà đòi xóa dị bạn??" });
+    }
+
     purchaseOrder.is_active = false;
     purchaseOrder.updated_by = req.userData.userId;
     await purchaseOrder.save();
+
+    await redisClient.del(`purchase_order:${id}`);
+    await redisClient.del("purchase_orders");
 
     return res
       .status(200)
