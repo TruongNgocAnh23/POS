@@ -83,7 +83,7 @@ const PurchaseOrderSchema = new mongoose.Schema(
   }
 );
 
-PurchaseOrderSchema.pre("save", (next) => {
+PurchaseOrderSchema.pre("save", function (next) {
   let totalAmount = 0;
 
   this.items.forEach((item) => {

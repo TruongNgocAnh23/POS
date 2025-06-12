@@ -8,12 +8,22 @@ const ProductSchema = new mongoose.Schema(
       default: null,
       trim: true,
     },
-    receipt: {
+    recipe: {
       type: [
         {
+          item_category_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "ItemCategory",
+            required: true,
+          },
           item_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Item",
+            required: true,
+          },
+          unit_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Unit",
             required: true,
           },
           quantity: {

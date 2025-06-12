@@ -168,7 +168,20 @@ const getProductById = async (req, res, next) => {
         .json({ error: true, message: "Invalid ID format." });
     }
 
-    const product = await Product.findById(id);
+    const product = await Product.findById(id)
+      .populate({
+        path: "category_id",
+        select: "tax_id code name",
+        populate: {
+          path: "tax_id",
+          select: "code name rate",
+        },
+      })
+      .populate({
+        path: "receipt.item_id",
+        select: "code name",
+      })
+      .lean();
     if (!product || !product.is_active) {
       return res
         .status(404)
