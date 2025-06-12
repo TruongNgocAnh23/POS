@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import Inventory from "../models/inventory.model.js";
-import Item from "../models/item.model.js";
 
 const createInventory = async (req, res) => {
   try {
