@@ -5,15 +5,15 @@ const reportRevenue = async (req, res, next) => {
   try {
     const { from_date, to_date } = req.body;
 
-    const cacheKey = `report_revenue-${from_date}-${to_date}`;
-    const cachedData = await redisClient.get(cacheKey);
-    if (cachedData) {
-      return res.status(200).json({
-        error: false,
-        message: "Data from Redis cache",
-        data: JSON.parse(cachedData),
-      });
-    }
+    // const cacheKey = `report_revenue-${from_date}-${to_date}`;
+    // const cachedData = await redisClient.get(cacheKey);
+    // if (cachedData) {
+    //   return res.status(200).json({
+    //     error: false,
+    //     message: "Data from Redis cache",
+    //     data: JSON.parse(cachedData),
+    //   });
+    // }
 
     if (!from_date || !to_date) {
       return res.status(400).json({
@@ -38,7 +38,7 @@ const reportRevenue = async (req, res, next) => {
       {
         $group: {
           _id: "$branch", // ObjectId chi nhánh
-          total: { $sum: "$total" }, // hoặc "$final"
+          total: { $sum: "$final" }, // hoặc "$final"
         },
       },
       /* 3. Join sang collection branches */
@@ -65,12 +65,12 @@ const reportRevenue = async (req, res, next) => {
 
     const result = data.map((d, i) => ({ stt: i + 1, ...d }));
 
-    await redisClient.set(
-      cacheKey,
-      JSON.stringify(result),
-      "EX",
-      process.env.REDIS_TTL_REPORT
-    );
+    // await redisClient.set(
+    //   cacheKey,
+    //   JSON.stringify(result),
+    //   "EX",
+    //   process.env.REDIS_TTL_REPORT
+    // );
 
     res.status(200).json({
       error: false,
