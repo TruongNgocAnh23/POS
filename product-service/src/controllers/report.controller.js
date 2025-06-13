@@ -42,15 +42,18 @@ const StoreandStaffPerformanceReport = async (req, res) => {
       .populate("details.product", "name code price vat price_after_vat")
       .sort({ created_at: -1 });
 
+    const [responseCustomer] = await Promise.all([
+      axiosInstance(req.token).get(`/customers`),
+    ]);
     if (orders.length > 0) {
-      const responseCustomer = await Promise.all([
+      const [responseCustomer] = await Promise.all([
         axiosInstance(req.token).get(`/customers`),
       ]);
-      const customers = responseCustomer.data;
+      const customers = responseCustomer.data.data;
 
       const mappedOrders = orders.map((order) => {
         const customerInfo = customers.find(
-          (c) => c._id === order.customer?.toString()
+          (c) => c._id?.toString() === order.customer?.toString()
         );
         return {
           _id: order._id,
