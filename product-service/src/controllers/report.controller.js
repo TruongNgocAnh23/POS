@@ -37,7 +37,7 @@ const StoreandStaffPerformanceReport = async (req, res) => {
     }
     const orders = await SaleOrder.find(
       filter,
-      "code final close_by closed_date total details.quantity"
+      "code final close_by closed_date total details.quantity customer"
     )
       .populate("details.product", "name code price vat price_after_vat")
       .sort({ created_at: -1 });
