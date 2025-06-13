@@ -4,7 +4,7 @@
  * @param {string[]} fields – Các trường cần so khớp (mặc định rỗng).
  * @returns {object}        – Điều kiện $or (hoặc object rỗng nếu không có keyword).
  */
-const searching = (keyword = "", fields = []) => {
+const searchingHandler = (keyword = "", fields = []) => {
   if (!keyword.trim() || !fields.length) return {};
 
   const regex = new RegExp(keyword.trim(), "i"); // không phân biệt hoa/thường
@@ -13,4 +13,4 @@ const searching = (keyword = "", fields = []) => {
   };
 };
 
-export default searching;
+export default searchingHandler;
