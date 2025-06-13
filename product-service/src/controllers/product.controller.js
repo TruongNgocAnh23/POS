@@ -55,7 +55,11 @@ const createProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
   try {
-    const products = await Product.find({ is_active: true })
+    const { searchString } = req.query;
+
+    const searching = searchingHandler(searchString, ["code", "name"]);
+
+    const products = await Product.find({ is_active: true, ...searching })
       .populate({
         path: "category_id",
         select: "tax_id code name",
@@ -76,6 +80,7 @@ const getAllProducts = async (req, res, next) => {
 const getAllProductsByCategories = async (req, res, next) => {
   try {
     const { category_id } = req.params;
+    const { searchString } = req.query;
 
     if (!category_id) {
       return res
@@ -83,9 +88,12 @@ const getAllProductsByCategories = async (req, res, next) => {
         .json({ error: true, message: "category_id is required." });
     }
 
+    const searching = searchingHandler(searchString, ["code", "name"]);
+
     const products = await Product.find({
       is_active: true,
       category_id,
+      ...searching,
     })
       .populate({
         path: "category_id",

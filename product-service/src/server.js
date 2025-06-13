@@ -36,7 +36,7 @@ app.use(cookieParser());
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5000,
+  max: 99999,
   message: "Too many requests.",
   headers: true,
 });

@@ -44,6 +44,7 @@ const PurchaseOrderSchema = new mongoose.Schema(
           },
           total_cost: {
             type: Number,
+            default: 0,
           },
         },
       ],
