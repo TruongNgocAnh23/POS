@@ -61,6 +61,10 @@ const getAllItems = async (req, res, next) => {
         path: "unit_id",
         select: "code name symbol",
       })
+      .populate({
+        path: "inventories.inventory_id",
+        select: "code name",
+      })
       .lean();
     res.status(200).json({ error: false, data: items });
   } catch (error) {
@@ -74,7 +78,10 @@ const getItemById = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const item = await Item.findById(id);
+    const item = await Item.findById(id).populate({
+      path: "inventories.inventory_id",
+      select: "code name",
+    });
     if (!item || !item.is_active) {
       return res.status(404).json({ message: "Item not found." });
     }

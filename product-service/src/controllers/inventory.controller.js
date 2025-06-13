@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import Inventory from "../models/inventory.model.js";
-
+// add new
 const createInventory = async (req, res) => {
   try {
-    const { code, name, phone, address, notes } = req.body;
+    const { code, name, phone, address, notes, branches } = req.body;
 
     const existingInventory = await Inventory.findOne({ code });
     if (existingInventory) {
@@ -18,6 +18,7 @@ const createInventory = async (req, res) => {
       phone,
       address,
       notes,
+      branches,
       created_by: req.userData.userId,
     });
 
@@ -31,7 +32,7 @@ const createInventory = async (req, res) => {
     res.status(500).json({ error: true, message: error.message });
   }
 };
-
+//get all
 const getAllInventories = async (req, res) => {
   try {
     const inventories = await Inventory.find({ is_active: true });
@@ -40,7 +41,7 @@ const getAllInventories = async (req, res) => {
     res.status(500).json({ error: true, message: error.message });
   }
 };
-
+//get by id
 const getInventoryById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -57,11 +58,11 @@ const getInventoryById = async (req, res) => {
     res.status(500).json({ error: true, message: error.message });
   }
 };
-
+//edit
 const updateInventory = async (req, res) => {
   try {
     const { id } = req.params;
-    const { code, name, phone, address, notes } = req.body;
+    const { code, name, phone, address, notes, branches } = req.body;
 
     const inventory = await Inventory.findById(id);
     if (!inventory || !inventory.is_active) {
@@ -86,7 +87,7 @@ const updateInventory = async (req, res) => {
       inventory.notes = notes;
     }
     inventory.updated_by = req.userData.userId;
-
+    inventory.branches = branches;
     await inventory.save();
     res.status(200).json({
       error: false,

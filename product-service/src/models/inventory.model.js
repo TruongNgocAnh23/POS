@@ -13,6 +13,14 @@ const InventorySchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    branches: [
+      {
+        branch: {
+          type: mongoose.Schema.Types.ObjectId,
+          trim: true,
+        },
+      },
+    ],
     phone: {
       type: String,
       trim: true,
