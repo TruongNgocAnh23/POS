@@ -22,6 +22,10 @@ export default searching;
   2. khai báo biến query:
     const { searchString } = req.query;
 
+  2.1 Nếu có redis thì khai báo cachedKey như sau:
+    const cacheKey = `<tên danh sách>:${q || "all"}`;
+    ví dụ: const cacheKey = `products:${q || "all"}`;
+
   3. khai báo biến tìm kiếm theo keyword chỉ định (ví dụ chọn search theo code và name):
     const searching = searchingHandler(searchString, ["code", "name"]);
 

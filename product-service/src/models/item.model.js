@@ -27,6 +27,14 @@ const ItemSchema = new mongoose.Schema(
             type: Number,
             required: true,
           },
+          cost: {
+            type: Number,
+            required: true,
+          },
+          prev_cost: {
+            type: Number,
+            default: 0,
+          },
           wholesale_price: {
             type: Number,
             default: 0,
