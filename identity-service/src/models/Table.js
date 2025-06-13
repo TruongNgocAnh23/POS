@@ -29,7 +29,9 @@ const tableSchema = new mongoose.Schema(
       ref: "Area",
       required: true,
     },
-
+    sale_order: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     created_date: {
       type: Date,
       default: Date.now,
