@@ -6,91 +6,126 @@ import Item from "../models/item.model.js";
 import redisClient from "../utils/redisClient.js";
 
 const createPurchaseOrder = async (req, res, next) => {
+  const { code, vendor_id, inventory_id, items, notes } = req.body;
   const session = await mongoose.startSession();
-  session.startTransaction();
+  // session.startTransaction();
 
   try {
-    const { code, vendor_id, inventory_id, items, notes } = req.body;
+    await session.withTransaction(async () => {
+      const [existingPurchaseOrder, vendor, inventory] = await Promise.all([
+        PurchaseOrder.findOne({ code }),
+        Vendor.findById(vendor_id),
+        Inventory.findById(inventory_id),
+      ]);
 
-    const [existingPurchaseOrder, vendor, inventory] = await Promise.all([
-      PurchaseOrder.findOne({ code }),
-      Vendor.findById(vendor_id),
-      Inventory.findById(inventory_id),
-    ]);
-
-    if (existingPurchaseOrder) {
-      throw new Error("Purchase order already exists.");
-    }
-    if (!vendor || !vendor.is_active) {
-      throw new Error("Vendor not found.");
-    }
-    if (!inventory || !inventory.is_active) {
-      throw new Error("Inventory not found.");
-    }
-
-    // Tạo phiếu nhập hàng
-    const newPurchaseOrder = new PurchaseOrder({
-      code,
-      vendor_id,
-      inventory_id,
-      items,
-      notes,
-      created_by: req.userData.userId,
-    });
-    await newPurchaseOrder.save({ session });
-
-    for (const item of newPurchaseOrder.items) {
-      const existingItem = await Item.findById(item.item_id);
-
-      if (!existingItem || !existingItem.is_active) {
-        throw new Error(`Item ${existingItem.name} not found.`);
+      if (existingPurchaseOrder) {
+        throw new Error("Purchase order already exists.");
+      }
+      if (!vendor || !vendor.is_active) {
+        throw new Error("Vendor not found.");
+      }
+      if (!inventory || !inventory.is_active) {
+        throw new Error("Inventory not found.");
       }
 
-      // Duyệt từng kho kiểm tra xem item đã tồn tại trong kho hay chưa
-      const inventoryIndex = existingItem.inventories.findIndex(
-        (inv) => inv.inventory_id.toString() === inventory._id.toString()
-      );
+      /* ---------- 1. Chuẩn hoá danh sách items & cập nhật kho ---------- */
+      const poItems = [];
 
-      if (inventoryIndex === -1) {
-        // Nếu item không tồn tại trong kho
-        existingItem.inventories.push({
-          inventory_id: newPurchaseOrder.inventory_id,
-          branch_id: null,
-          quantity: item.quantity,
-          cost: item.cost,
-          wholesale_price: 0,
-          retail_price: 0,
-          updated_at: new Date(),
-        });
-      } else {
-        // Nếu item tồn tại trong kho thì cập nhật số lượng và nếu cost nhập > cost cũ thì lấy cost nhập
-        existingItem.inventories[inventoryIndex].quantity += item.quantity;
-        if (item.cost > existingItem.inventories[inventoryIndex].cost) {
-          existingItem.inventories[inventoryIndex].cost = item.cost;
+      for (const it of items) {
+        const { item_id, quantity, cost } = it;
+
+        const prod = await Item.findById(item_id).session(session);
+        if (!prod?.is_active) throw new Error(`Item ${item_id} not found.`);
+
+        // Lấy cost hiện tại trong kho để lưu prev_cost
+        const invIdx = prod.inventories.findIndex((v) =>
+          v.inventory_id.equals(inventory_id)
+        );
+        const prev_cost = invIdx !== -1 ? prod.inventories[invIdx].cost : 0;
+
+        /* Cập nhật tồn kho */
+        if (invIdx === -1) {
+          prod.inventories.push({
+            inventory_id,
+            branch_id: null,
+            quantity,
+            cost,
+            wholesale_price: 0,
+            retail_price: 0,
+            updated_at: new Date(),
+          });
+        } else {
+          const entry = prod.inventories[invIdx];
+          entry.quantity += quantity;
+          if (cost > entry.cost) entry.cost = cost;
+          entry.updated_at = new Date();
         }
-      }
-      existingItem.updated_by = req.userData.userId;
-      await existingItem.save({ session });
-    }
+        prod.updated_by = req.userData.userId;
+        await prod.save({ session });
 
-    // Cập nhật công nợ cho nhà cung cấp
-    vendor.total_debt +=
-      (newPurchaseOrder.total_amount || 0) -
-      (newPurchaseOrder.total_payment || 0);
-    await vendor.save({ session });
+        // Đưa vào list items của PO (kèm prev_cost để phục vụ rollback sau này)
+        poItems.push({ item_id, quantity, cost, prev_cost });
+      }
+
+      // Tạo phiếu nhập hàng
+      const newPurchaseOrder = new PurchaseOrder({
+        code,
+        vendor_id,
+        inventory_id,
+        items: poItems,
+        notes,
+        created_by: req.userData.userId,
+      });
+      await newPurchaseOrder.save({ session });
+
+      // for (const item of newPurchaseOrder.items) {
+      //   const existingItem = await Item.findById(item.item_id);
+
+      //   if (!existingItem || !existingItem.is_active) {
+      //     throw new Error(`Item ${existingItem.name} not found.`);
+      //   }
+
+      //   // Duyệt từng kho kiểm tra xem item đã tồn tại trong kho hay chưa
+      //   const inventoryIndex = existingItem.inventories.findIndex(
+      //     (inv) => inv.inventory_id.toString() === inventory._id.toString()
+      //   );
+
+      //   if (inventoryIndex === -1) {
+      //     // Nếu item không tồn tại trong kho
+      //     existingItem.inventories.push({
+      //       inventory_id: newPurchaseOrder.inventory_id,
+      //       branch_id: null,
+      //       quantity: item.quantity,
+      //       cost: item.cost,
+      //       wholesale_price: 0,
+      //       retail_price: 0,
+      //       updated_at: new Date(),
+      //     });
+      //   } else {
+      //     // Nếu item tồn tại trong kho thì cập nhật số lượng và nếu cost nhập > cost cũ thì lấy cost nhập
+      //     existingItem.inventories[inventoryIndex].quantity += item.quantity;
+      //     if (item.cost > existingItem.inventories[inventoryIndex].cost) {
+      //       existingItem.inventories[inventoryIndex].cost = item.cost;
+      //     }
+      //   }
+      //   existingItem.updated_by = req.userData.userId;
+      //   await existingItem.save({ session });
+      // }
+
+      // Cập nhật công nợ cho nhà cung cấp
+      vendor.total_debt +=
+        (newPurchaseOrder.total_amount || 0) -
+        (newPurchaseOrder.total_payment || 0);
+      await vendor.save({ session });
+    });
 
     await redisClient.del("purchase_orders");
-
-    await session.commitTransaction();
 
     return res.status(201).json({
       error: false,
       message: "Purchase order created successfully.",
-      data: newPurchaseOrder,
     });
   } catch (error) {
-    await session.abortTransaction();
-
     error.methodName = createPurchaseOrder.name;
     next(error);
   } finally {
@@ -221,7 +256,12 @@ const updatePurchaseOrder = async (req, res, next) => {
 
         if (invIndex !== -1) {
           existingItem.inventories[invIndex].quantity -= oldItem.quantity;
-          existingItem.inventories[invIndex].cost = oldItem.cost;
+          if (
+            oldItem.prev_cost !== undefined &&
+            existingItem.inventories[invIndex].cost === oldItem.cost
+          ) {
+            existingItem.inventories[invIndex].cost = oldItem.prev_cost;
+          }
           await existingItem.save({ session });
         }
       }
@@ -243,12 +283,16 @@ const updatePurchaseOrder = async (req, res, next) => {
           (inv) => inv.inventory_id.toString() === inventory_id.toString()
         );
 
+        const prevCost =
+          invIndex !== -1 ? existingItem.inventories[invIndex].cost : 0;
+
         if (invIndex === -1) {
           existingItem.inventories.push({
             inventory_id,
             branch_id: null,
             quantity,
             cost,
+            prev_cost: prevCost,
             wholesale_price: 0,
             retail_price: 0,
             updated_at: new Date(),
