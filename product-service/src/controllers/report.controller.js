@@ -7,7 +7,7 @@ import Product from "../models/product.model.js";
 //Store and Staff Performance Report
 const StoreandStaffPerformanceReport = async (req, res) => {
   try {
-    const { startDate, endDate, userId, branch, isClosed } = req.params;
+    const { startDate, endDate, userId, branch, isClosed } = req.query;
     const filter = {};
 
     // Lọc theo khoảng thời gian
@@ -87,7 +87,7 @@ const StoreandStaffPerformanceReport = async (req, res) => {
 
 const TotalRevenueReport = async (req, res, next) => {
   try {
-    const { from_date, to_date } = req.params;
+    const { from_date, to_date } = req.query;
 
     // const cacheKey = `report_revenue-${from_date}-${to_date}`;
     // const cachedData = await redisClient.get(cacheKey);
