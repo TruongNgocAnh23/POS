@@ -239,8 +239,132 @@ const CancelledBillsReport = async (req, res) => {
     });
   }
 };
+
+const reportRevenueOfProduct = async (req, res, next) => {
+  try {
+    const { from_date, to_date, branch_id, user_id } = req.query;
+
+    if (!from_date || !to_date) {
+      return res.status(400).json({
+        error: true,
+        message: "Missing 'from' or 'to' query parameters",
+      });
+    }
+
+    const fromDate = new Date(from_date);
+    const toDate = new Date(to_date);
+    // const branchId = new mongoose.Types.ObjectId(branch_id);
+    // const userId = new mongoose.Types.ObjectId(user_id);
+
+    /* ----- 1. Xây MATCH động ----- */
+    const match = {
+      created_at: { $gte: fromDate, $lte: toDate },
+      // isClosed: true,
+      // isCancel: { $ne: true },
+    };
+    if (branch_id) match.branch = new mongoose.Types.ObjectId(branch_id);
+    if (user_id) match.user = new mongoose.Types.ObjectId(user_id);
+
+    /* ----- 2. Pipeline ----- */
+    const data = await SaleOrder.aggregate([
+      { $match: match },
+
+      { $unwind: "$details" }, // tách từng SP
+
+      {
+        // gộp theo SP + user + branch
+        $group: {
+          _id: {
+            product: "$details.product",
+            user: "$user",
+            branch: "$branch",
+          },
+          quantity: { $sum: "$details.quantity" },
+          final: { $sum: "$final" },
+          lastDate: { $max: "$created_at" },
+        },
+      },
+
+      /* Join lấy tên product, user, branch */
+      {
+        $lookup: {
+          from: "products",
+          localField: "_id.product",
+          foreignField: "_id",
+          as: "prod",
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id.user",
+          foreignField: "_id",
+          as: "usr",
+        },
+      },
+      {
+        $lookup: {
+          from: "branches",
+          localField: "_id.branch",
+          foreignField: "_id",
+          as: "br",
+        },
+      },
+      {
+        $set: {
+          product_name: { $arrayElemAt: ["$prod.name", 0] },
+          username: { $arrayElemAt: ["$usr.user_name", 0] },
+          branch_name: { $arrayElemAt: ["$br.name", 0] },
+        },
+      },
+
+      /* fallback nếu không tìm thấy */
+      {
+        $project: {
+          _id: 0,
+          product_name: { $ifNull: ["$product_name", "UNKNOWN"] },
+          branch_name: { $ifNull: ["$branch_name", "UNKNOWN"] },
+          username: { $ifNull: ["$username", "UNKNOWN"] },
+          quantity: 1,
+          final: 1,
+          lastDate: 1,
+        },
+      },
+
+      { $sort: { lastDate: -1 } }, // mới nhất trước
+
+      /* MongoDB ≥ 5: đánh STT ngay trong pipeline */
+      {
+        $setWindowFields: {
+          sortBy: { lastDate: -1 },
+          output: { stt: { $documentNumber: {} } },
+        },
+      },
+      {
+        $project: {
+          stt: 1,
+          branch_name: 1,
+          product_name: 1,
+          username: 1,
+          quantity: 1,
+          final: 1,
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      error: false,
+      data: data,
+    });
+  } catch (error) {
+    error.methodName = reportRevenueOfProduct.name;
+    next(error);
+  }
+};
+
 export {
   StoreandStaffPerformanceReport,
   TotalRevenueReport,
   CancelledBillsReport,
+  reportRevenueOfProduct,
 };
