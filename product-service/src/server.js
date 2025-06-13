@@ -19,6 +19,7 @@ import paymentMethodRoutes from "./routes/payment-method.routes.js";
 import saleOrderRoutes from "./routes/sale-order.routes.js";
 import purchaseOrderRoutes from "./routes/purchase-order.routes.js";
 import ReportRoutes from "./routes/report.routes.js";
+import thanhntReportRoutes from "./routes/thanhnt-report.routes.js";
 
 dotenv.config();
 
@@ -37,7 +38,7 @@ app.use(cookieParser());
 
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 99999,
+  max: 999999,
   message: "Too many requests.",
   headers: true,
 });
@@ -56,6 +57,7 @@ app.use("/api/v1/payment-methods", paymentMethodRoutes);
 app.use("/api/v1/sale-order", saleOrderRoutes);
 app.use("/api/v1/purchase-orders", purchaseOrderRoutes);
 app.use("/api/v1/reports", ReportRoutes);
+app.use("/api/v1/thanhnt-reports", thanhntReportRoutes);
 
 app.use(errorHandler);
 
