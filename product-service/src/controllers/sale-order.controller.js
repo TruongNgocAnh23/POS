@@ -211,7 +211,7 @@ const editSaleOrder = async (req, res) => {
       ]);
     }
     if (isClosed) {
-      existingOrder.isClosed = isCancel;
+      existingOrder.isClosed = isClosed;
       existingOrder.closed_date = new Date();
       existingOrder.close_by = req.userData.userId;
       const [responseTable] = await Promise.all([

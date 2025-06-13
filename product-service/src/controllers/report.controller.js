@@ -1,5 +1,4 @@
 import SaleOrder from "../models/sale-order.model.js";
-import Item from "../models/item.model.js";
 import redisClient from "../utils/redisClient.js";
 import axiosInstance from "../utils/axiosInstance.js";
 import mongoose from "mongoose";
@@ -32,19 +31,53 @@ const StoreandStaffPerformanceReport = async (req, res) => {
     if (branch && branch.length > 0) {
       filter.branch = { $in: branch };
     }
+
     if (typeof isClosed === "boolean") {
       filter.isClosed = isClosed;
     }
-    const orders = await SaleOrder.find(filter)
-      .populate("user", "first_name last_name")
-      .populate("branch", "name code")
+    const orders = await SaleOrder.find(
+      filter,
+      "code final close_by closed_date total details.quantity"
+    )
+      .populate("details.product", "name code price vat price_after_vat")
       .sort({ created_at: -1 });
 
-    res.status(200).json({ success: true, data: orders });
+    if (orders.length > 0) {
+      const responseCustomer = await Promise.all([
+        axiosInstance(req.token).get(`/customers`),
+      ]);
+      const customers = responseCustomer.data;
+
+      const mappedOrders = orders.map((order) => {
+        const customerInfo = customers.find(
+          (c) => c._id === order.customer?.toString()
+        );
+        return {
+          _id: order._id,
+          code: order.code,
+          total: order.total,
+          final: order.final,
+          close_by: order.close_by,
+          closed_date: order.closed_date,
+          customer: customerInfo?.name || null,
+          products: order.details.map((item) => ({
+            _id: item.product?._id,
+            name: item.product?.name,
+            price: item.product?.price,
+            vat: item.product?.vat,
+            price_after_vat:
+              (item.product?.price + item.product?.vat) * item.quantity || 0,
+            quantity: item.quantity,
+          })),
+        };
+      });
+      return res.status(200).json({ success: true, data: mappedOrders });
+    }
+    return res.status(200).json({ success: true, data: [] });
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
-      message: "Error fetching sale orders",
+      message: "Error fetching report",
       error: error.message,
     });
   }
