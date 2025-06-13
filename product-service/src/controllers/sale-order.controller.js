@@ -113,6 +113,9 @@ const editSaleOrder = async (req, res) => {
       vat,
       final,
       branch,
+      status,
+      isCancel,
+      isClosed,
     } = req.body;
 
     session.startTransaction();
@@ -193,10 +196,22 @@ const editSaleOrder = async (req, res) => {
     existingOrder.vat = vat;
     existingOrder.final = final;
     existingOrder.updatedAt = new Date();
+    if (isCancel) {
+      existingOrder.isCancel = isCancel;
+      existingOrder.cancel_date = new Date();
+      existingOrder.cancel_by = req.userData.userId;
+    }
+    if (isClosed) {
+      existingOrder.isClosed = isCancel;
+      existingOrder.closed_date = new Date();
+      existingOrder.close_by = req.userData.userId;
+    }
     await existingOrder.save({ session });
 
     // 3. Cập nhật trạng thái bàn
-    await axiosInstance(req.token).patch(`/table/${table}`, { status: 2 });
+    await axiosInstance(req.token).patch(`/table/${table}`, {
+      status: status || 2,
+    });
 
     await session.commitTransaction();
     session.endSession();

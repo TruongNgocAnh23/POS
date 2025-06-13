@@ -101,6 +101,23 @@ const SaleOrderSchema = new mongoose.Schema(
       type: Date,
       trim: true,
     },
+    cancel_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      trim: true,
+    },
+    isClosed: {
+      type: Boolean,
+      trim: true,
+    },
+    closed_date: {
+      type: Date,
+      trim: true,
+    },
+    close_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      trim: true,
+    },
+
     created_by: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
