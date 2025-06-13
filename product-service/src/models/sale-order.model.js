@@ -105,6 +105,10 @@ const SaleOrderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       trim: true,
     },
+    cancel_notes: {
+      type: String,
+      trim: true,
+    },
     isClosed: {
       type: Boolean,
       trim: true,

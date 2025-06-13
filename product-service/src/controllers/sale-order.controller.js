@@ -116,6 +116,7 @@ const editSaleOrder = async (req, res) => {
       branch,
       isCancel,
       isClosed,
+      cancel_notes,
     } = req.body;
 
     session.startTransaction();
@@ -204,6 +205,7 @@ const editSaleOrder = async (req, res) => {
       existingOrder.isCancel = isCancel;
       existingOrder.cancel_date = new Date();
       existingOrder.cancel_by = req.userData.userId;
+      existingOrder.cancel_notes = cancel_notes;
       const [responseTable] = await Promise.all([
         axiosInstance(req.token).patch(`/table/${table}`, tableStatus),
       ]);
