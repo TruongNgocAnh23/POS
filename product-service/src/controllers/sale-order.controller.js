@@ -89,7 +89,7 @@ const createSaleOrder = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Sale order created successfully",
-      id: saleOrder._id,
+      _id: saleOrder._id,
     });
   } catch (err) {
     await session.abortTransaction();

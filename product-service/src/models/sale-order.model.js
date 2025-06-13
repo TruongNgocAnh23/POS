@@ -88,12 +88,17 @@ const SaleOrderSchema = new mongoose.Schema(
         },
       },
     ],
+
     notes: {
       type: String,
       trim: true,
     },
     isCancel: {
       type: Boolean,
+      trim: true,
+    },
+    cancel_date: {
+      type: Date,
       trim: true,
     },
     created_by: {
