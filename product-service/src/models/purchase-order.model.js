@@ -32,7 +32,6 @@ const PurchaseOrderSchema = new mongoose.Schema(
           unit_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Unit",
-            required: true,
           },
           quantity: {
             type: Number,
@@ -91,8 +90,8 @@ PurchaseOrderSchema.pre("save", function (next) {
   let totalAmount = 0;
 
   this.items.forEach((item) => {
-    item.total_cost = item.cost_per_unit * item.quantity;
-    totalAmount = totalAmount + item.total_cost;
+    item.total_cost = item.cost * item.quantity;
+    totalAmount += item.total_cost;
   });
 
   this.total_amount = totalAmount;

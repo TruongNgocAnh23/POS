@@ -177,153 +177,156 @@ const getPurchaseOrderById = async (req, res, next) => {
 };
 
 const updatePurchaseOrder = async (req, res, next) => {
+  const { id } = req.params;
+  const { code, vendor_id, inventory_id, items, notes } = req.body;
   const session = await mongoose.startSession();
-  session.startTransaction();
+  // session.startTransaction();
 
   try {
-    const { id } = req.params;
-    const { code, vendor_id, inventory_id, items, notes } = req.body;
-
-    const [purchaseOrder, vendor, inventory] = await Promise.all([
-      PurchaseOrder.findById(id).session(session),
-      Vendor.findById(vendor_id).session(session),
-      Inventory.findById(inventory_id).session(session),
-    ]);
-
-    if (!purchaseOrder || !purchaseOrder.is_active) {
-      throw new Error("Purchase order not found.");
-    }
-    if (!vendor || !vendor.is_active) {
-      throw new Error("Vendor not found.");
-    }
-    if (!inventory || !inventory.is_active) {
-      throw new Error("Inventory not found.");
-    }
-
-    const oldItems = purchaseOrder.items;
-    const oldVendorId = purchaseOrder.vendor_id.toString();
-    const oldTotalAmount = purchaseOrder.total_amount || 0;
-
-    // --- 1. Rollback tồn kho từ item cũ ---
-    for (const oldItem of oldItems) {
-      const existingItem = await Item.findById(oldItem.item_id).session(
-        session
-      );
-      if (!existingItem || !existingItem.is_active) {
-        throw new Error(`Item ${existingItem.name} not found.`);
-      }
-
-      const invIndex = existingItem.inventories.findIndex(
-        (inv) =>
-          inv.inventory_id.toString() === purchaseOrder.inventory_id.toString()
-      );
-
-      if (invIndex !== -1) {
-        existingItem.inventories[invIndex].quantity -= oldItem.quantity;
-        await existingItem.save({ session });
-      }
-    }
-
-    // --- 2. Reset items list trong phiếu ---
-    purchaseOrder.items = [];
-
-    // --- 3. Thêm lại item mới vào phiếu và cập nhật tồn kho ---
-    for (const item of items) {
-      const { item_id, quantity, cost } = item;
-
-      const existingItem = await Item.findById(item_id).session(session);
-      if (!existingItem || !existingItem.is_active) {
-        throw new Error(`Item ${existingItem.name} not found.`);
-      }
-
-      // Cập nhật lại tồn kho
-      const invIndex = existingItem.inventories.findIndex(
-        (inv) => inv.inventory_id.toString() === inventory_id.toString()
-      );
-
-      if (invIndex === -1) {
-        existingItem.inventories.push({
-          inventory_id,
-          branch_id: null,
-          quantity,
-          cost,
-          wholesale_price: 0,
-          retail_price: 0,
-          updated_at: new Date(),
-        });
-      } else {
-        existingItem.inventories[invIndex].quantity += quantity;
-        if (cost > existingItem.inventories[invIndex].cost) {
-          existingItem.inventories[invIndex].cost = cost;
-        }
-        existingItem.inventories[invIndex].updated_at = new Date();
-      }
-
-      existingItem.updated_by = req.userData.userId;
-      await existingItem.save({ session });
-
-      // Thêm vào phiếu
-      purchaseOrder.items.push(item);
-    }
-
-    // --- 4. Cập nhật thông tin phiếu ---
-    if (code !== undefined) {
-      purchaseOrder.code = code;
-    }
-    if (vendor_id !== undefined) {
-      purchaseOrder.vendor_id = vendor_id;
-    }
-    if (inventory_id !== undefined) {
-      purchaseOrder.inventory_id = inventory_id;
-    }
-    if (notes !== undefined) {
-      purchaseOrder.notes = notes;
-    }
-    purchaseOrder.updated_by = req.userData.userId;
-    await purchaseOrder.save({ session });
-
-    // --- 5. Cập nhật công nợ vendor ---
-    if (oldVendorId !== vendor_id.toString()) {
-      // Cập nhật nếu đổi nhà cung cấp mới
-      const [newVendor, oldVendor] = await Promise.all([
+    await session.withTransaction(async () => {
+      const [purchaseOrder, vendor, inventory] = await Promise.all([
+        PurchaseOrder.findById(id).session(session),
         Vendor.findById(vendor_id).session(session),
-        Vendor.findById(oldVendorId).session(session),
+        Inventory.findById(inventory_id).session(session),
       ]);
 
-      if (!newVendor) {
-        throw new Error("New vendor not found.");
+      if (!purchaseOrder || !purchaseOrder.is_active) {
+        throw new Error("Purchase order not found.");
       }
-      if (!oldVendor) {
-        throw new Error("Old vendor not found.");
+      if (!vendor || !vendor.is_active) {
+        throw new Error("Vendor not found.");
+      }
+      if (!inventory || !inventory.is_active) {
+        throw new Error("Inventory not found.");
       }
 
-      newVendor.total_debt += purchaseOrder.total_amount;
-      await newVendor.save({ session });
-      oldVendor.total_debt -= oldTotalAmount;
-      await oldVendor.save({ session });
-    } else {
-      // Cập nhật nếu không đổi nhà cung cấp
-      const debtDiff = purchaseOrder.total_amount - oldTotalAmount;
-      vendor.total_debt += debtDiff;
-      await vendor.save({ session });
-    }
+      const oldItems = purchaseOrder.items;
+      const oldVendorId = purchaseOrder.vendor_id.toString();
+      const oldTotalAmount = purchaseOrder.total_amount || 0;
+
+      // --- 1. Rollback tồn kho từ item cũ ---
+      for (const oldItem of oldItems) {
+        const existingItem = await Item.findById(oldItem.item_id).session(
+          session
+        );
+        if (!existingItem || !existingItem.is_active) {
+          throw new Error(`Item ${existingItem.name} not found.`);
+        }
+
+        const invIndex = existingItem.inventories.findIndex(
+          (inv) =>
+            inv.inventory_id.toString() ===
+            purchaseOrder.inventory_id.toString()
+        );
+
+        if (invIndex !== -1) {
+          existingItem.inventories[invIndex].quantity -= oldItem.quantity;
+          existingItem.inventories[invIndex].cost = oldItem.cost;
+          await existingItem.save({ session });
+        }
+      }
+
+      // --- 2. Reset items list trong phiếu ---
+      purchaseOrder.items = [];
+
+      // --- 3. Thêm lại item mới vào phiếu và cập nhật tồn kho ---
+      for (const item of items) {
+        const { item_id, quantity, cost } = item;
+
+        const existingItem = await Item.findById(item_id).session(session);
+        if (!existingItem || !existingItem.is_active) {
+          throw new Error(`Item ${existingItem.name} not found.`);
+        }
+
+        // Cập nhật lại tồn kho
+        const invIndex = existingItem.inventories.findIndex(
+          (inv) => inv.inventory_id.toString() === inventory_id.toString()
+        );
+
+        if (invIndex === -1) {
+          existingItem.inventories.push({
+            inventory_id,
+            branch_id: null,
+            quantity,
+            cost,
+            wholesale_price: 0,
+            retail_price: 0,
+            updated_at: new Date(),
+          });
+        } else {
+          existingItem.inventories[invIndex].quantity += quantity;
+          if (cost > existingItem.inventories[invIndex].cost) {
+            existingItem.inventories[invIndex].cost = cost;
+          }
+          existingItem.inventories[invIndex].updated_at = new Date();
+        }
+
+        existingItem.updated_by = req.userData.userId;
+        await existingItem.save({ session });
+
+        // Thêm vào phiếu
+        purchaseOrder.items.push(item);
+      }
+
+      // --- 4. Cập nhật thông tin phiếu ---
+      if (code !== undefined) {
+        purchaseOrder.code = code;
+      }
+      if (vendor_id !== undefined) {
+        purchaseOrder.vendor_id = vendor_id;
+      }
+      if (inventory_id !== undefined) {
+        purchaseOrder.inventory_id = inventory_id;
+      }
+      if (notes !== undefined) {
+        purchaseOrder.notes = notes;
+      }
+      purchaseOrder.updated_by = req.userData.userId;
+      await purchaseOrder.save({ session });
+
+      // --- 5. Cập nhật công nợ vendor ---
+      if (oldVendorId !== vendor_id.toString()) {
+        // Cập nhật nếu đổi nhà cung cấp mới
+        const [newVendor, oldVendor] = await Promise.all([
+          Vendor.findById(vendor_id).session(session),
+          Vendor.findById(oldVendorId).session(session),
+        ]);
+
+        if (!newVendor) {
+          throw new Error("New vendor not found.");
+        }
+        if (!oldVendor) {
+          throw new Error("Old vendor not found.");
+        }
+
+        newVendor.total_debt += purchaseOrder.total_amount;
+        await newVendor.save({ session });
+        oldVendor.total_debt -= oldTotalAmount;
+        await oldVendor.save({ session });
+      } else {
+        // Cập nhật nếu không đổi nhà cung cấp
+        const debtDiff = purchaseOrder.total_amount - oldTotalAmount;
+        vendor.total_debt += debtDiff;
+        await vendor.save({ session });
+      }
+    });
+
+    // await session.commitTransaction();
+    // session.endSession();
 
     await redisClient.del(`purchase_order:${id}`);
     await redisClient.del("purchase_orders");
 
-    await session.commitTransaction();
-
     return res.status(200).json({
       error: false,
       message: "PurchaseOrder updated successfully.",
-      data: purchaseOrder,
+      // data: purchaseOrder,
     });
   } catch (error) {
-    await session.abortTransaction();
     error.methodName = updatePurchaseOrder.name;
     next(error);
   } finally {
-    session.endSession();
+    await session.endSession();
   }
 };
 

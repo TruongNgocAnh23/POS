@@ -3,6 +3,7 @@ import Product from "../models/product.model.js";
 import { calculateProductPrices } from "../utils/calculateProductPrices.js";
 import ProductCategory from "../models/product-category.model.js";
 import Tax from "../models/tax.model.js";
+import searchingHandler from "../utils/search-handler.js";
 
 const createProduct = async (req, res, next) => {
   try {
