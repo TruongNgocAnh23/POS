@@ -446,12 +446,17 @@ const tableTransfer = async (req, res) => {
     session.startTransaction();
     saleOrder.table = table;
     await saleOrder.save({ session });
-    const tableStatus = {
+    const newtableStatus = {
       status: 2, // 2 là trạng thái bàn đang có khách
       sale_order: saleOrder._id,
     };
-    const [responseTable] = await Promise.all([
-      axiosInstance(req.token).patch(`/table/${table}`, tableStatus),
+    const currenttableStatus = {
+      status: 1, // 1 là trạng thái bàn trống
+      sale_order: null,
+    };
+    const [responseNewTable, responseCurrentTable] = await Promise.all([
+      axiosInstance(req.token).patch(`/table/${table}`, newtableStatus),
+      axiosInstance(req.token).patch(`/table/${table}`, currenttableStatus),
     ]);
 
     await session.commitTransaction();
@@ -474,4 +479,5 @@ export {
   editSaleOrder,
   getSaleOrderById,
   getPaginatedSaleOrder,
+  tableTransfer,
 };

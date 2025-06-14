@@ -4,6 +4,7 @@ import {
   getSaleOrderById,
   editSaleOrder,
   getPaginatedSaleOrder,
+  tableTransfer,
 } from "../controllers/sale-order.controller.js";
 import { protectRoute } from "../middlerware/auth.middleware.js";
 
