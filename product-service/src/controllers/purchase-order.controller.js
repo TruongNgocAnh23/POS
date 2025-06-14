@@ -4,6 +4,7 @@ import Vendor from "../models/vendor.model.js";
 import Inventory from "../models/inventory.model.js";
 import Item from "../models/item.model.js";
 import redisClient from "../utils/redisClient.js";
+import generateAutoCode from "../utils/generateCode.js";
 
 const createPurchaseOrder = async (req, res, next) => {
   const { vendor_id, inventory_id, items, notes } = req.body;
@@ -67,7 +68,7 @@ const createPurchaseOrder = async (req, res, next) => {
         purchaseOrderItems.push({ item_id, quantity, cost, prev_cost });
       }
 
-      const code = generateCode("NH");
+      const code = generateAutoCode("NH");
 
       // Tạo phiếu nhập hàng
       const newPurchaseOrder = new PurchaseOrder({
