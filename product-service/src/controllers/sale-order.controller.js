@@ -443,12 +443,14 @@ const tableTransfer = async (req, res) => {
         message: "Sale order not found",
       });
     }
+
+    const currentTableId = existingOrder.table;
     session.startTransaction();
-    saleOrder.table = table;
-    await saleOrder.save({ session });
+    existingOrder.table = table;
+    await existingOrder.save({ session });
     const newtableStatus = {
       status: 2, // 2 là trạng thái bàn đang có khách
-      sale_order: saleOrder._id,
+      sale_order: existingOrder._id,
     };
     const currenttableStatus = {
       status: 1, // 1 là trạng thái bàn trống
@@ -456,7 +458,10 @@ const tableTransfer = async (req, res) => {
     };
     const [responseNewTable, responseCurrentTable] = await Promise.all([
       axiosInstance(req.token).patch(`/table/${table}`, newtableStatus),
-      axiosInstance(req.token).patch(`/table/${table}`, currenttableStatus),
+      axiosInstance(req.token).patch(
+        `/table/${currentTableId}`,
+        currenttableStatus
+      ),
     ]);
 
     await session.commitTransaction();
