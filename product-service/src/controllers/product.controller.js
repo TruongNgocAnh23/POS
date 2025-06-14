@@ -10,7 +10,6 @@ const createProduct = async (req, res, next) => {
     const {
       category_id,
       recipe,
-      code,
       name,
       image,
       price,
@@ -27,10 +26,12 @@ const createProduct = async (req, res, next) => {
         .json({ error: true, message: "Product already exists." });
     }
 
+    const code = generateCode("PROD");
+
     const newProduct = new Product({
       category_id,
       recipe,
-      code,
+      code: code,
       name,
       image,
       price,
@@ -206,7 +207,6 @@ const updateProduct = async (req, res, next) => {
     const {
       category_id,
       recipe,
-      code,
       name,
       image,
       price,
@@ -228,9 +228,6 @@ const updateProduct = async (req, res, next) => {
     }
     if (recipe !== undefined) {
       product.recipe = recipe;
-    }
-    if (code !== undefined) {
-      product.code = code;
     }
     if (name !== undefined) {
       product.name = name;

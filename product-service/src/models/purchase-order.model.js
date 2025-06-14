@@ -21,6 +21,12 @@ const PurchaseOrderSchema = new mongoose.Schema(
       ref: "Inventory",
       required: true,
     },
+    proposed_date: {
+      type: Date,
+    },
+    delivery_date: {
+      type: Date,
+    },
     items: {
       type: [
         {
@@ -28,10 +34,6 @@ const PurchaseOrderSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Item",
             required: true,
-          },
-          unit_id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Unit",
           },
           quantity: {
             type: Number,
@@ -44,6 +46,10 @@ const PurchaseOrderSchema = new mongoose.Schema(
           total_cost: {
             type: Number,
             default: 0,
+          },
+          notes: {
+            type: String,
+            trim: true,
           },
         },
       ],

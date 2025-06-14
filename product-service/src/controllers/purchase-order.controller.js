@@ -6,7 +6,7 @@ import Item from "../models/item.model.js";
 import redisClient from "../utils/redisClient.js";
 
 const createPurchaseOrder = async (req, res, next) => {
-  const { code, vendor_id, inventory_id, items, notes } = req.body;
+  const { vendor_id, inventory_id, items, notes } = req.body;
   const session = await mongoose.startSession();
   // session.startTransaction();
 
@@ -29,10 +29,10 @@ const createPurchaseOrder = async (req, res, next) => {
       }
 
       /* ---------- 1. Chuẩn hoá danh sách items & cập nhật kho ---------- */
-      const poItems = [];
+      const purchaseOrderItems = [];
 
-      for (const it of items) {
-        const { item_id, quantity, cost } = it;
+      for (const item of items) {
+        const { item_id, quantity, cost } = item;
 
         const prod = await Item.findById(item_id).session(session);
         if (!prod?.is_active) throw new Error(`Item ${item_id} not found.`);
@@ -64,15 +64,17 @@ const createPurchaseOrder = async (req, res, next) => {
         await prod.save({ session });
 
         // Đưa vào list items của PO (kèm prev_cost để phục vụ rollback sau này)
-        poItems.push({ item_id, quantity, cost, prev_cost });
+        purchaseOrderItems.push({ item_id, quantity, cost, prev_cost });
       }
+
+      const code = generateCode("NH");
 
       // Tạo phiếu nhập hàng
       const newPurchaseOrder = new PurchaseOrder({
-        code,
+        code: code,
         vendor_id,
         inventory_id,
-        items: poItems,
+        items: purchaseOrderItems,
         notes,
         created_by: req.userData.userId,
       });
@@ -113,6 +115,11 @@ const createPurchaseOrder = async (req, res, next) => {
       // }
 
       // Cập nhật công nợ cho nhà cung cấp
+      // const po = newPurchaseOrder[0]; // create() trả về mảng
+      // const debt = (po.total_amount || 0) - (po.total_payment || 0);
+      // vendor.total_debt += debt;
+      // await vendor.save({ session });
+
       vendor.total_debt +=
         (newPurchaseOrder.total_amount || 0) -
         (newPurchaseOrder.total_payment || 0);
@@ -213,7 +220,7 @@ const getPurchaseOrderById = async (req, res, next) => {
 
 const updatePurchaseOrder = async (req, res, next) => {
   const { id } = req.params;
-  const { code, vendor_id, inventory_id, items, notes } = req.body;
+  const { vendor_id, inventory_id, items, notes } = req.body;
   const session = await mongoose.startSession();
   // session.startTransaction();
 
@@ -313,9 +320,6 @@ const updatePurchaseOrder = async (req, res, next) => {
       }
 
       // --- 4. Cập nhật thông tin phiếu ---
-      if (code !== undefined) {
-        purchaseOrder.code = code;
-      }
       if (vendor_id !== undefined) {
         purchaseOrder.vendor_id = vendor_id;
       }
