@@ -14,7 +14,7 @@ router.use(protectRoute);
 router.post("/", createSaleOrder);
 router.get("/:id", getSaleOrderById);
 router.patch("/:id", editSaleOrder);
-router.get("/", getPaginatedSaleOrder);
+// router.get("/", getPaginatedSaleOrder);
 // // router.get("/categories", getAllProductsFromCategories);
 // router.get("/categories/:category_id", getAllProductsByCategories);
 // router.get("/:id", getProductById);

@@ -78,7 +78,7 @@ const createSaleOrder = async (req, res) => {
       }
     }
     const tableStatus = {
-      status: 2,
+      status: 2, // 2 là trạng thái bàn đang có khách
       sale_order: saleOrder._id,
     };
     const [responseTable] = await Promise.all([
@@ -198,7 +198,7 @@ const editSaleOrder = async (req, res) => {
     existingOrder.final = final;
     existingOrder.updatedAt = new Date();
     const tableStatus = {
-      status: 1,
+      status: 1, // trạng thái bàn trống
       sale_order: "",
     };
     if (isCancel) {
@@ -223,8 +223,8 @@ const editSaleOrder = async (req, res) => {
     await session.commitTransaction();
     session.endSession();
     const redisKey = `sale_order:${orderId}`;
-    console.log(redisKey);
     const deleteRedis = await redisClient.del(redisKey);
+
     return res.status(200).json({
       success: true,
       message: "Edit succecssfully",
@@ -406,6 +406,49 @@ const getPaginatedSaleOrder = async (req, res, next) => {
   } catch (err) {
     err.methodName = "getSaleOrdersShort";
     next(err);
+  }
+};
+
+//table transfer
+const tableTransfer = async (req, res) => {
+  const orderId = req.params.id;
+  const { table } = req.body;
+
+  const session = await mongoose.startSession();
+  try {
+    const existingOrder = await SaleOrder.findById({ orderId }).session(
+      session
+    );
+    if (!existingOrder) {
+      return res.status(401).json({
+        success: false,
+        message: "Sale order not found",
+      });
+    }
+    session.startTransaction();
+    saleOrder.table = table;
+    await saleOrder.save({ session });
+    const tableStatus = {
+      status: 2, // 2 là trạng thái bàn đang có khách
+      sale_order: saleOrder._id,
+    };
+    const [responseTable] = await Promise.all([
+      axiosInstance(req.token).patch(`/table/${table}`, tableStatus),
+    ]);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return res.status(201).json({
+      success: true,
+      message: "Table transfered successfully",
+    });
+  } catch (err) {
+    await session.abortTransaction();
+    return res.status(500).json({
+      success: false,
+      message: err.message || "Internal server error",
+    });
   }
 };
 export {
