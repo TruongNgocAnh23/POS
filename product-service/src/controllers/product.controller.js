@@ -4,6 +4,7 @@ import { calculateProductPrices } from "../utils/calculateProductPrices.js";
 import ProductCategory from "../models/product-category.model.js";
 import Tax from "../models/tax.model.js";
 import searchingHandler from "../utils/search-handler.js";
+import generateAutoCode from "../utils/generateCode.js";
 
 const createProduct = async (req, res, next) => {
   try {
@@ -26,7 +27,7 @@ const createProduct = async (req, res, next) => {
         .json({ error: true, message: "Product already exists." });
     }
 
-    const code = generateCode("PROD");
+    const code = generateAutoCode("PROD");
 
     const newProduct = new Product({
       category_id,

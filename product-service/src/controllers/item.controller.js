@@ -3,6 +3,7 @@ import Item from "../models/item.model.js";
 import Inventory from "../models/inventory.model.js";
 import axiosInstance from "../utils/axiosInstance.js";
 import ItemCategory from "../models/item-category.model.js";
+import generateAutoCode from "../utils/generateCode.js";
 
 // Tạo item mới
 const createItem = async (req, res, next) => {
@@ -25,7 +26,7 @@ const createItem = async (req, res, next) => {
       }
     }
 
-    const code = generateCode("ITEM");
+    const code = generateAutoCode("ITEM");
 
     const newItem = new Item({
       category_id,
