@@ -7,8 +7,7 @@ import ItemCategory from "../models/item-category.model.js";
 // Tạo item mới
 const createItem = async (req, res, next) => {
   try {
-    const { category_id, inventories, unit_id, code, name, image, notes } =
-      req.body;
+    const { category_id, inventories, unit_id, name, image, notes } = req.body;
 
     const existingItem = await Item.findOne({ code });
     if (existingItem) {
@@ -26,11 +25,13 @@ const createItem = async (req, res, next) => {
       }
     }
 
+    const code = generateCode("ITEM");
+
     const newItem = new Item({
       category_id,
       inventories,
       unit_id,
-      code,
+      code: code,
       name,
       image,
       notes,
@@ -97,8 +98,7 @@ const getItemById = async (req, res, next) => {
 const updateItem = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { category_id, inventories, unit_id, code, name, image, notes } =
-      req.body;
+    const { category_id, inventories, unit_id, name, image, notes } = req.body;
 
     const item = await Item.findById(id);
     if (!item || !item.is_active) {
@@ -113,9 +113,6 @@ const updateItem = async (req, res, next) => {
     }
     if (unit_id !== undefined) {
       item.unit_id = unit_id;
-    }
-    if (code !== undefined) {
-      item.code = code;
     }
     if (name !== undefined) {
       item.name = name;
