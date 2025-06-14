@@ -43,14 +43,19 @@ const StoreandStaffPerformanceReport = async (req, res) => {
       axiosInstance(req.token).get(`/customers`),
     ]);
     if (orders.length > 0) {
-      const [responseCustomer] = await Promise.all([
+      const [responseCustomer, responseUser] = await Promise.all([
         axiosInstance(req.token).get(`/customers`),
+        axiosInstance(req.token).get(`/users`),
       ]);
-      const customers = responseCustomer.data.data;
 
+      const customers = responseCustomer.data.data;
+      const users = responseUser.data.data;
       const mappedOrders = orders.map((order) => {
         const customerInfo = customers.find(
           (c) => c._id?.toString() === order.customer?.toString()
+        );
+        const userInfo = users.find(
+          (u) => u._id?.toString() === order.close_by?.toString()
         );
         return {
           _id: order._id,
@@ -60,6 +65,7 @@ const StoreandStaffPerformanceReport = async (req, res) => {
           close_by: order.close_by,
           closed_date: order.closed_date,
           customer: customerInfo?.name || null,
+          user: `${userInfo?.last_name} ${userInfo?.first_name}`,
           products: order.details.map((item) => ({
             _id: item.product?._id,
             name: item.product?.name,

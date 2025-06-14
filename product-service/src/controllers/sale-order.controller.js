@@ -199,7 +199,7 @@ const editSaleOrder = async (req, res) => {
     existingOrder.updatedAt = new Date();
     const tableStatus = {
       status: 1, // trạng thái bàn trống
-      sale_order: "",
+      sale_order: null,
     };
     if (isCancel) {
       existingOrder.isCancel = isCancel;
@@ -232,6 +232,7 @@ const editSaleOrder = async (req, res) => {
   } catch (err) {
     await session.abortTransaction();
     session.endSession();
+    console.error("Error stack:", err.stack);
     return res.status(500).json({
       success: false,
       message: err.message || "Lỗi hệ thống",
