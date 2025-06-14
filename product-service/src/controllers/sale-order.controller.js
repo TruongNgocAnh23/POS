@@ -4,16 +4,20 @@ import redisClient from "../utils/redisClient.js";
 import axiosInstance from "../utils/axiosInstance.js";
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
+import generateCode from "../utils/generateCode.js";
 
 //create sale order
 const createSaleOrder = async (req, res) => {
   const session = await mongoose.startSession();
   try {
-    const { code, customer, table, details, total, vat, final, branch } =
-      req.body;
+    const { customer, table, details, total, vat, final, branch } = req.body;
 
     session.startTransaction();
-    // 1. Tạo saleOrder
+
+    // 1. Tạo mã code chứng từ
+    const code = generateCode("HD");
+
+    // 2. Tạo đơn hàng
     const saleOrder = new SaleOrder({
       code,
       customer,
@@ -23,67 +27,76 @@ const createSaleOrder = async (req, res) => {
       vat,
       final,
       branch,
-      user: req.userData.userId,
+      user: req.userData?.userId,
     });
 
     await saleOrder.save({ session });
 
+    // 3. Trừ tồn kho nếu có sản phẩm
     for (const prod of details) {
       const product = await Product.findById(prod.product);
-
       if (!product) {
         throw new Error(`Product not found: ${prod.product}`);
       }
 
-      if (!Array.isArray(product.recipe) || product.recipe.length === 0) {
+      if (!Array.isArray(product.recipe)) {
         throw new Error(`Product ${prod.product} has no recipe defined.`);
       }
+      if (product.recipe.length !== 0) {
+        for (const component of product.recipe) {
+          const itemId = component.item_id;
+          const quantity = component.quantity * prod.quantity;
 
-      for (const component of product.recipe) {
-        const itemId = component.item_id;
-        const quantity = component.quantity * prod.quantity;
-
-        const updated = await Item.findOneAndUpdate(
-          {
-            _id: itemId,
-            inventories: {
-              $elemMatch: {
-                branch_id: branch,
-                quantity: { $gte: quantity },
+          const updated = await Item.findOneAndUpdate(
+            {
+              _id: itemId,
+              inventories: {
+                $elemMatch: {
+                  branch_id: branch,
+                  quantity: { $gte: quantity },
+                },
               },
             },
-          },
-          {
-            $inc: {
-              "inventories.$[inv].quantity": -quantity,
-            },
-            $set: {
-              "inventories.$[inv].updated_at": new Date(),
-            },
-          },
-          {
-            new: true,
-            session,
-            arrayFilters: [
-              {
-                "inv.branch_id": branch,
-                "inv.quantity": { $gte: quantity },
+            {
+              $inc: {
+                "inventories.$[inv].quantity": -quantity,
               },
-            ],
+              $set: {
+                "inventories.$[inv].updated_at": new Date(),
+              },
+            },
+            {
+              new: true,
+              session,
+              arrayFilters: [
+                {
+                  "inv.branch_id": branch,
+                  "inv.quantity": { $gte: quantity },
+                },
+              ],
+            }
+          );
+
+          if (!updated) {
+            throw new Error(`Không đủ tồn kho cho nguyên liệu ${itemId}`);
           }
-        );
-        if (!updated) {
-          throw new Error(`Không đủ tồn kho cho nguyên liệu ${itemId}`);
         }
       }
     }
+
+    // 4. Cập nhật trạng thái bàn
     const tableStatus = {
-      status: 2, // 2 là trạng thái bàn đang có khách
+      status: 2, // 2: Đang có khách
       sale_order: saleOrder._id,
     };
-    const [responseTable] = await Promise.all([
-      axiosInstance(req.token).patch(`/table/${table}`, tableStatus),
-    ]);
+
+    try {
+      await axiosInstance(req.token).patch(`/table/${table}`, tableStatus);
+    } catch (axiosError) {
+      throw new Error("Cập nhật trạng thái bàn thất bại");
+    }
+
+    // 5. Commit & kết thúc
     await session.commitTransaction();
     session.endSession();
 
@@ -94,6 +107,7 @@ const createSaleOrder = async (req, res) => {
     });
   } catch (err) {
     await session.abortTransaction();
+    session.endSession();
     return res.status(500).json({
       success: false,
       message: err.message || "Internal server error",
@@ -148,44 +162,47 @@ const editSaleOrder = async (req, res) => {
       if (diff === 0) continue;
 
       const product = await Product.findById(productId);
-      if (!product || !Array.isArray(product.recipe)) {
+      if (!product) {
         throw new Error(`Product not valid: ${productId}`);
       }
+      if (product.recipe.length > 0) {
+        for (const component of product.recipe) {
+          const itemId = component.item_id;
+          const qtyChange = component.quantity * diff;
 
-      for (const component of product.recipe) {
-        const itemId = component.item_id;
-        const qtyChange = component.quantity * diff;
+          if (qtyChange === 0) continue;
 
-        if (qtyChange === 0) continue;
+          const update =
+            qtyChange > 0
+              ? { $inc: { "inventories.$[inv].quantity": -qtyChange } } // Trừ
+              : {
+                  $inc: { "inventories.$[inv].quantity": Math.abs(qtyChange) },
+                }; // Cộng
 
-        const update =
-          qtyChange > 0
-            ? { $inc: { "inventories.$[inv].quantity": -qtyChange } } // Trừ
-            : { $inc: { "inventories.$[inv].quantity": Math.abs(qtyChange) } }; // Cộng
-
-        const updated = await Item.findOneAndUpdate(
-          {
-            _id: itemId,
-            inventories: {
-              $elemMatch: {
-                branch_id: branch,
-                ...(qtyChange > 0 ? { quantity: { $gte: qtyChange } } : {}),
+          const updated = await Item.findOneAndUpdate(
+            {
+              _id: itemId,
+              inventories: {
+                $elemMatch: {
+                  branch_id: branch,
+                  ...(qtyChange > 0 ? { quantity: { $gte: qtyChange } } : {}),
+                },
               },
             },
-          },
-          {
-            ...update,
-            $set: { "inventories.$[inv].updated_at": new Date() },
-          },
-          {
-            session,
-            arrayFilters: [{ "inv.branch_id": branch }],
-            new: true,
-          }
-        );
+            {
+              ...update,
+              $set: { "inventories.$[inv].updated_at": new Date() },
+            },
+            {
+              session,
+              arrayFilters: [{ "inv.branch_id": branch }],
+              new: true,
+            }
+          );
 
-        if (!updated && qtyChange > 0) {
-          throw new Error(`Không đủ tồn kho cho nguyên liệu ${itemId}`);
+          if (!updated && qtyChange > 0) {
+            throw new Error(`Không đủ tồn kho cho nguyên liệu ${itemId}`);
+          }
         }
       }
     }
